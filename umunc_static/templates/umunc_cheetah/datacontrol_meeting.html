@@ -1,0 +1,54 @@
+{% for meeting in meetings %}
+<tr>
+	<td>{{meeting.FromC.Name}}</td>
+	<td>{{meeting.ToC.Name}}</td>
+	<td>{{meeting.Time|date:"Y-n-j G:i"}}</td>
+	<td>{{meeting.Location}}</td>
+	<td>{{meeting.Description}}</td>
+	<td><strong
+		{% ifequal meeting.check_accept "Rejected" %}
+		class="text-danger">
+		{% endifequal %}
+		{% ifequal meeting.check_accept "Accepted" %}
+		class="text-success">
+		{% endifequal %}
+		{% ifequal meeting.check_accept "Waiting" %}
+		class="text-info">
+		{% endifequal %}
+			{{meeting.check_accept}}
+		</strong>
+	{% ifnotequal meeting.check_accept "Rejected" %}
+		{% ifequal user.profile.Country.id meeting.ToC.id %}
+			{% ifequal meeting.Check_T None%}
+			<button class="btn btn-success btn-sm" type="button" onclick="meeting_change(2,{{meeting.id}},1)">Accept</button>
+			{% endifequal %}
+		{% else %}
+			{% if user.is_staff %}
+				{% ifequal meeting.Check_A None%}
+				<button class="btn btn-success btn-sm" type="button" onclick="meeting_change(0,{{meeting.id}},1)">Accept</button>
+				{% endifequal %}
+			{% else %}
+				{% ifequal user.profile.Country.id meeting.FromC.id %}
+					{% ifequal meeting.Check_F None%}
+					<button class="btn btn-success btn-sm" type="button" onclick="meeting_change(1,{{meeting.id}},1)">Accept</button>
+					{% endifequal %}
+				{% endifequal %}
+			{% endif %}
+		{% endifequal %}
+	{% endifnotequal %}
+	{% ifnotequal meeting.check_accept "Rejected" %}
+		{% ifequal user.profile.Country.id meeting.ToC.id %}
+			<button class="btn btn-danger btn-sm" type="button" onclick="meeting_change(2,{{meeting.id}},0)">Reject</button>
+		{% else %}
+			{% if user.is_staff %}
+				<button class="btn btn-danger btn-sm" type="button" onclick="meeting_change(0,{{meeting.id}},0)">Reject</button>
+			{% else %}
+				{% ifequal user.profile.Country.id meeting.FromC.id %}
+					<button class="btn btn-danger btn-sm" type="button" onclick="meeting_change(1,{{meeting.id}},0)">Reject</button>
+				{% endifequal %}
+			{% endif %}
+		{% endifequal %}
+	{% endifnotequal %}
+	</td>
+</tr>
+{% endfor %}

@@ -1,0 +1,10 @@
+[
+{% for room in rooms %}
+	{
+		"id": {{room.id}},
+		"count": {{room.message_set.all.count}},
+		"name": "communication_btn_{{room.id}}"
+	}
+	{% if not forloop.last %},{%  endif %}
+{% endfor %}
+]

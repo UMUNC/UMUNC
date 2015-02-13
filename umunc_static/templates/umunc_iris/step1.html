@@ -1,0 +1,235 @@
+{% extends "umunc_iris/root.html" %}
+
+{% block title %}
+代表资格申请
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block body %}
+<form action="." method="post" class="form-horizontal"> 
+	{% csrf_token %}
+	<input type="hidden" id="submit" name="submit"  value="">
+	<div class="row">
+		<div class="well col-md-12" id="step1_panel">
+			<div class="row text-center">
+				<h3>IRIS代表信息管理系统 v2.0</h3>
+				<p>请按照要求尽可能全面地填写您的个人信息，您的信息可以多次保存，直到您点击提交。提交信息之后将由会务团队审核。</p>
+			</div>
+			<div class="row text-right">
+				<a class="btn btn-inverse btn-sm" href="/iris">Back</a>
+				{% ifequal profile.Status 1%}
+				<button class="btn btn-danger btn-sm" type="submit" id="savebutton">Save</button>
+				<button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#askModal">Submit</button>
+				{% endifequal %}
+				&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+			<div class="form-group">
+				<label for="name" class="col-sm-3 control-label">姓名 Name</label>
+				<div class="col-sm-6 input-group">
+					<input class="form-control" type="text" placeholder="Enter Name" id="name" name="name" value="{{profile.Name}}" required>
+					<span class="fui-user form-control-feedback"  for="name"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="sex" class="col-sm-3 control-label">性别 Sex</label>
+				<div class="col-sm-6 input-group">
+					<select class="form-control" id="sex" name="sex" required>
+						<option value="1"{% ifequal profile.Sex 1 %} selected{% endifequal %}>男 Male</option>
+						<option value="0"{% ifequal profile.Sex 0 %} selected{% endifequal %}>女 Female</option>
+					</select>
+					<span class="fui-star form-control-feedback"  for="sex"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="age" class="col-sm-3 control-label">年龄 Age</label>
+				<div class="col-sm-6 input-group">
+					<input class="form-control" type="number" placeholder="Enter Age" id="age" name="age"  maxlength="2" pattern="[0-9+]*" intro="输入非法" value="{{profile.Age}}" required>
+					<span class="fui-calendar form-control-feedback"  for="age"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="idnum" class="col-sm-3 control-label">身份证号码 ID Number</label>
+				<div class="col-sm-6 input-group">
+					<input class="form-control" type="text" placeholder="Enter IDNumber" id="idnum" name="idnum" value="{{profile.IDNum}}" minlength="18" maxlength="18" pattern="[0-9+]*" intro="输入非法" required>
+					<span class="fui-credit-card form-control-feedback"  for="idnum"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="school" class="col-sm-3 control-label">在读学校 School</label>
+				<div class="col-sm-6 input-group">
+					<input class="form-control" type="text" placeholder="Enter School" id="school" name="school" value="{{profile.School}}" maxlength="255" required>
+					<span class="fui-home form-control-feedback"  for="school"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="grade" class="col-sm-3 control-label">在读年级 Grade</label>
+				<div class="col-sm-6 input-group">
+					<select class="form-control" id="grade" name="grade" required>
+						<option value="1"{% ifequal profile.Grade 1 %} selected{% endifequal %}>初中及以下 Middle school and under</option>
+						<option value="2"{% ifequal profile.Grade 2 %} selected{% endifequal %}>高一 Grade 10</option>
+						<option value="3"{% ifequal profile.Grade 3 %} selected{% endifequal %}>高二 Grade 11</option>
+						<option value="4"{% ifequal profile.Grade 4 %} selected{% endifequal %}>高三 Grade 12</option>
+						<option value="5"{% ifequal profile.Grade 5 %} selected{% endifequal %}>间隔年 Gap Year</option>
+						<option value="6"{% ifequal profile.Grade 6 %} selected{% endifequal %}>大学及以上 College and above</option>
+					</select>
+					<span class="fui-foursquare form-control-feedback"  for="grade"></span>
+				</div>
+			</div>
+			<hr/>
+			<p>联系方式 Contact</p>
+			<p>个人联系方式 Contact for Self</p>
+			<div class="form-group">
+				<label for="phone" class="col-sm-3 control-label">手机 Mobile Phone</label>
+				<div class="col-sm-6 input-group">
+					<input class="form-control" type="text" placeholder="Enter Mobile Phone" id="phone" name="phone" value="{{profile.Phone}}" minlength="11"   maxlength="255" pattern="[0-9+]*" intro="输入非法" required>
+					<span class="fui-android form-control-feedback"  for="phone"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="phone2" class="col-sm-3 control-label">备选手机 Alternative Mobile Phone</label>
+				<div class="col-sm-6 input-group">
+					<input class="form-control" type="text" placeholder="Enter Alternative Mobile Phone" id="phone2" name="phone2" value="{{profile.Phone2}}" minlength="11"  maxlength="255" pattern="[0-9+]*" intro="输入非法">
+					<span class="fui-android form-control-feedback"  for="phone2"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="qq" class="col-sm-3 control-label">QQ</label>
+				<div class="col-sm-6 input-group">
+					<input class="form-control" type="text" placeholder="Enter QQ" id="qq" name="qq" value="{{profile.QQ}}">
+					<span class="fui-user form-control-feedback"  for="qq"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="wechat" class="col-sm-3 control-label">微信 WeChat</label>
+				<div class="col-sm-6 input-group">
+					<input class="form-control" type="text" placeholder="Enter WeChat" id="wechat" name="wechat" value="{{profile.Wechat}}">
+					<span class="fui-user form-control-feedback"  for="wechat"></span>
+				</div>
+			</div>
+			<p class="text-danger">紧急联系方式 Emergency Contact (注意：该项内容用于为代表购买会议期间内的保险 请如实填写)</p>
+			<div class="form-group">
+				<label for="gname" class="col-sm-3 control-label">监护人姓名 Name of Guardian</label>
+				<div class="col-sm-6 input-group">
+					<input class="form-control" type="text" placeholder="Enter Name of Guardian" id="gname" name="gname" value="{{profile.GName}}" required>
+					<span class="fui-user form-control-feedback"  for="gname"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="gphone" class="col-sm-3 control-label">监护人手机 Mobile of Guardian</label>
+				<div class="col-sm-6 input-group">
+					<input class="form-control" type="text" placeholder="Enter Mobile of Guardian" id="gphone" name="gphone" value="{{profile.GPhone}}" minlength="11" maxlength="255" pattern="[0-9]*" intro="输入非法" required>
+					<span class="fui-apple form-control-feedback"  for="gphone"></span>
+				</div>
+			</div>
+			<hr/>
+			<p>模联相关信息 MUN-related Information</p>
+			<div class="form-group">
+				<label for="munage" class="col-sm-3 control-label">模联年龄 (接触模联的时间) Time in ModelUN</label>
+				<div class="col-sm-6 input-group">
+					<input class="form-control" type="number" placeholder="Enter Time in ModelUN" id="munage" name="munage"  maxlength="2" pattern="[0-9+]*" intro="输入非法" value="{{profile.MunAge}}" required>
+					<span class="fui-calendar form-control-feedback"  for="munage"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="munrsm" class="col-sm-3 control-label">模联履历 ModelUN Resume</label>
+				<div class="col-sm-6 input-group">
+					<textarea class="form-control" id="munrsm" name="munrsm" required>{{profile.MunRsm}}</textarea>
+					<span class="fui-bookmark form-control-feedback"  for="munrsm"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="munjoined" class="col-sm-3 control-label">是否参加过UMUNC组织过的会议 Have you ever attended a UMUNC Conference?</label>
+				<div class="col-sm-6 input-group">
+					<select class="form-control" id="munjoined" name="munjoined" value="{{profile.MunJoined}}" required>
+						<option value="0"{% ifequal profile.MunJoined 0 %} selected{% endifequal %}>否 No</option>
+						<option value="1"{% ifequal profile.MunJoined 1 %} selected{% endifequal %}>是 Yes</option>
+					</select>
+					<span class="fui-question-circle form-control-feedback"  for="munjoined"></span>
+				</div>
+				<div class="col-sm-6 input-group">
+					<input class="form-control" type="text" placeholder="Enter Conference" id="munjoinedc" name="munjoinedc" value="{{profile.MunJoinedC}}" maxlength="255"  required>
+					<span class="fui-bookmark form-control-feedback"  for="munjoinedc"></span>
+				</div>
+			</div>
+			<hr/>
+			<div class="form-group">
+				<label for="commitee" class="col-sm-3 control-label">参会志愿 Choice of Conference</label>
+				<div class="col-sm-6 input-group">
+					<select class="form-control" id="conference" required>
+						<option value="1"{% if profile.Commitee >= 1 and profile.Commitee <= 9  %} selected{% endif %}>西南</option>
+						<option value="2"{% if profile.Commitee >= 10 and profile.Commitee <= 15  %} selected{% endif %}>西北</option>
+						<option value="3"{% if profile.Commitee >= 16 and profile.Commitee <= 21  %} selected{% endif %}>华北</option>
+					</select>
+					<span class="fui-heart form-control-feedback"  for="commitee"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="commitee" class="col-sm-3 control-label">委员会志愿 Choice of Committee</label>
+				<div class="col-sm-6 input-group">
+					<select class="form-control" id="commitee" name="commitee" required>
+						{% if profile.Commitee >= 1 and profile.Commitee <= 9  %}
+						<option value="1"{% ifequal profile.Commitee 1 %} selected{% endifequal %}>联动体系 - 国家内阁</option>
+						<option value="2"{% ifequal profile.Commitee 2 %} selected{% endifequal %}>联动体系 - 联合国安全理事会</option>
+						<option value="3"{% ifequal profile.Commitee 3 %} selected{% endifequal %}>联动体系 - 主新闻中心</option>
+						<option value="4"{% ifequal profile.Commitee 4 %} selected{% endifequal %}>联动体系 - 联合国秘书处</option>
+						<option value="5"{% ifequal profile.Commitee 5 %} selected{% endifequal %}>欧洲体系 - 欧盟委员会</option>
+						<option value="6"{% ifequal profile.Commitee 6 %} selected{% endifequal %}>欧洲体系 - 欧盟理事会</option>
+						<option value="7"{% ifequal profile.Commitee 7 %} selected{% endifequal %}>GAUS - United Security Council</option>
+						<option value="8"{% ifequal profile.Commitee 8 %} selected{% endifequal %}>GAUS - United Nations General Assembly 1st Committee - Disarmament and International Security Committee</option>
+						<option value="9"{% ifequal profile.Commitee 9 %} selected{% endifequal %}>独立会场 - 世界旅游旅行大会</option>
+						{% endif %}{% if profile.Commitee >= 10 and profile.Commitee <= 15  %}
+						<option value="10"{% ifequal profile.Commitee 10 %} selected{% endifequal %}>联动体系 - 国家内阁</option>
+						<option value="11"{% ifequal profile.Commitee 11 %} selected{% endifequal %}>联动体系 - 东盟10+3峰会</option>
+						<option value="12"{% ifequal profile.Commitee 12 %} selected{% endifequal %}>联动体系 - 主新闻中心</option>
+						<option value="13"{% ifequal profile.Commitee 13 %} selected{% endifequal %}>联动体系 - 联合国秘书处</option>
+						<option value="14"{% ifequal profile.Commitee 14 %} selected{% endifequal %}>独立会场 - 欧洲安全与合作组织部长级会议</option>
+						<option value="15"{% ifequal profile.Commitee 15 %} selected{% endifequal %}>Independent Committee - United Nations General Assembly 1st Committee - Disarmament and International Security Committee</option>
+						{% endif %}{% if profile.Commitee >= 16 and profile.Commitee <= 21  %}
+						<option value="16"{% ifequal profile.Commitee 16 %} selected{% endifequal %}>联动体系 - 国家内阁</option>
+						<option value="17"{% ifequal profile.Commitee 17 %} selected{% endifequal %}>联动体系 - 联合国安全理事会</option>
+						<option value="18"{% ifequal profile.Commitee 18 %} selected{% endifequal %}>联动体系 - 主新闻中心</option>
+						<option value="19"{% ifequal profile.Commitee 19 %} selected{% endifequal %}>联动体系 - 联合国秘书处</option>
+						<option value="20"{% ifequal profile.Commitee 20 %} selected{% endifequal %}>独立会场 - 联合国开发计划署</option>
+						<option value="21"{% ifequal profile.Commitee 21 %} selected{% endifequal %}>Independent Committee - United Nations General Assembly 3rd Committee - Social, Humanitarian and Culture Committee</option>
+						{% endif %}{
+					</select>
+					<span class="fui-heart form-control-feedback"  for="commitee"></span>
+				</div>
+			</div>
+	</div>
+</form>
+
+<div class="modal fade" id="askModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="myModalLabel">提交确认</h4>
+			</div>
+			<div class="modal-body">
+				<p>请确认是否正式提交报名资料。</p>
+				<p>请注意：报名资料提交后将不再允许修改，请耐心等待审核。</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" id="submitbutton">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script src="/static/common/js/jqBootstrapValidation.js"></script>
+<script src="/static/umunc_iris/js/step1.js"></script>
+{% ifequal profile.Status 1%}{% else %}
+	<script language="javascript">
+		$(function(){
+			$("form input,textarea,select").attr("disabled","disabled")
+		})
+	</script>
+{% endifequal %}
+{% endblock %}

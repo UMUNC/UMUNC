@@ -1,0 +1,60 @@
+{% extends "umunc_iris/root.html" %}
+
+{% block title %}
+Check
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block body %}
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="well col-md-6" id="register_panel">
+		<form action="." method="post" class="form-horizontal" id="register_form"> 
+			<div class="text-center">
+				{% csrf_token %}
+				<div class="text-center">
+					<img src="/static/umunc_iris/image/user.jpg">
+				</div>
+				{% if error%}
+				<h3>认证失败！</h3>
+				<h5>即将进入登录页面…</h5>
+				<div class="form-group text-center">
+					<a class="btn btn-primary btn-lg" id="register_button" href="/iris/accounts/login" >Back</a>
+				</div>
+				{% else%}
+				<h3>认证成功！</h3>
+				<h5>即将进入登录页面…</h5>
+				<div class="form-group text-center">
+					<a class="btn btn-primary btn-lg" id="register_button" href="/iris/accounts/login" >Back</a>
+				</div>
+				{% endif %}
+			</div>
+		</form>	
+	</div>
+	<div class="col-md-3"></div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script src="/static/common/js/jqBootstrapValidation.js"></script>
+<script src="/static/umunc_iris/js/register.js"></script>
+<script language="javascript">
+	var timeout = 5;
+	function show() {
+		var showbox = $(".showbox");
+		showbox.html(timeout);
+		timeout--;
+		if (timeout == 0) {
+			window.opener = null;
+			window.location.href = "/iris/accounts/login";
+		}
+		else {
+			setTimeout("show()", 1000);
+		}
+	}
+	show();
+</script>
+{% endblock %}

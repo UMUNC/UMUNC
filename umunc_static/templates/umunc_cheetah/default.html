@@ -1,0 +1,277 @@
+{% extends "umunc_cheetah/root.html" %}
+
+{% block title %}
+Center
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block body %}
+<div class="row">
+	<div class="well col-md-12" id="main_panel">
+		<div class="row text-center">
+			<h3>Cheetah v2.0</h3>
+		</div>
+		<div class="row" id="top_panel">
+			<div class="col-md-12">
+				<div role="tabpanel">
+					<ul class="nav nav-pills" role="tablist">
+						<li role="presentation" class="active"><a href="#Communications" aria-controls="Communications" role="tab" data-toggle="tab">Communications</a></li>
+						<li role="presentation"><a href="#Meetings" aria-controls="Meetings" role="tab" data-toggle="tab">Meetings</a></li>
+						<li role="presentation"><a href="#Files" aria-controls="Files" role="tab" data-toggle="tab">Files</a></li>
+						{% if user.is_staff %}
+						<li role="presentation"><a href="#Settings" aria-controls="Settings" role="tab" data-toggle="tab">Settings</a></li>
+						{% endif %}
+						<li role="presentation" class="navbar-right"><a class="btn btn-danger btn-sm" href="/iris/accounts/logout">Logout</a></li>
+						<li role="presentation" class="navbar-right"><a class="btn btn-info btn-sm" href="/iris/accounts/change">Change Password</a></li>
+					</ul>
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane fade in active" id="Communications">
+							<div class="row" >
+								<div class="col-md-3">
+									<div class="list-group" id="communication_list">
+										<li class="list-group-item text-center" id="time_panel">
+											<p class="list-group-item-heading">Real: 2015-2-8 15:15:32<br/>Virtual: 2015-2-8 15:15:32</p>
+										</li>
+										{% for room in rooms %}
+										<a href="####" id="communication_btn_{{room.id}}" class="list-group-item" onclick="communication_fresh({{room.id}},'{{room.Name}}')">{{room.Name}}<span class="badge" id="new_message"></span></a>
+										{% endfor %}
+									</div>
+								</div>
+								<div class="col-md-9">
+									<div class="panel panel-primary">
+										<div class="panel-heading">
+											<h3 class="panel-title">Panel title</h3>
+											{% if user.is_staff%}
+											<button class="btn btn-inverse btn-xs pull-right" id="block" type="submit">禁言/解禁</button>
+											<button type="button" class="btn btn-inverse btn-xs pull-right" data-toggle="modal" data-target="#communication_send_all_modal">全局消息</button>
+											{% endif %}
+										</div>
+										<div class="panel-body">
+											<div>Panel content</div>
+										</div>
+										<form id="form_communication_send">
+											<div class="panel-footer">
+												<div class="input-group">
+													{% csrf_token %}
+													{% if user.is_staff%}
+													<span class="input-group-addon">
+														<input type="checkbox" id="system">
+														<label for="system">发送系统消息</label>
+													</span>
+													{% else %}
+														<input type="checkbox" id="system" style="display:none;">
+													{% endif %}
+													<input type="text" id="content" class="form-control" placeholder="Type here..." required value="FROM:… TO:…">
+													<span class="input-group-btn">
+														<button class="btn btn-info" type="submit">Send</button>
+													</span>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="Meetings">
+							<p>
+								<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Send a Meeting</button>
+							</p>
+							<table class="table table-hover" id="meeting_list">
+								<thead>
+									<tr>
+										<td>Host</td>
+										<td>To</td>
+										<td>Time</td>
+										<td>Location</td>
+										<td>Description</td>
+										<td>Status</td>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="Files">
+							<form enctype="multipart/form-data" class="form-horizontal" method="POST" action="/cheetah/datacontrol/file/" id="form_file_send">
+									{% csrf_token %}
+									<div class="form-group">
+										<label for="file" class="col-sm-1 control-label">File</label>
+										<div class="col-sm-11">
+											<input type="file" name="file" id="file" accept=".pdf,.doc,.docx"/>
+											<p class="help-block">Only PDF/DOC/DOCX file will be accepted. File limit: 2M</p>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="to" class="col-sm-1 control-label">TO</label>
+										<div class="col-sm-11">
+											<select class="form-control" id="to" name="to" required>
+												{% for room in rooms_a %}
+												<option value="{{room.id}}">{{room.Name}}</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+								<div class="modal-footer">
+									<a id="url" href="#"></a><button id="upload_submit" type="submit" class="btn btn-primary">Send</button>
+								</div>
+							</form>
+						</div>
+						{% if user.is_staff %}
+						<div role="tabpanel" class="tab-pane fade" id="Settings">
+							<div class="page-header">
+								<h5>Cache <small>Cheetah @ UMUNC</small></h5>
+							</div>
+							<div class="form-group">
+								<button id="cache_clear_submit" type="button" class="btn btn-primary">Clear Cache</button>
+							</div>
+							<div class="page-header">
+								<h5>Frontend Refresh Command <small>Cheetah @ UMUNC</small></h5>
+							</div>
+							<div class="form-group">
+								<button id="frontend_refresh_submit" type="button" class="btn btn-primary">Send Refresh Command</button>
+							</div>
+							<div class="page-header">
+								<h5>Upload Files <small>Cheetah @ UMUNC</small></h5>
+							</div>
+							<div class="form-group">
+								<a href="/cheetah/upload" class="btn btn-primary" target="_blank">Upload</a>
+							</div>
+							<div class="page-header">
+								<h5>Virtual Timer <small>Cheetah @ UMUNC</small></h5>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-1 control-label">Status</label>
+								<div class="col-sm-11">
+							<p id="setting_time_status"></p>
+								</div>
+							</div>
+							<div class="form-group">
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#setting_time_modal">Change Virtual Time</button>
+							</div>
+						</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="loaddialog">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content text-center">
+			<h5>正在连接服务器……</h5>
+			<div class="loader">加载中...</div>
+		</div>
+	</div>
+</div>
+{% if user.is_staff%}
+<form id="form_communication_send_all">
+	<div class="modal fade" id="communication_send_all_modal" tabindex="-1" role="dialog" aria-labelledby="setting_time_modal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Send Global Message</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="description">Content:</label>
+						<input type="text" id="content" class="form-control" placeholder="Type here..." required>
+						<p class="help-block">System message will be sent to all rooms.</p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Send</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<form id="form_setting_time">
+	<div class="modal fade" id="setting_time_modal" tabindex="-1" role="dialog" aria-labelledby="setting_time_modal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Change Virtual Time</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="basetime">BaseTime:</label><br/>
+						<input size="16" type="text" readonly class="form_datetime" id="basetime" required>
+					</div>
+					<div class="form-group">
+						<label for="virtualbasetime">VirtualBaseTime:</label><br/>
+						<input size="16" type="text" readonly class="form_datetime" id="virtualbasetime" required>
+					</div>
+					<div class="form-group">
+						<label for="timestep">TimeStep:</label>
+						<input type="text" class="form-control" value="1" id="timestep" pattern="[0-9]*" required> 
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Change</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+{% endif %}
+<form id="form_meeting_send">
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Send A Meeting</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="host">HOST:</label>
+						<select class="form-control" id="host" required>
+							{% if user.is_staff %}
+							{% for country in countries %}
+							<option value="{{country.id}}">{{country.Name}}</option>
+							{% endfor %}
+							{% else %}
+							<option value="{{user.profile.Country.id}}">{{user.profile.Country.Name}}</option>
+							{% endif %}
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="to">TO:</label>
+						<select class="form-control" id="to" required>
+							{% for country in countries %}
+							<option value="{{country.id}}">{{country.Name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="location">Location:</label>
+						<input type="text" class="form-control" placeholder="Jane Doe" id="location" required> 
+					</div>
+					<div class="form-group">
+						<label for="description">Description:</label>
+						<input type="text" class="form-control" placeholder="Jane Doe" id="description" required> 
+					</div>
+					<div class="form-group">
+						<label for="time">Time:</label><br/>
+						<input size="16" type="text" readonly class="form_datetime" id="time" required>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Send</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+{% endblock %}
+
+
+{% block js %}
+{% endblock %}

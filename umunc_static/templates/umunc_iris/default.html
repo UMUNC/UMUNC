@@ -1,0 +1,87 @@
+{% extends "umunc_iris/root.html" %}
+
+{% block title %}
+Center
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block body %}
+<div class="row">
+	<div class="well col-md-12" id="main_panel">
+		<div class="row text-center">
+			<h3>IRIS代表信息管理系统 v2.0</h3>
+		</div>
+		<div class="row">
+			<div class="col-md-8 text-left">
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="fui-arrow-right"></span>&nbsp;当前状态：
+					{% ifequal profile.Status 1 %}【1】请编辑并提交代表资格申请。{% endifequal %}
+					{% ifequal profile.Status 2 %}【1】代表资格申请已提交，请耐心等待审核。{% endifequal %}
+					{% ifequal profile.Status -3 %}【1】代表资格申请未通过审核，无法继续报名流程。{% endifequal %}
+					{% ifequal profile.Status 3 %}【2】代表资格申请已通过审核，请选择是否作为团队参加。{% endifequal %}
+					{% ifequal profile.Status 4 %}【3】请提交学术测评。{% endifequal %}
+					{% ifequal profile.Status 5 %}【3】学术测评已提交，请耐心等待核心学术团队给以评级。{% endifequal %}
+				</p>
+			</div>
+			<div class="col-md-4 text-right">
+				<a class="btn btn-info btn-sm" href="/iris/accounts/change">Change Password</a>
+				<a class="btn btn-danger btn-sm" href="/iris/accounts/logout">Logout</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+		</div>
+		<div class="row" id="step">
+			<div class="col-md-2 text-right"><h1>1</h1></div>
+			<div class="col-md-10">
+				<h4>代表资格申请</h4>
+				<p>请按照要求尽可能全面地填写您的个人信息，您的信息可以多次保存，直到您点击提交。提交信息之后将由会务团队审核。</p>
+				<p class="text-right"><a class="btn btn-info" href="/iris/step1">编辑/查看信息</a></p>
+			</div>
+		</div>
+		<div class="row" id="step">
+			<div class="col-md-2 text-right"><h1>2</h1></div>
+			<div class="col-md-10">
+				<h4>团队/个人身份确认</h4>
+				<p>如果您是个人代表，请直接选择个人代表跳过此步。</p>
+				<p>如果您是团队领队，请创建团队。</p>
+				<p>如果您是团队成员，请选择您参加的团队。</p>
+				<p class="text-right"><a class="btn btn-info"{% if profile.Status < 3 %} disabled="disabled"{% endif %}  href="/iris/step2">团队/个人身份确认</a></p>
+			</div>
+		</div>
+		<div class="row" id="step">
+			<div class="col-md-2 text-right"><h1>3</h1></div>
+			<div class="col-md-10">
+				<h4>学术测评</h4>
+				<p>成员提交学术评测，并由核心学术团队给予评级。</p>
+				<p class="text-right"><a class="btn btn-info"{% if profile.Status < 4 %} disabled="disabled"{% endif %} href="/iris/step3">提交学术测评</a></p>
+			</div>
+		</div>
+		<div class="row" id="step">
+			<div class="col-md-2 text-right"><h1>4</h1></div>
+			<div class="col-md-10">
+				<h4>面试</h4>
+				<p>由系统分配面试官，并等待分配席位。</p>
+				<p class="text-right"><button type="button" class="btn btn-info" disabled="disabled">查看面试信息</button></p>
+			</div>
+		</div>
+		<div class="row" id="step">
+			<div class="col-md-2 text-right"><h1>5</h1></div>
+			<div class="col-md-10">
+				<h4>支付</h4>
+				<p>请按照要求支付会费。</p>
+				<p class="text-right"><button type="button" class="btn btn-info" disabled="disabled">支付会费</button></p>
+			</div>
+		</div>
+		<div class="row" id="step">
+			<div class="col-md-2 text-right"><h1>6</h1></div>
+			<div class="col-md-10">
+				<h4>后续工作</h4>
+				<p></p>
+			</div>
+		</div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+{% endblock %}

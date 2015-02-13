@@ -1,0 +1,136 @@
+*{
+	font-family:ff-tisa-web-pro-1,ff-tisa-web-pro-2,"Lucida Grande","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+}
+body{
+	background:url("/static/umunc_iris/image/bg.jpg") repeat;
+}
+#umunclogo{
+	display: inline-block;
+	width: 150px;
+	height:110px;
+	margin:60px 10px;
+}
+#irislogo{
+	display: inline-block;
+	width: 130px;
+	height:100px;
+	margin:60px 10px;
+}
+#login_panel{
+	background-color: rgba(245, 245, 245, 0.6);
+	margin-top:60px;
+}
+#login_panel img{
+	border-radius: 128px;
+	border: 2px solid rgba(245, 245, 245, 0.8);
+	margin:-84px auto 40px auto;
+}
+#login_panel .form-group .input-group{
+	width:350px;
+	margin:auto;
+}
+#login_panel .text-danger{
+	text-shadow: 0px 0px 10px #e74c3c;
+	color: #e74c3c;
+	font-weight:bold;
+}
+#register_panel{
+	background-color: rgba(245, 245, 245, 0.6);
+	margin-top:60px;
+}
+#register_panel img{
+	border-radius: 128px;
+	border: 2px solid rgba(245, 245, 245, 0.8);
+	margin:-84px auto 40px auto;
+}
+#register_panel .form-group .input-group{
+	width:350px;
+	margin:auto;
+}
+#register_panel .text-danger{
+	text-shadow: 0px 0px 10px #e74c3c;
+	color: #e74c3c;
+	font-weight:bold;
+}
+#change_panel{
+	background-color: rgba(245, 245, 245, 0.6);
+	margin-top:60px;
+}
+#change_panel img{
+	border-radius: 128px;
+	border: 2px solid rgba(245, 245, 245, 0.8);
+	margin:-84px auto 40px auto;
+}
+#change_panel .form-group .input-group{
+	width:350px;
+	margin:auto;
+}
+#change_panel .text-danger{
+	text-shadow: 0px 0px 10px #e74c3c;
+	color: #e74c3c;
+	font-weight:bold;
+}
+#main_panel{
+	background-color: rgba(245, 245, 245, 0.8);
+}
+#main_panel #step .col-md-2 h1{
+	border-right:solid 3px rgb(52, 73, 94);
+	padding-right:20px;
+	margin-top:10px;
+}
+#main_panel #step{
+	margin-top:40px;
+	padding:0px 40px;
+}
+#main_panel #step .col-md-10  .btn-info[disabled]{
+	background-color:#76ADD2;
+}
+#step1_panel{
+	background-color: rgba(245, 245, 245, 0.8);
+}
+#step1_panel .control-label{
+	font-weight:bold;
+}
+#step1_panel .text-danger{
+	color: #e74c3c;
+}
+#step1_panel .form-control[disabled]{
+	color:black;
+}
+#step2_panel{
+	background-color: rgba(245, 245, 245, 0.8);
+}
+#step2_panel .control-label{
+	font-weight:bold;
+}
+#step2_panel .control-label.text-left{
+	font-weight:bold;
+	text-align: left;
+}
+#step2_panel .text-danger{
+	color: #e74c3c;
+}
+#step2_panel .form-control[readonly]{
+	color:black;
+}
+#step2_panel .btn-primary{
+	margin-top:20px;
+	margin-right:20px;
+}
+#step3_panel{
+	background-color: rgba(245, 245, 245, 0.8);
+}
+#step3_panel .control-label{
+	font-weight:bold;
+}
+#step3_panel .control-label.text-left{
+	font-weight:bold;
+	text-align: left;
+}
+#step3_panel .form-control[readonly]{
+	color:black;
+}
+#step3_panel .btn-primary{
+	margin-top:20px;
+	margin-right:20px;
+}

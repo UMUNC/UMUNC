@@ -1,0 +1,222 @@
+*{
+	font-family:ff-tisa-web-pro-1,ff-tisa-web-pro-2,"Lucida Grande","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+}
+body{
+	background:url("/static/umunc_cheetah/image/bg.jpg") repeat;
+}
+#umunclogo{
+	display: inline-block;
+	width: 150px;
+	height:110px;
+	margin:60px 10px;
+}
+#cheetahlogo{
+	display: inline-block;
+	width: 402px;
+	height:100px;
+	margin:60px 10px;
+}
+#main_panel{
+	background-color: rgba(245, 245, 245, 0.8);
+}
+#main_panel #top_panel li a{
+	padding: 9px 13px;
+	font-size: 13px;
+	line-height: 1.385;
+}
+#main_panel #top_panel .tab-content{
+	margin-top: 20px;
+}
+#main_panel #top_panel #Communications{
+	font-size: 13px;
+}
+#main_panel #top_panel #Communications #time_panel{
+	background-color: #f5f5f5;
+}
+#main_panel #top_panel #Communications #time_panel p{
+	font-size: 14px;
+}
+#main_panel #top_panel #Communications .tooltip-inner{
+	max-width:500px;
+}
+#main_panel #top_panel #Communications .list-group-item:not(.active):hover{
+	background-color: rgba(255, 255, 255, 0.8);
+}
+#main_panel #top_panel #Communications .panel{
+	background-color: rgba(255, 255, 255, 0.6);
+}
+#main_panel #top_panel #Communications .panel-heading button{
+	margin-top: -20px;
+	margin-left: 10px;
+}
+#main_panel #top_panel #Communications .panel-footer{
+	background-color: rgba(245, 245, 245, 0.8);
+}
+#main_panel #top_panel #Communications .panel-body{
+	height:500px;
+	overflow: auto;
+}
+#main_panel #top_panel #Communications .panel-footer label{
+	line-height:0;
+	margin-bottom: 0px;
+	color:rgb(52, 73, 94);
+}
+#main_panel #top_panel #Meetings #meeting_list thead tr{
+	background-color: rgba(196, 215, 231, 1);
+}
+#main_panel #top_panel #Meetings #meeting_list tbody tr td{
+	background-color: rgba(255, 255, 255, 0.6);
+	font-size: 14px;
+}
+#main_panel #top_panel #Meetings #meeting_list tbody tr td:last-child{
+	width:240px;
+}
+#main_panel #top_panel #Meetings #meeting_list tbody tr td:nth-child(3){
+	width:100px;
+}
+#main_panel #top_panel #Meetings #meeting_list tbody tr td:nth-child(5){
+	width:300px;
+}
+#loaddialog .modal-content{
+	height: 240px;
+	background-color: rgba(255, 255, 255, 0.7);
+}
+#loaddialog .modal-content .loader{
+	margin-top: 60px;
+	margin-bottom: 60px;
+}
+#loaddialog .modal-content h5{
+	width:100%;
+	margin-top:160px;
+	position: absolute;
+}
+.loader,
+.loader:before,
+.loader:after {
+  background: #428BCA;
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+.loader:before,
+.loader:after {
+  position: absolute;
+  top: 0;
+  content: '';
+}
+.loader:before {
+  left: -1.5em;
+}
+.loader {
+  text-indent: -9999em;
+  margin: 40% auto;
+  position: relative;
+  font-size: 11px;
+  -webkit-animation-delay: 0.16s;
+  animation-delay: 0.16s;
+}
+.loader:after {
+  left: 1.5em;
+  -webkit-animation-delay: 0.32s;
+  animation-delay: 0.32s;
+}
+@-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0 #428BCA;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em #428BCA;
+    height: 5em;
+  }
+}
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0 #428BCA;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em #428BCA;
+    height: 5em;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#main_panel #step .col-md-2 h1{
+	border-right:solid 3px rgb(52, 73, 94);
+	padding-right:20px;
+	margin-top:10px;
+}
+#main_panel #step{
+	margin-top:40px;
+	padding:0px 40px;
+}
+#main_panel #step .col-md-10  .btn-info[disabled]{
+	background-color:#76ADD2;
+}
+#step1_panel{
+	background-color: rgba(245, 245, 245, 0.8);
+}
+#step1_panel .control-label{
+	font-weight:bold;
+}
+#step1_panel .text-danger{
+	color: #e74c3c;
+}
+#step1_panel .form-control[disabled]{
+	color:black;
+}
+#step2_panel{
+	background-color: rgba(245, 245, 245, 0.8);
+}
+#step2_panel .control-label{
+	font-weight:bold;
+}
+#step2_panel .control-label.text-left{
+	font-weight:bold;
+	text-align: left;
+}
+#step2_panel .text-danger{
+	color: #e74c3c;
+}
+#step2_panel .form-control[readonly]{
+	color:black;
+}
+#step2_panel .btn-primary{
+	margin-top:20px;
+	margin-right:20px;
+}
+#step3_panel{
+	background-color: rgba(245, 245, 245, 0.8);
+}
+#step3_panel .control-label{
+	font-weight:bold;
+}
+#step3_panel .control-label.text-left{
+	font-weight:bold;
+	text-align: left;
+}
+#step3_panel .form-control[readonly]{
+	color:black;
+}
+#step3_panel .btn-primary{
+	margin-top:20px;
+	margin-right:20px;
+}

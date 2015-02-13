@@ -1,0 +1,81 @@
+{% extends "umunc_iris/root.html" %}
+
+{% block title %}
+学术测评
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block body %}
+<form action="." method="post" class="form-horizontal"> 
+	{% csrf_token %}
+	<input type="hidden" id="submit" name="submit"  value="">
+	<div class="row">
+		<div class="well col-md-12" id="step3_panel">
+			<div class="row text-center">
+				<h3>IRIS代表信息管理系统 v2.0</h3>
+				<p>成员提交学术评测，并由核心学术团队给予评级。</p>
+			</div>
+			<div class="row text-right">
+				<a class="btn btn-inverse btn-sm" href="/iris">Back</a>
+				{% ifequal profile.Status 4%}
+				<button class="btn btn-danger btn-sm" type="submit" id="savebutton">Save</button>
+				<button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#askModal">Submit</button>
+				{% endifequal %}
+				&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+			<div class="text-left">
+				<span>&nbsp;学术测评 <a href="#">点此下载</a>。</span>
+			</div>
+			{% ifequal profile.Status 4%}
+			<div class="form-group">
+					<textarea name="review_text" id="review_text">{{review.Content}}</textarea>
+			</div>
+			{% else %}
+			<br/>
+			<div class="well col-md-12">
+				<div class="col-md-6">测评作者：{{profile.Name}} ( [{{profile.User.id}}]{{profile.User.username}} )</div>
+				<div class="col-md-6 text-right">提交时间：{{review.TimeStamp}}</div>
+				<div class="col-md-12">
+					<p><hr /></p>
+					{{review.Content|safe}}
+				</div>
+			</div>
+			{% endifequal %}
+	</div>
+</form>
+
+<div class="modal fade" id="askModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="myModalLabel">提交确认</h4>
+			</div>
+			<div class="modal-body">
+				<p>请确认是否正式提交。</p>
+				<p>请注意：提交后将不再允许修改。</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" id="submitbutton">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script src="/static/common/js/jqBootstrapValidation.js"></script>
+<script src="/static/common/tinymce/tinymce.min.js"></script>
+<script src="/static/umunc_iris/js/step3.js"></script>
+{% ifequal profile.Status 4%}{% else %}
+	<script language="javascript">
+		$(function(){
+			$("form input,textarea,select").attr("disabled","disabled")
+		})
+	</script>
+{% endifequal %}
+{% endblock %}

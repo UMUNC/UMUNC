@@ -1,0 +1,38 @@
+{% extends "root.html" %}
+
+{% block Rtitle %}{% block title %}{% endblock %} - Cheetah{% endblock %}
+
+{% block Rcss %}
+	<link href="/static/umunc_cheetah/css/common.css" rel="stylesheet">
+	<link href="/static/common/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+	<link href="/static/umunc_cheetah/css/messenger.css" rel="stylesheet">
+	<link href="/static/umunc_cheetah/css/messenger-theme-air.css" rel="stylesheet">
+	{% block css %}{% endblock %}
+{% endblock %}
+
+{% block Rbody %}
+ 	<div class="container">
+ 		<div class="row">
+ 			<div class="col-md-12">
+ 				<img id="umunclogo" src="/static/common/image/UMUNC-logo-white.png"/>
+ 				<img id="cheetahlogo" src="/static/common/image/cheetah-logo-white.png"/>
+ 			</div>
+ 		</div>
+ 	</div>
+ 	<div class="container">
+ 		<div class="row">
+ 			<div class="col-md-12">
+ 			{% block body %}{% endblock %}
+ 			</div>
+ 		</div>
+ 	</div>
+{% endblock %}
+
+{% block Rjs %}
+	<script src="/static/common/js/jquery.backstretch.min.js"></script>
+	<script src="/static/common/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="/static/umunc_cheetah/js/messenger.min.js" rel="stylesheet"></script>
+	<script src="/static/umunc_cheetah/js/jquery.form.js" rel="stylesheet"></script>
+	<script src="/static/umunc_cheetah/js/common.js" rel="stylesheet"></script>
+	{% block js %}{% endblock %}
+{% endblock %}

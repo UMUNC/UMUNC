@@ -1,0 +1,71 @@
+{% extends "umunc_iris/root.html" %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block body %}
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="well col-md-6" id="register_panel">
+		<form action="." method="post" class="form-horizontal" id="register_form"> 
+			{% csrf_token %}
+			<div class="text-center">
+				<img src="/static/umunc_iris/image/user.jpg">
+			</div>
+			{% ifequal error 'success' %}
+			<div class="text-center">
+				<h3>注册成功！</h3>
+				<h5>请进入您的邮箱查收验证邮件！</h5>
+				<div class="form-group text-center">
+					<a class="btn btn-primary btn-lg" id="register_button" href="/iris/accounts/login" >Back</a>
+				</div>
+			</div>
+			{% else%}
+			<div class="form-group text-center">
+				<div class="input-group">
+					<input class="form-control" type="text" placeholder="Enter Username" id="username" name="username" value="{{username}}" minlength="6" maxlength="30" pattern="[a-zA-Z0-9@_+-]*" intro="只接受字母、数字和字符@/./+/-/_" required>
+					<span class="fui-user form-control-feedback"  for="username"></span>
+				</div>
+			</div>
+			<div class="form-group text-center">
+				<div class="input-group">
+					<input class="form-control" type="email" placeholder="Enter Email" name="email" value="{{email}}" required>
+					<span class="fui-mail form-control-feedback"  for="email"></span>
+				</div>
+			</div>
+			<div class="form-group text-center">
+				<div class="input-group">
+					<input class="form-control" type="password" placeholder="Enter Password" name="password" minlength="6" maxlength="30" pattern="[a-zA-Z0-9@_+-]*" intro="只接受字母、数字和字符@/./+/-/_" required>
+					<span class="fui-lock form-control-feedback"  for="password"></span>
+				</div>
+			</div>
+			<div class="form-group text-center">
+				<div class="input-group">
+					<input class="form-control" type="password" placeholder="Enter Password Again" minlength="6" maxlength="30" pattern="[a-zA-Z0-9@_+-]*" intro="只接受字母、数字和字符@/./+/-/_" data-validation-match-match="password" required> 
+					<span class="fui-lock form-control-feedback"  for="password2"></span>
+				</div>
+			</div>
+			<input type="hidden" name="next" value="{{ next|escape }}" />
+			<div class="form-group text-center text-danger">
+				<p>{{error}}</p>
+			</div>
+			<div class="form-group text-center">
+				<button class="btn btn-info btn-lg" id="login_button" type="submit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Register&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+				<a class="btn btn-primary btn-lg" id="register_button" href="/iris/accounts/login" >Back</a>
+			</div>
+			{% endifequal %}
+		</form>	
+	</div>
+	<div class="col-md-3"></div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script src="/static/common/js/jqBootstrapValidation.js"></script>
+<script src="/static/umunc_iris/js/register.js"></script>
+{% endblock %}
