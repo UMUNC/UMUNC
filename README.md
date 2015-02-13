@@ -49,8 +49,11 @@ Environment
  - simplejson
  - mod-wsgi
  - mysqldb
+
 #####**Database** (Mysql/MariaDB)
+
 #####**Django 1.5+**
+
 > **Tips:**
 >  Not sure if Django1.7 will support this project currectly.
 
