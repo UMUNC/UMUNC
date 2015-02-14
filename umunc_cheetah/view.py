@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.cache import cache
 from umunc_cheetah.models import *
+from umunc_iris.models import *
 from umunc import part_upload
 
 @login_required
@@ -35,7 +36,7 @@ def refresh_simple():
 	ttemplate = get_template('umunc_cheetah/datacontrol_communication_simple.html')
 	cache.set('umunc_cheetah_communication_simple',ttemplate.render(Context({'rooms':response_rooms})))
 
-def refresh(troom,request,number):
+def refresh_communiaction(troom,request,number):
 	response_messages=message.objects.filter(ToU=troom)
 	ttemplate = get_template('umunc_cheetah/datacontrol_communication.html')
 	cache.set('umunc_cheetah_communication_'+number, simplejson.dumps({
@@ -46,6 +47,27 @@ def refresh(troom,request,number):
 		'count':response_messages.count(),
 		},ensure_ascii=False),60*15)
 	refresh_simple()
+
+def refresh_meeting(request,number):
+	if request.user.is_staff:
+		response_meetings=meeting.objects.all()
+	else:
+		response_meetings=meeting.objects.filter(Q(FromC=request.user.profile.Country)|Q(ToC=request.user.profile.Country))
+	ttemplate = get_template('umunc_cheetah/datacontrol_meeting.html')
+	cache.set('umunc_cheetah_meeting_'+number, simplejson.dumps({
+				'result':'success',
+				'meeting':ttemplate.render(Context({'meetings': response_meetings,'user':request.user})),
+				'count':response_meetings.count(),
+				},ensure_ascii=False),60*15)
+
+def refresh_meeting_couple(fcountry,tcountry,request):
+	cache.delete('umunc_cheetah_meeting_'+str(fcountry.id))
+	cache.delete('umunc_cheetah_meeting_'+str(tcountry.id))
+	tcountries=country.objects.all()
+	cache.delete('umunc_cheetah_meeting_'+str(0)+'_A')
+	cache.delete('umunc_cheetah_meeting_'+str(0))
+	for tcountry in tcountries:
+		cache.delete('umunc_cheetah_meeting_'+str(tcountry.id)+'_A')
 
 def check_refresh():
 	destination = open('/www/cache/cheetah/refresh','r')
@@ -62,7 +84,7 @@ def datacontrol_communication(request):
 			if not (request.user in troom.User.all()):
 				return HttpResponse(simplejson.dumps({'result':'通讯房间无权进入。',},ensure_ascii=False))
 			if cache.get('umunc_cheetah_communication_'+request.GET['number'])==None:
-				refresh(troom,request,request.GET['number'])
+				refresh_communiaction(troom,request,request.GET['number'])
 			return HttpResponse(cache.get('umunc_cheetah_communication_'+request.GET['number']))
 		if request.GET['command']=='GetHeartBeatSimple':
 			if check_refresh()=='REFRESH':
@@ -71,7 +93,6 @@ def datacontrol_communication(request):
 			if cache.get('umunc_cheetah_communication_simple')==None:
 				refresh_simple()
 			return HttpResponse(cache.get('umunc_cheetah_communication_simple'))
-
 
 	if request.POST.has_key('command'):
 		if request.POST['command']=='PostSend' and request.POST.has_key('system') and request.POST.has_key('number') and request.POST.has_key('content'):
@@ -88,7 +109,7 @@ def datacontrol_communication(request):
 				Content=request.POST['content'],
 				System=request.POST['system']=='true',)
 			tmessage.save()
-			refresh(troom,request,request.POST['number'])
+			refresh_communiaction(troom,request,request.POST['number'])
 			return HttpResponse(simplejson.dumps({
 				'result':'success',
 				},ensure_ascii=False))
@@ -103,7 +124,7 @@ def datacontrol_communication(request):
 					Content=request.POST['content'],
 					System=True,)
 				tmessage.save()
-				refresh(troom,request,str(troom.id))
+				refresh_communiaction(troom,request,str(troom.id))
 			return HttpResponse(simplejson.dumps({
 				'result':'success',
 				},ensure_ascii=False))
@@ -125,7 +146,7 @@ def datacontrol_communication(request):
 				Content=tcontent,
 				System=True,)
 			tmessage.save()
-			refresh(troom,request,request.POST['number'])
+			refresh_communiaction(troom,request,request.POST['number'])
 			return HttpResponse(simplejson.dumps({
 				'result':'success',
 				},ensure_ascii=False))
@@ -140,15 +161,18 @@ def datacontrol_meeting(request):
 	if request.GET.has_key('command'):
 		if request.GET['command']=='GetHeartBeat':
 			if request.user.is_staff:
-				response_meetings=meeting.objects.all()
+				if request.user.profile.Country:
+					number=str(request.user.profile.Country.id)+'_A'
+				else:
+					number=str(0)+'_A'
 			else:
-				response_meetings=meeting.objects.filter(Q(FromC=request.user.profile.Country)|Q(ToC=request.user.profile.Country))
-			ttemplate = get_template('umunc_cheetah/datacontrol_meeting.html')
-			return HttpResponse(simplejson.dumps({
-				'result':'success',
-				'meeting':ttemplate.render(Context({'meetings': response_meetings,'user':request.user})),
-				'count':response_meetings.count(),
-				},ensure_ascii=False))
+				if request.user.profile.Country:
+					number=str(request.user.profile.Country.id)
+				else:
+					number=str(0)
+			if cache.get('umunc_cheetah_meeting_'+number)==None:
+				refresh_meeting(request,number)
+			return HttpResponse(cache.get('umunc_cheetah_meeting_'+number))
 
 	if request.POST.has_key('command'):
 		if request.POST['command']=='PostSend' and request.POST.has_key('host') and request.POST.has_key('to') and request.POST.has_key('location') and request.POST.has_key('time') and request.POST.has_key('description'):
@@ -169,6 +193,7 @@ def datacontrol_meeting(request):
 				tmeeting.Check_T=True
 				tmeeting.Check_A=None
 			tmeeting.save()
+			refresh_meeting_couple(fcountry,tcountry,request)
 			return HttpResponse(simplejson.dumps({
 				'result':'success',
 				},ensure_ascii=False))
@@ -180,6 +205,7 @@ def datacontrol_meeting(request):
 				if tmeeting.Check_A!=False:
 					tmeeting.Check_A=request.POST['accept']=='1'
 					tmeeting.save()
+					refresh_meeting_couple(tmeeting.FromC,tmeeting.ToC,request)
 				return HttpResponse(simplejson.dumps({'result':'success',},ensure_ascii=False))
 			elif request.POST['user_number']=='1':
 				if request.user.profile.Country!=tmeeting.FromC:
@@ -187,6 +213,7 @@ def datacontrol_meeting(request):
 				if tmeeting.Check_F!=False:
 					tmeeting.Check_F=request.POST['accept']=='1'
 					tmeeting.save()
+					refresh_meeting_couple(tmeeting.FromC,tmeeting.ToC,request)
 				return HttpResponse(simplejson.dumps({'result':'success',},ensure_ascii=False))
 			elif request.POST['user_number']=='2':
 				if request.user.profile.Country!=tmeeting.ToC:
@@ -194,6 +221,7 @@ def datacontrol_meeting(request):
 				if tmeeting.Check_T!=False:
 					tmeeting.Check_T=request.POST['accept']=='1'
 					tmeeting.save()
+					refresh_meeting_couple(tmeeting.FromC,tmeeting.ToC,request)
 				return HttpResponse(simplejson.dumps({'result':'success',},ensure_ascii=False))
 	return render_to_response('umunc_cheetah/datacontrol_communication.html',{
 		'rooms':response_rooms,
@@ -217,7 +245,7 @@ def datacontrol_file(request):
 				Content=ttemplate.render(Context({'filename':request.FILES['file'].name,'url':result,'user':request.user})),
 				System=True,)
 			tmessage.save()
-			refresh(troom,request,request.POST['to'])
+			refresh_communiaction(troom,request,request.POST['to'])
 			return HttpResponse(simplejson.dumps({'result':'success','url':result,},ensure_ascii=False))
 		else:
 			return HttpResponse(simplejson.dumps({'result':'服务器错误，请重试。',},ensure_ascii=False))
@@ -246,7 +274,7 @@ def datacontrol_setting(request):
 				return HttpResponse('无权操作。')
 		if request.POST['command']=='Time' and request.POST.has_key('BaseTime') and request.POST.has_key('VirtualBaseTime') and request.POST.has_key('TimeStep'):
 			destination = open('/www/cache/cheetah/time','wd+')
-			destination.writeline('{"vtime_base":'+request.POST['BaseTime']+',"vtime_check":'+request.POST['VirtualBaseTime']+',"vtime_step":'+request.POST['TimeStep']+'}')
+			destination.writelines('{"vtime_base":'+request.POST['BaseTime']+',"vtime_check":'+request.POST['VirtualBaseTime']+',"vtime_step":'+request.POST['TimeStep']+'}')
 			destination.close()
 			return HttpResponse(simplejson.dumps({
 				'result':'success',

@@ -13,18 +13,17 @@ function meeting_refresh(){
 		},
 		success: function(data,status){
 			if (data.result=="success"){
-				if (data.count>meeting_count){
-					meeting_count=data.count
-					$("#main_panel #top_panel #Meetings #meeting_list tbody").html(data.meeting);
-					Messenger().post( "Meeting has been updated.");
-				}
+				meeting_count=data.count
+				$("#main_panel #top_panel #Meetings #meeting_list tbody").html(data.meeting);
+				//Messenger().post("Meeting has been updated.");
 			};
-			heartbeat2=setTimeout("meeting_refresh()",60000);
+			$('#loaddialog').modal('hide');
+			heartbeat2=setTimeout("meeting_refresh()",3000);
 		},
 		error: function(){
 			clearTimeout(heartbeat2);
-			Messenger().post( "System error. Page will be upgraded.");
-			Messenger().post( "Receive refresh command. Page will be upgraded in 10 seconds.");
+			Messenger().post("System error. Page will be upgraded.");
+			Messenger().post("Receive refresh command. Page will be upgraded in 10 seconds.");
 			heartbeat=setTimeout("location.reload(true)",10000);
 		},
 		dataType: 'json'
@@ -90,7 +89,7 @@ function communication_refresh_simple(){
 		},
 		success: function(data,status){
 			if (data.messages=="REFRESH"){
-				Messenger().post( "Receive refresh command. Page will be upgraded in 10 seconds.");
+				Messenger().post("Receive refresh command. Page will be upgraded in 10 seconds.");
 				heartbeat=setTimeout("location.reload(true)",10000);
 				return
 			};
@@ -116,8 +115,8 @@ function communication_refresh_simple(){
 			heartbeat=setTimeout("communication_refresh_simple()",2000);
 		},
 		error: function(){
-			Messenger().post( "System error. Page will be upgraded.");
-			Messenger().post( "Receive refresh command. Page will be upgraded in 10 seconds.");
+			Messenger().post("System error. Page will be upgraded.");
+			Messenger().post("Receive refresh command. Page will be upgraded in 10 seconds.");
 			heartbeat=setTimeout("location.reload(true)",10000);
 		},
 		dataType: 'json'
@@ -155,8 +154,8 @@ function communication_refresh(){
 			$('#loaddialog').modal('hide');
 		},
 		error: function(){
-			Messenger().post( "System error. Page will be upgraded.");
-			Messenger().post( "Receive refresh command. Page will be upgraded in 10 seconds.");
+			Messenger().post("System error. Page will be upgraded.");
+			Messenger().post("Receive refresh command. Page will be upgraded in 10 seconds.");
 			heartbeat=setTimeout("location.reload(true)",10000);
 		},
 		dataType: 'json'
@@ -187,6 +186,7 @@ function meeting_change(user_number,number,accept){
 		success: function(data,status){
 			if (data.result=="success"){
 				meeting_count=0;
+				$('#loaddialog').modal('show');
 				meeting_refresh();
 			}else{
 				alert("失败："+data.result);
@@ -219,6 +219,12 @@ $(function(){
 	$(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii',todayHighlight:true,todayBtn:true});
 	$("#myModal,#setting_time_modal").on("show.bs.modal",function(){$('body').scrollTop(0)});
 	$("#main_panel #top_panel #Communications #form_communication_send").submit(function(){
+		if($("#main_panel #top_panel #Communications #form_communication_send input#content").val()=="FROM:… TO:…"){
+			alert("Please type something.");
+			return false;
+		}
+		$("#main_panel #top_panel #Communications .panel-footer input#content").attr("disabled","disabled");
+		$("#main_panel #top_panel #Communications .panel-footer button").attr("disabled","disabled");
 		$.ajax({
 			url: "/cheetah/datacontrol/communication/",
 			data: {
@@ -251,15 +257,19 @@ $(function(){
 			},
 			success: function(data,status){
 				if (data.result=="success"){
+					alert("成功执行");
+					$("#form_communication_send_all *").removeAttr("disabled");
 					$("#form_communication_send_all #content").val("");
 					$('#communication_send_all_modal').modal('hide');
 				}else{
 					alert("发送失败："+data.result);
+					$("#form_communication_send_all *").removeAttr("disabled");
 				};
 			},
 			dataType: 'json',
 			type: 'POST'
 		});
+		$("#form_communication_send_all *").attr("disabled","disabled");
 		return false;
 	});
 	$("#form_setting_time").submit(function(){
@@ -287,11 +297,13 @@ $(function(){
 					location.reload(true);
 				}else{
 					alert("发送失败："+data.result);
+					$("#form_setting_time *").removeAttr("disabled");
 				};
 			},
 			dataType: 'json',
 			type: 'POST'
 		});
+		$("#form_setting_time *").attr("disabled","disabled");
 		return false;
 	});
 	$("#form_meeting_send").submit(function(){
@@ -308,17 +320,21 @@ $(function(){
 			},
 			success: function(data,status){
 				if (data.result=="success"){
+					$("#form_meeting_send *").removeAttr("disabled");
 					$("#form_meeting_send #location").val("");
 					$("#form_meeting_send #description").val("");
 					$('#myModal').modal('hide');
+					$('#loaddialog').modal('show');
 					meeting_refresh();
 				}else{
 					alert("发送失败："+data.result);
+					$("#form_meeting_send *").removeAttr("disabled");
 				};
 			},
 			dataType: 'json',
 			type: 'POST'
 		});
+		$("#form_meeting_send *").attr("disabled","disabled");
 		return false;
 	});
 	$("#main_panel #top_panel #Communications #block").click(function(){
@@ -389,7 +405,7 @@ $(function(){
 					alert("Only PDF/DOC/DOCX file will be accepted.");
 					return false;
 				}
-				$("#form_file_send #upload_submit").addClass("disabled");
+				$("#form_file_send *").attr("disabled","disabled");
 				$("#form_file_send #upload_submit").html("Uploading……");
 			},
 			success : function(data) {
@@ -400,12 +416,12 @@ $(function(){
 				}else{
 					alert("失败："+data.result);
 				};
-				$("#form_file_send #upload_submit").removeClass("disabled");
+				$("#form_meeting_send *").removeAttr("disabled");
 				$("#form_file_send #upload_submit").html("Send");
 			},
 			error : function(data) {
 				alert("上传发生错误！请刷新页面或联系我们。");
-				$("#form_file_send #upload_submit").removeClass("disabled");
+				$("#form_meeting_send *").removeAttr("disabled");
 				$("#form_file_send #upload_submit").html("Send");
 			},
 			dataType :"json"

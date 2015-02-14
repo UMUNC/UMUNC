@@ -69,13 +69,19 @@ body{
 	font-size: 14px;
 }
 #main_panel #top_panel #Meetings #meeting_list tbody tr td:last-child{
-	width:240px;
+	width:140px;
+}
+#main_panel #top_panel #Meetings #meeting_list tbody tr td:nth-child(1){
+	max-width:100px;
+}
+#main_panel #top_panel #Meetings #meeting_list tbody tr td:nth-child(2){
+	max-width:100px;
 }
 #main_panel #top_panel #Meetings #meeting_list tbody tr td:nth-child(3){
 	width:100px;
 }
-#main_panel #top_panel #Meetings #meeting_list tbody tr td:nth-child(5){
-	width:300px;
+#main_panel #top_panel #Meetings #meeting_list tbody tr td:nth-child(4){
+	max-width:100px;
 }
 #loaddialog .modal-content{
 	height: 240px;
