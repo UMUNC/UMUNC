@@ -103,7 +103,7 @@ function heartbeat(){
 						status_communication_count[element.id]=element.count;
 					};
 					if ((element.id!=status_communication)&&(element.count!=status_communication_count[element.id])){
-						communication_has_new=$("#main_panel #top_panel #Communications #communication_list a#"+element.name+" #new_message").html()!=element.count-status_communication_count[element.id];
+						communication_has_new=($("#main_panel #top_panel #Communications #communication_list a#"+element.name+" #new_message").length >0)&&($("#main_panel #top_panel #Communications #communication_list a#"+element.name+" #new_message").html()!=element.count-status_communication_count[element.id]);
 						$("#main_panel #top_panel #Communications #communication_list a#"+element.name+" #new_message").html(element.count-status_communication_count[element.id]);
 					}else{
 						$("#main_panel #top_panel #Communications #communication_list a#"+element.name+" #new_message").html("");

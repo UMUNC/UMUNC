@@ -31,17 +31,46 @@ def default(request):
 		'rooms_a':response_rooms_a,
 		},context_instance=RequestContext(request))
 
+def history_communication(request,id):
+	response_room=room.objects.get(id=id)
+	if not (request.user in response_room.User.all()):
+		return HttpResponse('通讯房间无权进入。')
+	response_messages=message.objects.filter(ToU=response_room)
+	return render_to_response('umunc_cheetah/history_communication.html',{
+		'room':response_room,
+		'messages':response_messages,
+		},context_instance=RequestContext(request))
+
+def history_meeting(request):
+	if request.user.is_staff:
+		if request.user.profile.Country:
+			number=str(request.user.profile.Country.id)+'_A'
+		else:
+			number=str(0)+'_A'
+	else:
+		if request.user.profile.Country:
+			number=str(request.user.profile.Country.id)
+		else:
+			number=str(0)
+	if request.user.is_staff:
+		response_meetings=meeting.objects.all()
+	else:
+		response_meetings=meeting.objects.filter(Q(FromC=request.user.profile.Country)|Q(ToC=request.user.profile.Country))
+	return render_to_response('umunc_cheetah/history_meeting.html',{
+			'meetings': response_meetings,
+		},context_instance=RequestContext(request))
+
 def refresh_communication_list():
 	response_rooms=room.objects.all()
 	ttemplate = get_template('umunc_cheetah/datacontrol_communication_list.html')
 	cache.set('umunc_cheetah_communication_list',ttemplate.render(Context({'rooms':response_rooms})))
 
 def refresh_communiaction(troom,request,number):
-	response_messages=message.objects.filter(ToU=troom)
+	response_messages=message.objects.filter(ToU=troom)[:50]
 	ttemplate = get_template('umunc_cheetah/datacontrol_communication.html')
 	cache.set('umunc_cheetah_communication_'+number, simplejson.dumps({
 		'result':'success',
-		'messages':ttemplate.render(Context({'messages': response_messages,'user':request.user})),
+		'messages':ttemplate.render(Context({'messages': response_messages,'user':request.user,'room':troom})),
 		'room':{'Name':troom.Name,'Block':troom.Block,},
 		'staff':request.user.is_staff,
 		'count':response_messages.count(),
@@ -200,10 +229,6 @@ def datacontrol_communication(request):
 				'result':'success',
 				},ensure_ascii=False))
 
-	return render_to_response('umunc_cheetah/datacontrol_communication.html',{
-		'rooms':response_rooms,
-		},context_instance=RequestContext(request))
-
 @login_required
 def datacontrol_meeting(request):
 	response_rooms=room.objects.all()
@@ -256,9 +281,6 @@ def datacontrol_meeting(request):
 					tmeeting.save()
 					refresh_meeting_couple(tmeeting.FromC,tmeeting.ToC,request)
 				return HttpResponse(simplejson.dumps({'result':'success',},ensure_ascii=False))
-	return render_to_response('umunc_cheetah/datacontrol_communication.html',{
-		'rooms':response_rooms,
-		},context_instance=RequestContext(request))
 
 @login_required
 def datacontrol_file(request):

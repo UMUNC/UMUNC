@@ -50,7 +50,7 @@ p{
 #main_panel #top_panel #Communications .panel{
 	background-color: rgba(255, 255, 255, 0.6);
 }
-#main_panel #top_panel #Communications .panel-heading button{
+#main_panel #top_panel #Communications .panel-heading .btn{
 	margin-top: -20px;
 	margin-left: 10px;
 }
@@ -60,6 +60,10 @@ p{
 #main_panel #top_panel #Communications .panel-body{
 	height:500px;
 	overflow: auto;
+}
+#main_panel.main_panel_history #top_panel #Communications .panel-body{
+	height:auto;
+	overflow:visible;
 }
 #main_panel #top_panel #Communications .panel-footer label{
 	line-height:0;

@@ -1,0 +1,48 @@
+{% extends "umunc_cheetah/root.html" %}
+
+{% block title %}
+History
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block body %}
+<div class="row">
+	<div class="well col-md-12 main_panel_history" id="main_panel">
+		<div class="row" id="top_panel">
+			<div class="col-md-12">
+				<div role="tabpanel">
+					<div class="tab-content">
+						<div id="Communications">
+							<div class="row" >
+								<div class="col-md-12">
+									<div class="panel panel-primary">
+										<div class="panel-heading">
+											<h3 class="panel-title">{{room.Name}}</h3>
+										</div>
+										<div class="panel-body">
+											<div>
+												{% for message in messages reversed %}
+													{% if message.System %}
+													<p class="text-center bg-info"><span class="label label-primary">系统消息</span> <span class="text-primary">{{message.TimeStamp|date:"Y-n-j G:i:s" }}</span> :{{message.Content|safe}}</p>
+													{% else %}
+													<p><span class="label label-{% if message.FromU.is_staff %}success{% else %}info{% endif %}" {% if not message.FromU.is_staff %}data-toggle="tooltip" data-placement="top" title="{{message.FromU.profile.Name}}：【{{message.FromU.profile.Country.Name}}】{{message.FromU.profile.Identify}}"{% endif %}>{{message.FromU.profile.Name}}</span> <span class="text-{% if message.FromU.is_staff %}success{% else %}info{% endif %}">{{message.TimeStamp|date:"Y-n-j G:i:s" }}</span> :{{message.Content|safe}}</p>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+{% endblock %}

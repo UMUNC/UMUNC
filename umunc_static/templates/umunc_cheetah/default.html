@@ -17,7 +17,7 @@ Center
 						<li role="presentation" class="active"><a href="#Communications" aria-controls="Communications" role="tab" data-toggle="tab">Communications</a></li>
 						<li role="presentation"><a href="#Meetings" aria-controls="Meetings" role="tab" data-toggle="tab">Meetings</a></li>
 						<li role="presentation"><a href="#Files" aria-controls="Files" role="tab" data-toggle="tab">Files</a></li>
-						{% if user.is_staff %}
+						{% if user.is_superuser %}
 						<li role="presentation"><a href="#Settings" aria-controls="Settings" role="tab" data-toggle="tab">Settings</a></li>
 						{% endif %}
 						<li role="presentation" class="navbar-right"><a class="btn btn-danger btn-sm" href="/iris/accounts/logout">Logout</a></li>
@@ -115,7 +115,7 @@ Center
 								</div>
 							</form>
 						</div>
-						{% if user.is_staff %}
+						{% if user.is_superuser %}
 						<div role="tabpanel" class="tab-pane fade" id="Settings">
 							<div class="page-header">
 								<h5>Cache <small>Cheetah @ UMUNC</small></h5>
@@ -153,6 +153,7 @@ Center
 				</div>
 			</div>
 		</div>
+	</div>
 </div>
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="loaddialog">
 	<div class="modal-dialog modal-sm">
@@ -162,7 +163,7 @@ Center
 		</div>
 	</div>
 </div>
-{% if user.is_staff%}
+{% if user.is_superuser%}
 <form id="form_communication_send_all">
 	<div class="modal fade" id="communication_send_all_modal" tabindex="-1" role="dialog" aria-labelledby="setting_time_modal" aria-hidden="true">
 		<div class="modal-dialog">
@@ -247,16 +248,16 @@ Center
 						</select>
 					</div>
 					<div class="form-group">
+						<label for="time">Time:</label><br/>
+						<input size="16" type="text" readonly class="form_datetime" id="time" required>
+					</div>
+					<div class="form-group">
 						<label for="location">Location:</label>
 						<input type="text" class="form-control" placeholder="Jane Doe" id="location" required> 
 					</div>
 					<div class="form-group">
 						<label for="description">Description:</label>
 						<input type="text" class="form-control" placeholder="Jane Doe" id="description" required> 
-					</div>
-					<div class="form-group">
-						<label for="time">Time:</label><br/>
-						<input size="16" type="text" readonly class="form_datetime" id="time" required>
 					</div>
 				</div>
 				<div class="modal-footer">
