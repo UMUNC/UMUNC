@@ -1,0 +1,4 @@
+*.pyc
+setting.py
+umunc_static/templates/umunc_cheetah/root.html
+
