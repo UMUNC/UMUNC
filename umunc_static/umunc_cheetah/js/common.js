@@ -1,34 +1,211 @@
-var communication_number;
-var heartbeat,heartbeat2,heartbeat3,heartbeat4;
-var meeting_count;
-var communication_count_simple = new Array();
+var identifier_communication,identifier_meeting;
+var identifier_communication_static,identifier_meeting_static;
+var status_communication_count = new Array();
+var status_communication;
+var heartbeat_handle,heartbeat_handle_time;
+var heartbeat_command = 1;
 var vtime_base = 0,vtime_check = 0,vtime_step = 1;
-var screen_lock=false;
-function meeting_refresh(){
-	clearTimeout(heartbeat2);
+
+function refresh(){
+	clearTimeout(heartbeat_handle);
+	Messenger().post("Receive refresh command. Page will be upgraded in 10 seconds.");
+	heartbeat_handle=setTimeout("location.reload(true)",10000);
+};
+
+function communication_refresh(){
+  	var disable_screenlock = arguments[0] ? arguments[0] : false;
+	var today=new Date();
+	identifier_communication=today.getTime();
+	identifier_communication_static=today.getTime();
 	$.ajax({
-		url: "/cheetah/datacontrol/meeting/",
+		url: "/cheetah/datacontrol/heartbeat/",
 		data: {
-			command:"GetHeartBeat"
+			command:"GetCommunication",
+			number:status_communication
 		},
 		success: function(data,status){
+			if (identifier_communication_static!=identifier_communication){
+				return;
+			};
 			if (data.result=="success"){
-				meeting_count=data.count
-				$("#main_panel #top_panel #Meetings #meeting_list tbody").html(data.meeting);
-				//Messenger().post("Meeting has been updated.");
+				if ((data.room.Block==true)&&(data.staff==false)){
+					$("#main_panel #top_panel #Communications .panel-footer input#content").attr("disabled","disabled");
+					$("#main_panel #top_panel #Communications .panel-footer button").attr("disabled","disabled");
+				}else{
+					$("#main_panel #top_panel #Communications .panel-footer input#content").removeAttr("disabled");
+					$("#main_panel #top_panel #Communications .panel-footer button").removeAttr("disabled");						
+				};
+				var height_delta=$("#main_panel #top_panel #Communications .panel-body div").height()-$("#main_panel #top_panel #Communications .panel-body").scrollTop();
+				$("#main_panel #top_panel #Communications .panel-heading h3").html(data.room.Name);
+				$("#main_panel #top_panel #Communications .panel-body").html(data.messages);
+				$('[data-toggle="tooltip"]').tooltip();
+            	$("#main_panel #top_panel #Communications .panel-body").animate({"scrollTop": $("#main_panel #top_panel #Communications .panel-body div").height()-height_delta}, "slow");
+			}else{
+				$("#main_panel #top_panel #Communications .panel-footer input#content").attr("disabled","disabled");
+				$("#main_panel #top_panel #Communications .panel-footer button").attr("disabled","disabled");
+				$("#main_panel #top_panel #Communications .panel-body").html(data.result);
 			};
 			$('#loaddialog').modal('hide');
-			heartbeat2=setTimeout("meeting_refresh()",3000);
 		},
 		error: function(){
-			clearTimeout(heartbeat2);
 			Messenger().post("System error. Page will be upgraded.");
-			Messenger().post("Receive refresh command. Page will be upgraded in 10 seconds.");
-			heartbeat=setTimeout("location.reload(true)",10000);
+			refresh();
 		},
 		dataType: 'json'
 	});
 };
+
+function meeting_refresh(){
+	identifier_meeting_static=identifier_meeting;
+	$.ajax({
+		url: "/cheetah/datacontrol/heartbeat/",
+		data: {
+			command:"GetMeeting"
+		},
+		success: function(data,status){
+			if (identifier_meeting_static!=identifier_meeting){
+				return;
+			};
+			if (data.result=="success"){
+				$("#main_panel #top_panel #Meetings #meeting_list tbody").html(data.meeting);
+			};
+			$('#loaddialog').modal('hide');
+		},
+		error: function(){
+			Messenger().post("System error. Page will be upgraded.");
+			refresh();
+		},
+		dataType: 'json'
+	});
+};
+
+function heartbeat(){
+	clearTimeout(heartbeat_handle);
+	$.ajax({
+		url: "/cheetah/datacontrol/heartbeat/",
+		data: {
+			command:"GetHeartBeat"
+		},
+		success: function(data,status){
+			if (data.messages=="REFRESH"){
+				refresh();
+				return
+			};
+			var communication_has_new=false,meeting_has_new=false;
+			if (heartbeat_command==0){
+				$(data.communication).each(function(index,element){
+					if (element.id==status_communication){
+						$("#main_panel #top_panel #Communications #communication_list a#"+element.name+" #new_message").html("");
+						if (element.count!=status_communication_count[element.id]){
+							communication_refresh()
+							communication_has_new=true;
+						};
+						status_communication_count[element.id]=element.count;
+					};
+					if ((element.id!=status_communication)&&(element.count!=status_communication_count[element.id])){
+						communication_has_new=$("#main_panel #top_panel #Communications #communication_list a#"+element.name+" #new_message").html()!=element.count-status_communication_count[element.id];
+						$("#main_panel #top_panel #Communications #communication_list a#"+element.name+" #new_message").html(element.count-status_communication_count[element.id]);
+					}else{
+						$("#main_panel #top_panel #Communications #communication_list a#"+element.name+" #new_message").html("");
+					};
+				});
+				if (identifier_meeting!=data.meeting){
+					identifier_meeting=data.meeting;
+					meeting_refresh();
+					meeting_has_new=true;
+				};
+				if (!((vtime_base==data.virtualtime.vtime_base) && (vtime_check==data.virtualtime.vtime_check) && (vtime_step==data.virtualtime.vtime_step))){
+					vtime_base=data.virtualtime.vtime_base;
+					vtime_check=data.virtualtime.vtime_check;
+					vtime_step=data.virtualtime.vtime_step;
+				};
+			};
+			if (heartbeat_command==1){
+				$("#main_panel #top_panel #Communications #communication_list a #new_message").html("");
+				$(data.communication).each(function(index,element){
+					status_communication_count[element.id]=element.count;
+					if (element.id==status_communication){
+						communication_refresh();
+					};
+				});
+				heartbeat_handle=setTimeout("heartbeat()",3000);
+				if (identifier_meeting!=data.meeting){
+					identifier_meeting=data.meeting;
+					meeting_refresh();
+				};
+				if (!((vtime_base==data.virtualtime.vtime_base) && (vtime_check==data.virtualtime.vtime_check) && (vtime_step==data.virtualtime.vtime_step))){
+					vtime_base=data.virtualtime.vtime_base;
+					vtime_check=data.virtualtime.vtime_check;
+					vtime_step=data.virtualtime.vtime_step;
+				};
+			};
+			if (heartbeat_command==2){
+				$(data.communication).each(function(index,element){
+					if (element.id==status_communication){
+						$("#main_panel #top_panel #Communications #communication_list a#"+element.name+" #new_message").html("");
+						if (element.count!=status_communication_count[element.id]){
+							communication_refresh()
+						};
+						status_communication_count[element.id]=element.count;
+					};
+				});
+			};
+			if (communication_has_new){
+				Messenger().post("New message received.");
+			};
+			if (meeting_has_new){
+				Messenger().post("New meeting change received.");
+			};
+			if (communication_has_new | meeting_has_new){
+				$('#chatAudio')[0].play();
+			};
+			heartbeat_command=0;
+			heartbeat_handle=setTimeout("heartbeat()",3000);
+		},
+		error: function(){
+			Messenger().post("System error. Page will be upgraded.");
+			refresh();
+		},
+		dataType: 'json'
+	});
+};
+
+function communication_fresh(number){
+	$('#loaddialog').modal('show');
+	clearTimeout(heartbeat_handle);
+	$("#main_panel #top_panel #Communications .list-group a").removeClass("active");
+	$("#main_panel #top_panel #Communications .list-group a#communication_btn_"+number).addClass("active");
+	$("#main_panel #top_panel #Communications .panel-heading h3").html('Loading');
+	$("#main_panel #top_panel #Communications .panel-body").html("Loading");
+	status_communication=number;
+	status_communication_count[status_communication]=-1;
+	if (heartbeat_command==0){heartbeat_command=2};
+	heartbeat();
+};
+
+function meeting_change(user_number,number,accept){
+	$.ajax({
+		url: "/cheetah/datacontrol/meeting/",
+		data: {
+			command:"PostChange",
+			user_number:user_number,
+			number:number,
+			accept:accept,
+			csrfmiddlewaretoken:$("#main_panel #top_panel #Communications #form_communication_send [name='csrfmiddlewaretoken']").val()
+		},
+		success: function(data,status){
+			if (data.result=="success"){
+				$('#loaddialog').modal('show');
+				heartbeat();
+			}else{
+				alert("失败："+data.result);
+			};
+		},
+		dataType: 'json',
+		type: 'POST'
+	});
+};
+
 function startTime()
 {
 	function checkTime(i)
@@ -51,7 +228,7 @@ function startTime()
 		s=checkTime(s)
 		return Y+"-"+M+"-"+D+" "+h+":"+m+":"+s
 	}
-	clearTimeout(heartbeat4);
+	clearTimeout(heartbeat_handle_time);
 	var today=new Date();
 	var vtoday=new Date();
 	vtoday.setTime((today.getTime()-vtime_base)*vtime_step+vtime_check);
@@ -61,141 +238,9 @@ function startTime()
 		"Real: "+formatTime(today)+"<br/>Vitual: "+formatTime(vtoday)+
 		"<br/>BaseTime: "+vtime_base+"<br/>VitualBaseTime: "+vtime_check+
 		"<br/>TimeStep: "+vtime_step);
-	heartbeat4=setTimeout('startTime()',100)
+	heartbeat_handle_time=setTimeout('startTime()',100)
 }
-function time_refresh(){
-	clearTimeout(heartbeat3);
-	$.ajax({
-		url: "/cheetah/datacontrol/time/",
-		success: function(data,status){
-			if (!((vtime_base==data.vtime_base) && (vtime_check==data.vtime_check) && (vtime_step==data.vtime_step))){
-				vtime_base=data.vtime_base;
-				vtime_check=data.vtime_check;
-				vtime_step=data.vtime_step;
-				startTime();
-			};
-		},
-		dataType: 'json'
-	});
-	heartbeat3=setTimeout("time_refresh()",30000);
-};
-function communication_refresh_simple(){
-  	var refresh_simple = arguments[0] ? arguments[0] : false;
-	clearTimeout(heartbeat);
-	$.ajax({
-		url: "/cheetah/datacontrol/communication/",
-		data: {
-			command:"GetHeartBeatSimple"
-		},
-		success: function(data,status){
-			if (data.messages=="REFRESH"){
-				Messenger().post("Receive refresh command. Page will be upgraded in 10 seconds.");
-				heartbeat=setTimeout("location.reload(true)",10000);
-				return
-			};
-			if (refresh_simple){
-				$("#main_panel #top_panel #Communications #communication_list a #new_message").html("");
-				$(data).each(function(index,element){
-					communication_count_simple[element.id]=element.count;
-				});
-				return
-			};
-			$(data).each(function(index,element){
-				if (element.id==communication_number){
-					$("#main_panel #top_panel #Communications #communication_list a#"+element.name+" #new_message").html("");
-					if (element.count!=communication_count_simple[element.id]){communication_refresh()};
-					communication_count_simple[element.id]=element.count;
-				}
-				if ((element.id!=communication_number)&&(element.count!=communication_count_simple[element.id])){
-					$("#main_panel #top_panel #Communications #communication_list a#"+element.name+" #new_message").html(element.count-communication_count_simple[element.id]);
-				}else{
-					$("#main_panel #top_panel #Communications #communication_list a#"+element.name+" #new_message").html("");
-				};
-			});
-			heartbeat=setTimeout("communication_refresh_simple()",2000);
-		},
-		error: function(){
-			Messenger().post("System error. Page will be upgraded.");
-			Messenger().post("Receive refresh command. Page will be upgraded in 10 seconds.");
-			heartbeat=setTimeout("location.reload(true)",10000);
-		},
-		dataType: 'json'
-	});
-};
-function communication_refresh(){
-  	var disable_screenlock = arguments[0] ? arguments[0] : false;
-	$.ajax({
-		url: "/cheetah/datacontrol/communication/",
-		data: {
-			command:"GetHeartBeat",
-			number:communication_number
-		},
-		success: function(data,status){
-			if (data.result=="success"){
-				if (screen_lock&&!disable_screenlock){return};
-				screen_lock=false;
-				if ((data.room.Block==true)&&(data.staff==false)){
-					$("#main_panel #top_panel #Communications .panel-footer input#content").attr("disabled","disabled");
-					$("#main_panel #top_panel #Communications .panel-footer button").attr("disabled","disabled");
-				}else{
-					$("#main_panel #top_panel #Communications .panel-footer input#content").removeAttr("disabled");
-					$("#main_panel #top_panel #Communications .panel-footer button").removeAttr("disabled");						
-				};
-				var height_delta=$("#main_panel #top_panel #Communications .panel-body div").height()-$("#main_panel #top_panel #Communications .panel-body").scrollTop();
-				$("#main_panel #top_panel #Communications .panel-heading h3").html(data.room.Name);
-				$("#main_panel #top_panel #Communications .panel-body").html(data.messages);
-				$('[data-toggle="tooltip"]').tooltip();
-				$("#main_panel #top_panel #Communications .panel-body").scrollTop($("#main_panel #top_panel #Communications .panel-body div").height()-height_delta);
-			}else{
-				$("#main_panel #top_panel #Communications .panel-footer input#content").attr("disabled","disabled");
-				$("#main_panel #top_panel #Communications .panel-footer button").attr("disabled","disabled");
-				$("#main_panel #top_panel #Communications .panel-body").html(data.result);
-			};
-			$('#loaddialog').modal('hide');
-		},
-		error: function(){
-			Messenger().post("System error. Page will be upgraded.");
-			Messenger().post("Receive refresh command. Page will be upgraded in 10 seconds.");
-			heartbeat=setTimeout("location.reload(true)",10000);
-		},
-		dataType: 'json'
-	});
-};
-function communication_fresh(number){
-	screen_lock=true;
-	$('#loaddialog').modal('show');
-	clearTimeout(heartbeat);
-	$("#main_panel #top_panel #Communications .list-group a").removeClass("active");
-	$("#main_panel #top_panel #Communications .list-group a#communication_btn_"+number).addClass("active");
-	communication_number=number;
-	$("#main_panel #top_panel #Communications .panel-heading h3").html('Loading');
-	$("#main_panel #top_panel #Communications .panel-body").html("Loading");
-	communication_refresh(true);
-	communication_refresh_simple();
-};
-function meeting_change(user_number,number,accept){
-	$.ajax({
-		url: "/cheetah/datacontrol/meeting/",
-		data: {
-			command:"PostChange",
-			user_number:user_number,
-			number:number,
-			accept:accept,
-			csrfmiddlewaretoken:$("#main_panel #top_panel #Communications #form_communication_send [name='csrfmiddlewaretoken']").val()
-		},
-		success: function(data,status){
-			if (data.result=="success"){
-				meeting_count=0;
-				$('#loaddialog').modal('show');
-				meeting_refresh();
-			}else{
-				alert("失败："+data.result);
-			};
-		},
-		dataType: 'json',
-		type: 'POST'
-	});
-};
+
 $(function(){
 	$.backstretch([
 		"/static/umunc_cheetah/image/bg_1.jpg",
@@ -211,12 +256,12 @@ $(function(){
 		show: false,
 	});
 	Messenger.options = {
-		extraClasses: 'messenger-fixed messenger-on-top',
+		extraClasses: 'messenger-fixed messenger-on-top messenger-on-right',
 		theme: 'air'
 	};
 	var date=new Date();
 	$(".form_datetime").val(date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes());
-	$(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii',todayHighlight:true,todayBtn:true});
+	$(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii',todayHighlight:true,todayBtn:true,autoclose:true});
 	$("#myModal,#setting_time_modal").on("show.bs.modal",function(){$('body').scrollTop(0)});
 	$("#main_panel #top_panel #Communications #form_communication_send").submit(function(){
 		if($("#main_panel #top_panel #Communications #form_communication_send input#content").val()=="FROM:… TO:…"){
@@ -229,7 +274,7 @@ $(function(){
 			url: "/cheetah/datacontrol/communication/",
 			data: {
 				command:"PostSend",
-				number:communication_number,
+				number:status_communication,
 				system:$("#main_panel #top_panel #Communications #form_communication_send input#system").prop("checked"),
 				content:$("#main_panel #top_panel #Communications #form_communication_send input#content").val(),
 				csrfmiddlewaretoken:$("#main_panel #top_panel #Communications #form_communication_send [name='csrfmiddlewaretoken']").val()
@@ -237,7 +282,8 @@ $(function(){
 			success: function(data,status){
 				if (data.result=="success"){
 					$("#main_panel #top_panel #Communications #form_communication_send input#content").val("FROM:… TO:…");
-					communication_refresh();
+					heartbeat_command=2;
+					heartbeat();
 				}else{
 					alert("发送失败："+data.result);
 				};
@@ -261,6 +307,7 @@ $(function(){
 					$("#form_communication_send_all *").removeAttr("disabled");
 					$("#form_communication_send_all #content").val("");
 					$('#communication_send_all_modal').modal('hide');
+					heartbeat();
 				}else{
 					alert("发送失败："+data.result);
 					$("#form_communication_send_all *").removeAttr("disabled");
@@ -270,6 +317,58 @@ $(function(){
 			type: 'POST'
 		});
 		$("#form_communication_send_all *").attr("disabled","disabled");
+		return false;
+	});
+	$("#main_panel #top_panel #Communications #block").click(function(){
+		$.ajax({
+			url: "/cheetah/datacontrol/communication/",
+			data: {
+				command:"PostBlock",
+				number:status_communication,
+				csrfmiddlewaretoken:$("#main_panel #top_panel #Communications #form_communication_send [name='csrfmiddlewaretoken']").val()
+			},
+			success: function(data,status){
+				if (data.result=="success"){
+					heartbeat_command=2;
+					heartbeat();
+				}else{
+					alert("失败："+data.result);
+				};
+			},
+			dataType: 'json',
+			type: 'POST'
+		});
+		return false;
+	});
+	$("#form_meeting_send").submit(function(){
+		$.ajax({
+			url: "/cheetah/datacontrol/meeting/",
+			data: {
+				command:"PostSend",
+				host:$("#form_meeting_send #host").val(),
+				to:$("#form_meeting_send #to").val(),
+				location:$("#form_meeting_send #location").val(),
+				description:$("#form_meeting_send #description").val(),
+				time:$("#form_meeting_send #time").val(),
+				csrfmiddlewaretoken:$("#main_panel #top_panel #Communications #form_communication_send [name='csrfmiddlewaretoken']").val()
+			},
+			success: function(data,status){
+				if (data.result=="success"){
+					$("#form_meeting_send *").removeAttr("disabled");
+					$("#form_meeting_send #location").val("");
+					$("#form_meeting_send #description").val("");
+					$('#myModal').modal('hide');
+					$('#loaddialog').modal('show');
+					heartbeat();
+				}else{
+					alert("发送失败："+data.result);
+					$("#form_meeting_send *").removeAttr("disabled");
+				};
+			},
+			dataType: 'json',
+			type: 'POST'
+		});
+		$("#form_meeting_send *").attr("disabled","disabled");
 		return false;
 	});
 	$("#form_setting_time").submit(function(){
@@ -304,57 +403,6 @@ $(function(){
 			type: 'POST'
 		});
 		$("#form_setting_time *").attr("disabled","disabled");
-		return false;
-	});
-	$("#form_meeting_send").submit(function(){
-		$.ajax({
-			url: "/cheetah/datacontrol/meeting/",
-			data: {
-				command:"PostSend",
-				host:$("#form_meeting_send #host").val(),
-				to:$("#form_meeting_send #to").val(),
-				location:$("#form_meeting_send #location").val(),
-				description:$("#form_meeting_send #description").val(),
-				time:$("#form_meeting_send #time").val(),
-				csrfmiddlewaretoken:$("#main_panel #top_panel #Communications #form_communication_send [name='csrfmiddlewaretoken']").val()
-			},
-			success: function(data,status){
-				if (data.result=="success"){
-					$("#form_meeting_send *").removeAttr("disabled");
-					$("#form_meeting_send #location").val("");
-					$("#form_meeting_send #description").val("");
-					$('#myModal').modal('hide');
-					$('#loaddialog').modal('show');
-					meeting_refresh();
-				}else{
-					alert("发送失败："+data.result);
-					$("#form_meeting_send *").removeAttr("disabled");
-				};
-			},
-			dataType: 'json',
-			type: 'POST'
-		});
-		$("#form_meeting_send *").attr("disabled","disabled");
-		return false;
-	});
-	$("#main_panel #top_panel #Communications #block").click(function(){
-		$.ajax({
-			url: "/cheetah/datacontrol/communication/",
-			data: {
-				command:"PostBlock",
-				number:communication_number,
-				csrfmiddlewaretoken:$("#main_panel #top_panel #Communications #form_communication_send [name='csrfmiddlewaretoken']").val()
-			},
-			success: function(data,status){
-				if (data.result=="success"){
-					communication_refresh();
-				}else{
-					alert("失败："+data.result);
-				};
-			},
-			dataType: 'json',
-			type: 'POST'
-		});
 		return false;
 	});
 	$("#main_panel #top_panel #Settings #cache_clear_submit").click(function(){
@@ -428,10 +476,11 @@ $(function(){
 		});
 		return false;
 	});
-	meeting_count=0;
-	meeting_refresh();
-	time_refresh();
-	communication_refresh_simple(true);
+	// meeting_count=0;
+	// meeting_refresh();
+	startTime();
+	// communication_refresh_simple(true);
 	$("#main_panel #top_panel #Communications .list-group a:first").click();
-    if ($("#communication_list").parent().height()>$("#Communications .panel").height()){$("#Communications .panel .panel-body").css("height",$("#communication_list").parent().height()-121)};
+	if ($("#communication_list").parent().height()>$("#Communications .panel").height()){$("#Communications .panel .panel-body").css("height",$("#communication_list").parent().height()-121)};
+	$("body").append('<audio id="chatAudio"><source src="/static/umunc_cheetah/sound/notify.mp3" type="audio/mpeg"><source src="/static/umunc_cheetah/sound/notify.wav" type="audio/wav"></audio>');
 }) 

@@ -5,6 +5,7 @@ from umunc.part_upload import upload
 
 urlpatterns = patterns('',
     (r'^$', default),
+    (r'^datacontrol/heartbeat/$', datacontrol_heartbeat),
     (r'^datacontrol/communication/$', datacontrol_communication),
     (r'^datacontrol/meeting/$', datacontrol_meeting),
     (r'^datacontrol/file/$', datacontrol_file),

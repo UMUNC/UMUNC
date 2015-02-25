@@ -31,10 +31,10 @@ def default(request):
 		'rooms_a':response_rooms_a,
 		},context_instance=RequestContext(request))
 
-def refresh_simple():
+def refresh_communication_list():
 	response_rooms=room.objects.all()
-	ttemplate = get_template('umunc_cheetah/datacontrol_communication_simple.html')
-	cache.set('umunc_cheetah_communication_simple',ttemplate.render(Context({'rooms':response_rooms})))
+	ttemplate = get_template('umunc_cheetah/datacontrol_communication_list.html')
+	cache.set('umunc_cheetah_communication_list',ttemplate.render(Context({'rooms':response_rooms})))
 
 def refresh_communiaction(troom,request,number):
 	response_messages=message.objects.filter(ToU=troom)
@@ -45,29 +45,43 @@ def refresh_communiaction(troom,request,number):
 		'room':{'Name':troom.Name,'Block':troom.Block,},
 		'staff':request.user.is_staff,
 		'count':response_messages.count(),
-		},ensure_ascii=False),60*15)
-	refresh_simple()
+		},ensure_ascii=False),None)
+	refresh_communication_list()
 
-def refresh_meeting(request,number):
-	if request.user.is_staff:
+def refresh_meeting(user,number):
+	if user.is_staff:
 		response_meetings=meeting.objects.all()
 	else:
-		response_meetings=meeting.objects.filter(Q(FromC=request.user.profile.Country)|Q(ToC=request.user.profile.Country))
+		response_meetings=meeting.objects.filter(Q(FromC=user.profile.Country)|Q(ToC=user.profile.Country))
 	ttemplate = get_template('umunc_cheetah/datacontrol_meeting.html')
 	cache.set('umunc_cheetah_meeting_'+number, simplejson.dumps({
 				'result':'success',
-				'meeting':ttemplate.render(Context({'meetings': response_meetings,'user':request.user})),
+				'meeting':ttemplate.render(Context({'meetings': response_meetings,'user':user})),
 				'count':response_meetings.count(),
-				},ensure_ascii=False),60*15)
+				},ensure_ascii=False),None)
+
+def refresh_meeting_list(user,number):
+	cache.set('umunc_cheetah_meeting_'+number+'_list',str(time.time())+',',None)
 
 def refresh_meeting_couple(fcountry,tcountry,request):
 	cache.delete('umunc_cheetah_meeting_'+str(fcountry.id))
 	cache.delete('umunc_cheetah_meeting_'+str(tcountry.id))
-	tcountries=country.objects.all()
-	cache.delete('umunc_cheetah_meeting_'+str(0)+'_A')
 	cache.delete('umunc_cheetah_meeting_'+str(0))
+	cache.delete('umunc_cheetah_meeting_'+str(0)+'_A')
+	cache.delete('umunc_cheetah_meeting_'+str(fcountry.id)+'_list')
+	cache.delete('umunc_cheetah_meeting_'+str(tcountry.id)+'_list')
+	cache.delete('umunc_cheetah_meeting_'+str(0)+'_list')
+	cache.delete('umunc_cheetah_meeting_'+str(0)+'_A'+'_list')
+	tcountries=country.objects.all()
 	for tcountry in tcountries:
 		cache.delete('umunc_cheetah_meeting_'+str(tcountry.id)+'_A')
+		cache.delete('umunc_cheetah_meeting_'+str(tcountry.id)+'_A'+'_list')
+
+def refresh_virtualtime():
+	destination = open('/www/cache/cheetah/time','r')
+	t=destination.readline()
+	destination.close()
+	cache.set('umunc_cheetah_virtualtime', t,None)
 
 def check_refresh():
 	destination = open('/www/cache/cheetah/refresh','r')
@@ -76,24 +90,59 @@ def check_refresh():
 	return t[:7]
 
 @login_required
-def datacontrol_communication(request):
-	response_rooms=room.objects.all()
+def datacontrol_heartbeat(request):
 	if request.GET.has_key('command'):
-		if request.GET['command']=='GetHeartBeat' and request.GET.has_key('number'):
+		if request.GET['command']=='GetHeartBeat':
+			if check_refresh()=='REFRESH':
+				return HttpResponse(simplejson.dumps({
+				'messages':'REFRESH',},ensure_ascii=False),None)
+			if cache.get('umunc_cheetah_communication_list')==None:
+				refresh_communication_list()
+			if request.user.is_staff:
+				if request.user.profile.Country:
+					number=str(request.user.profile.Country.id)+'_A'
+				else:
+					number=str(0)+'_A'
+			else:
+				if request.user.profile.Country:
+					number=str(request.user.profile.Country.id)
+				else:
+					number=str(0)
+			if cache.get('umunc_cheetah_meeting_'+number+'_list')==None:
+				refresh_meeting_list(request.user,number)
+			if cache.get('umunc_cheetah_virtualtime')==None:
+				refresh_virtualtime()
+			return HttpResponse(
+				'{"communication":'+cache.get('umunc_cheetah_communication_list')+
+				'"meeting":'+cache.get('umunc_cheetah_meeting_'+number+'_list')+
+				'"virtualtime":'+cache.get('umunc_cheetah_virtualtime')+
+				'}')
+		if request.GET['command']=='GetCommunication' and request.GET.has_key('number'):
 			troom=room.objects.get(id=request.GET['number'])
 			if not (request.user in troom.User.all()):
 				return HttpResponse(simplejson.dumps({'result':'通讯房间无权进入。',},ensure_ascii=False))
 			if cache.get('umunc_cheetah_communication_'+request.GET['number'])==None:
 				refresh_communiaction(troom,request,request.GET['number'])
 			return HttpResponse(cache.get('umunc_cheetah_communication_'+request.GET['number']))
-		if request.GET['command']=='GetHeartBeatSimple':
-			if check_refresh()=='REFRESH':
-				return HttpResponse(simplejson.dumps({
-				'messages':'REFRESH',},ensure_ascii=False),60*15)
-			if cache.get('umunc_cheetah_communication_simple')==None:
-				refresh_simple()
-			return HttpResponse(cache.get('umunc_cheetah_communication_simple'))
+		if request.GET['command']=='GetMeeting':
+			if request.user.is_staff:
+				if request.user.profile.Country:
+					number=str(request.user.profile.Country.id)+'_A'
+				else:
+					number=str(0)+'_A'
+			else:
+				if request.user.profile.Country:
+					number=str(request.user.profile.Country.id)
+				else:
+					number=str(0)
+			if cache.get('umunc_cheetah_meeting_'+number)==None:
+				refresh_meeting(request.user,number)
+			return HttpResponse(cache.get('umunc_cheetah_meeting_'+number))
 
+
+@login_required
+def datacontrol_communication(request):
+	response_rooms=room.objects.all()
 	if request.POST.has_key('command'):
 		if request.POST['command']=='PostSend' and request.POST.has_key('system') and request.POST.has_key('number') and request.POST.has_key('content'):
 			troom=room.objects.get(id=request.POST['number'])
@@ -158,22 +207,6 @@ def datacontrol_communication(request):
 @login_required
 def datacontrol_meeting(request):
 	response_rooms=room.objects.all()
-	if request.GET.has_key('command'):
-		if request.GET['command']=='GetHeartBeat':
-			if request.user.is_staff:
-				if request.user.profile.Country:
-					number=str(request.user.profile.Country.id)+'_A'
-				else:
-					number=str(0)+'_A'
-			else:
-				if request.user.profile.Country:
-					number=str(request.user.profile.Country.id)
-				else:
-					number=str(0)
-			if cache.get('umunc_cheetah_meeting_'+number)==None:
-				refresh_meeting(request,number)
-			return HttpResponse(cache.get('umunc_cheetah_meeting_'+number))
-
 	if request.POST.has_key('command'):
 		if request.POST['command']=='PostSend' and request.POST.has_key('host') and request.POST.has_key('to') and request.POST.has_key('location') and request.POST.has_key('time') and request.POST.has_key('description'):
 			fcountry=country.objects.get(id=request.POST['host'])

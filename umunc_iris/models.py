@@ -22,6 +22,7 @@ class country(models.Model):
 
 class profile(models.Model):
 	User=models.OneToOneField(User,verbose_name='账户')
+	Init=models.BooleanField(default=False,verbose_name='初始化')
 	Group=models.ForeignKey(group,blank=True,null=True,verbose_name='团队')
 	Leader=models.BooleanField(default=False,verbose_name=' 领队')
 	Name=models.CharField(max_length=255,blank=True,verbose_name="姓名")
