@@ -5,11 +5,12 @@ var status_communication;
 var heartbeat_handle,heartbeat_handle_time;
 var heartbeat_command = 1;
 var vtime_base = 0,vtime_check = 0,vtime_step = 1;
+var control_sound = true;
 
 function refresh(){
 	clearTimeout(heartbeat_handle);
-	Messenger().post("Receive refresh command. Page will be upgraded in 10 seconds.");
-	heartbeat_handle=setTimeout("location.reload(true)",10000);
+	Messenger().post("接收到刷新指令，页面将在20秒内刷新。");
+	heartbeat_handle=setTimeout("location.reload(true)",20000);
 };
 
 function communication_refresh(){
@@ -151,13 +152,13 @@ function heartbeat(){
 				});
 			};
 			if (communication_has_new){
-				Messenger().post("New message received.");
+				Messenger().post("收到新消息。");
 			};
 			if (meeting_has_new){
-				Messenger().post("New meeting change received.");
+				Messenger().post("收到meeting更新。");
 			};
 			if (communication_has_new | meeting_has_new){
-				$('#chatAudio')[0].play();
+				if (control_sound){$('#chatAudio')[0].play();};
 			};
 			heartbeat_command=0;
 			heartbeat_handle=setTimeout("heartbeat()",3000);
@@ -476,10 +477,15 @@ $(function(){
 		});
 		return false;
 	});
-	// meeting_count=0;
-	// meeting_refresh();
+	$("#control_sound").click(function(){
+		control_sound=!control_sound;
+		if (control_sound){
+			$("#control_sound").html("关闭声音");
+		}else{
+			$("#control_sound").html("开启声音");
+		};
+	});
 	startTime();
-	// communication_refresh_simple(true);
 	$("#main_panel #top_panel #Communications .list-group a:first").click();
 	if ($("#communication_list").parent().height()>$("#Communications .panel").height()){$("#Communications .panel .panel-body").css("height",$("#communication_list").parent().height()-121)};
 	$("body").append('<audio id="chatAudio"><source src="/static/umunc_cheetah/sound/notify.mp3" type="audio/mpeg"><source src="/static/umunc_cheetah/sound/notify.wav" type="audio/wav"></audio>');
