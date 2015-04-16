@@ -1,0 +1,30 @@
+{% extends "root.html" %}
+
+{% block Rtitle %}{% block title %}{% endblock %} - IRIS{% endblock %}
+
+{% block Rcss %}
+	<link href="/static/umunc/css/common.css" rel="stylesheet">
+	{% block css %}{% endblock %}
+{% endblock %}
+
+{% block Rbody %}
+ 	<div class="container">
+ 		<div class="row">
+ 			<div class="col-md-12">
+ 				<img id="umunclogo" src="/static/common/image/UMUNC-logo.png"/>
+ 			</div>
+ 		</div>
+ 	</div>
+ 	<div class="container">
+ 		<div class="row">
+ 			<div class="col-md-12">
+ 			{% block body %}{% endblock %}
+ 			</div>
+ 		</div>
+ 	</div>
+{% endblock %}
+
+{% block Rjs %}
+	<script src="/static/common/js/jquery.backstretch.min.js"></script>
+	{% block js %}{% endblock %}
+{% endblock %}

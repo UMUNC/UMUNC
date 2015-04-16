@@ -48,34 +48,15 @@ class profile(models.Model):
 	MunJoined=models.BooleanField(default=False,verbose_name='参与过UMUNC')
 	MunJoinedC=models.CharField(max_length=255,verbose_name="参与过的UMUNC会议",blank=True)
 	Commitee=models.IntegerField(verbose_name='志愿',choices=(
-		('西南',(
+		('2015总会',(
 				(1,'联动体系 - 国家内阁'),
 				(2,'联动体系 - 联合国安全理事会'),
 				(3,'联动体系 - 主新闻中心'),
 				(4,'联动体系 - 联合国秘书处'),
 				(5,'欧洲体系 - 欧盟委员会'),
 				(6,'欧洲体系 - 欧盟理事会'),
-				(7,'GAUS - United Security Council'),
-				(8,'GAUS - United Nations General Assembly 1st Committee - Disarmament and International Security Committee'),
-				(9,'独立会场 - 世界旅游旅行大会'),
-			)
-		),
-		('西北',(
-				(10,'联动体系 - 国家内阁'),
-				(11,'联动体系 - 东盟10+3峰会'),
-				(12,'联动体系 - 主新闻中心'),
-				(13,'联动体系 - 联合国秘书处'),
-				(14,'独立会场 - 欧洲安全与合作组织部长级会议'),
-				(15,'Independent Committee - United Nations General Assembly 1st Committee - Disarmament and International Security Committee'),
-			)
-		),
-		('华北',(
-				(16,'联动体系 - 国家内阁'),
-				(17,'联动体系 - 联合国安全理事会'),
-				(18,'联动体系 - 主新闻中心'),
-				(19,'联动体系 - 联合国秘书处'),
-				(20,'独立会场 - 联合国开发计划署'),
-				(21,'Independent Committee - United Nations General Assembly 3rd Committee - Social, Humanitarian and Culture Committee'),
+				(7,'General Assembly United System - United Nations Security Council'),
+				(8,'General Assembly United System - United Nations General Assembly 3rd Committee (SOCHUM)'),
 			)
 		),))
 	Country=models.ForeignKey(country,verbose_name="席位-所属国家",null=True,blank=True)

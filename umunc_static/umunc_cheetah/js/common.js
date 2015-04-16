@@ -234,9 +234,9 @@ function startTime()
 	var vtoday=new Date();
 	vtoday.setTime((today.getTime()-vtime_base)*vtime_step+vtime_check);
 	$("#main_panel #top_panel #Communications #time_panel p").html(
-		"Real: "+formatTime(today)+"<br/>Vitual: "+formatTime(vtoday));
+		"Real: "+formatTime(today)+"<br/>Virtual: "+formatTime(vtoday));
 	$("#main_panel #top_panel #Settings #setting_time_status").html(
-		"Real: "+formatTime(today)+"<br/>Vitual: "+formatTime(vtoday)+
+		"Real: "+formatTime(today)+"<br/>Virtual: "+formatTime(vtoday)+
 		"<br/>BaseTime: "+vtime_base+"<br/>VitualBaseTime: "+vtime_check+
 		"<br/>TimeStep: "+vtime_step);
 	heartbeat_handle_time=setTimeout('startTime()',100)

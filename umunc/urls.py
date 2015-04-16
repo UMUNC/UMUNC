@@ -7,11 +7,12 @@ admin.autodiscover()
 from part_upload import upload
 import umunc_iris.urls
 import umunc_cheetah.urls
+import view
 
 urlpatterns = patterns('',
     (r'^iris/', include(umunc_iris.urls)),
-    (r'^cheetah/', include(umunc_cheetah.urls)),
-    (r'^$', umunc_iris.view.test),
+    # (r'^cheetah/', include(umunc_cheetah.urls)),
+    (r'^default$', view.default),
     (r'^upload$', upload),
     
     # Examples:

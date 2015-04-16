@@ -158,9 +158,7 @@
 				<label for="commitee" class="col-sm-3 control-label">参会志愿 Choice of Conference</label>
 				<div class="col-sm-6 input-group">
 					<select class="form-control" id="conference" required>
-						<option value="1"{% if profile.Commitee >= 1 and profile.Commitee <= 9  %} selected{% endif %}>西南</option>
-						<option value="2"{% if profile.Commitee >= 10 and profile.Commitee <= 15  %} selected{% endif %}>西北</option>
-						<option value="3"{% if profile.Commitee >= 16 and profile.Commitee <= 21  %} selected{% endif %}>华北</option>
+						<option value="1"{% if profile.Commitee >= 1 and profile.Commitee <= 8  %} selected{% endif %}>2015总会</option>
 					</select>
 					<span class="fui-heart form-control-feedback"  for="commitee"></span>
 				</div>
@@ -169,31 +167,16 @@
 				<label for="commitee" class="col-sm-3 control-label">委员会志愿 Choice of Committee</label>
 				<div class="col-sm-6 input-group">
 					<select class="form-control" id="commitee" name="commitee" required>
-						{% if profile.Commitee >= 1 and profile.Commitee <= 9  %}
+						{% if profile.Commitee >= 1 and profile.Commitee <= 8  %}
 						<option value="1"{% ifequal profile.Commitee 1 %} selected{% endifequal %}>联动体系 - 国家内阁</option>
 						<option value="2"{% ifequal profile.Commitee 2 %} selected{% endifequal %}>联动体系 - 联合国安全理事会</option>
 						<option value="3"{% ifequal profile.Commitee 3 %} selected{% endifequal %}>联动体系 - 主新闻中心</option>
 						<option value="4"{% ifequal profile.Commitee 4 %} selected{% endifequal %}>联动体系 - 联合国秘书处</option>
 						<option value="5"{% ifequal profile.Commitee 5 %} selected{% endifequal %}>欧洲体系 - 欧盟委员会</option>
 						<option value="6"{% ifequal profile.Commitee 6 %} selected{% endifequal %}>欧洲体系 - 欧盟理事会</option>
-						<option value="7"{% ifequal profile.Commitee 7 %} selected{% endifequal %}>GAUS - United Security Council</option>
-						<option value="8"{% ifequal profile.Commitee 8 %} selected{% endifequal %}>GAUS - United Nations General Assembly 1st Committee - Disarmament and International Security Committee</option>
-						<option value="9"{% ifequal profile.Commitee 9 %} selected{% endifequal %}>独立会场 - 世界旅游旅行大会</option>
-						{% endif %}{% if profile.Commitee >= 10 and profile.Commitee <= 15  %}
-						<option value="10"{% ifequal profile.Commitee 10 %} selected{% endifequal %}>联动体系 - 国家内阁</option>
-						<option value="11"{% ifequal profile.Commitee 11 %} selected{% endifequal %}>联动体系 - 东盟10+3峰会</option>
-						<option value="12"{% ifequal profile.Commitee 12 %} selected{% endifequal %}>联动体系 - 主新闻中心</option>
-						<option value="13"{% ifequal profile.Commitee 13 %} selected{% endifequal %}>联动体系 - 联合国秘书处</option>
-						<option value="14"{% ifequal profile.Commitee 14 %} selected{% endifequal %}>独立会场 - 欧洲安全与合作组织部长级会议</option>
-						<option value="15"{% ifequal profile.Commitee 15 %} selected{% endifequal %}>Independent Committee - United Nations General Assembly 1st Committee - Disarmament and International Security Committee</option>
-						{% endif %}{% if profile.Commitee >= 16 and profile.Commitee <= 21  %}
-						<option value="16"{% ifequal profile.Commitee 16 %} selected{% endifequal %}>联动体系 - 国家内阁</option>
-						<option value="17"{% ifequal profile.Commitee 17 %} selected{% endifequal %}>联动体系 - 联合国安全理事会</option>
-						<option value="18"{% ifequal profile.Commitee 18 %} selected{% endifequal %}>联动体系 - 主新闻中心</option>
-						<option value="19"{% ifequal profile.Commitee 19 %} selected{% endifequal %}>联动体系 - 联合国秘书处</option>
-						<option value="20"{% ifequal profile.Commitee 20 %} selected{% endifequal %}>独立会场 - 联合国开发计划署</option>
-						<option value="21"{% ifequal profile.Commitee 21 %} selected{% endifequal %}>Independent Committee - United Nations General Assembly 3rd Committee - Social, Humanitarian and Culture Committee</option>
-						{% endif %}{
+						<option value="7"{% ifequal profile.Commitee 7 %} selected{% endifequal %}>General Assembly United System - United Nations Security Council</option>
+						<option value="8"{% ifequal profile.Commitee 8 %} selected{% endifequal %}>General Assembly United System - United Nations General Assembly 3rd Committee (SOCHUM)</option>
+						{% endif %}
 					</select>
 					<span class="fui-heart form-control-feedback"  for="commitee"></span>
 				</div>
