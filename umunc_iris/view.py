@@ -1,5 +1,5 @@
 #coding=utf-8
-import string, random
+import string, random, time
 from django.http import HttpResponseRedirect,HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
