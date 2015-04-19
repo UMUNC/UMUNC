@@ -24,7 +24,7 @@ def upload(request,path,filename,key):
 
 def upload_cheetah(request):
 	file_path='%s_%s' %(time.time(),string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 6)).replace(' ',''))
-	result=upload('/www/upload/cheetah/'+file_path,request.FILES['file'].name,'file')
+	result=upload(request,'/www/upload/cheetah/'+file_path,request.FILES['file'].name,'file')
 	if result:
 		return '/download/cheetah/'+file_path+'/'+request.FILES['file'].name
 	else:
@@ -35,7 +35,7 @@ def upload_page(request):
 		raise Http404
 	Rmsg=''
 	if request.method == 'POST':
-		result=upload('/www/upload',request.FILES['file'].name,'file')
+		result=upload(request,'/www/upload',request.FILES['file'].name,'file')
 		if result:
 			Rmsg='<a href="/download/'+request.FILES['upload_file'].name+'" target="_blank">http://www.umunc.net/download/'+request.FILES['upload_file'].name+'</a>'
 		else:
