@@ -252,7 +252,7 @@ def step3_download(request):
 		elif re.findall(r'[^.]+$',request.user.profile.Review)[-1].lower()=='pdf':
 			response = HttpResponse(wrapper, content_type='application/pdf')
 		response['Content-Encoding'] = 'utf-8'
-		response['Content-Disposition'] = 'attachment; filename=%s' % re.findall(r'[^/]+$',request.user.profile.Review)[-1]
+		response['Content-Disposition'] = 'attachment; filename=%s' % re.findall(r'[^/]+$',request.user.profile.Review)[-1].encode("utf-8")
 		return response 
 	else:
 		raise Http404
