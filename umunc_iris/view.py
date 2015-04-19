@@ -225,7 +225,7 @@ def step2(request):
 @login_required
 def step3(request):
 	Rmsg=''
-	if request.POST.has_key('submit'):
+	if request.FILES.has_key('upload_file'):
 		if request.FILES['upload_file'].size>(2*1024*1024):
 			Rmsg='文件过大！'
 		elif re.findall(r'[^.]+$',request.FILES['upload_file'].name.encode("utf-8"))[-1].lower() in ['doc','docx','pdf']:
@@ -233,6 +233,7 @@ def step3(request):
 			result=part_upload.upload(request,'/www/upload/review/'+file_path+'/',request.FILES['upload_file'].name.encode("utf-8"),'upload_file')
 			if result:
 				request.user.profile.Review=file_path+'/'+request.FILES['upload_file'].name.encode("utf-8")
+				request.user.profile.Status=5
 				request.user.profile.save()
 			else:
 				Rmsg='上传发生错误！'
@@ -245,11 +246,11 @@ def step3_download(request):
 	if request.user.profile.Review:
 		tarball_file = open('/www/upload/review/'+request.user.profile.Review.encode("utf-8"))
 		wrapper = FileWrapper(tarball_file)
-		if re.findall(r'[^.]+$',request.user.profile.Review)[-1].lower()=='doc':
+		if re.findall(r'[^.]+$',request.user.profile.Review)[-1].encode("utf-8").lower()=='doc':
 			response = HttpResponse(wrapper, content_type='application/msword')
-		elif re.findall(r'[^.]+$',request.user.profile.Review)[-1].lower()=='docx':
+		elif re.findall(r'[^.]+$',request.user.profile.Review)[-1].encode("utf-8").lower()=='docx':
 			response = HttpResponse(wrapper, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.template')
-		elif re.findall(r'[^.]+$',request.user.profile.Review)[-1].lower()=='pdf':
+		elif re.findall(r'[^.]+$',request.user.profile.Review)[-1].encode("utf-8").lower()=='pdf':
 			response = HttpResponse(wrapper, content_type='application/pdf')
 		response['Content-Encoding'] = 'utf-8'
 		response['Content-Disposition'] = 'attachment; filename=%s' % re.findall(r'[^/]+$',request.user.profile.Review)[-1].encode("utf-8")

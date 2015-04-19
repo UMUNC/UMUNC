@@ -10,7 +10,6 @@
 {% block body %}
 <form action="." method="post" class="form-horizontal" enctype="multipart/form-data"> 
 	{% csrf_token %}
-	<input type="hidden" id="submit" name="submit"  value="">
 	<div class="row">
 		<div class="well col-md-12" id="step3_panel">
 			<div class="row text-center">
@@ -20,7 +19,6 @@
 			<div class="row text-right">
 				<a class="btn btn-inverse btn-sm" href="/iris">Back</a>
 				{% ifequal profile.Status 4%}
-				<button class="btn btn-danger btn-sm" type="submit" id="savebutton">Save</button>
 				<button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#askModal">Submit</button>
 				{% endifequal %}
 				&nbsp;&nbsp;&nbsp;&nbsp;
@@ -42,48 +40,46 @@
 						<a class="btn btn-info btn-xs" href="/iris/step3/download_review" target="_blank">查看已上传文件</a>
 					{% endif %}
 				</p>
-				<input type="file" name="upload_file" id="upload_file" required/>
+				<input type="file" name="upload_file" id="upload_file"/>
 				<p class="help-block">Only PDF/DOC/DOCX file will be accepted. File limit: 2M</p>
 				<p>{{msg}}</p>
 			</div>
 			{% else %}
-			<br/>
-			<div class="well col-md-12">
-				<div class="col-md-6">测评作者：{{profile.Name}} ( [{{profile.User.id}}]{{profile.User.username}} )</div>
-				<div class="col-md-6 text-right">提交时间：{{review.TimeStamp}}</div>
-				<div class="col-md-12">
-					<p><hr /></p>
-					{{review.Content|safe}}
-				</div>
+			<div class="col-md-12">
+				<p>
+					报告上传
+					{% if profile.Review %}
+						<a class="btn btn-info btn-xs" href="/iris/step3/download_review" target="_blank">查看已上传文件</a>
+					{% endif %}
+				</p>
 			</div>
 			{% endifequal %}
 	</div>
-</form>
 
-<div class="modal fade" id="askModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<h4 class="modal-title" id="myModalLabel">提交确认</h4>
-			</div>
-			<div class="modal-body">
-				<p>请确认是否正式提交。</p>
-				<p>请注意：提交后将不再允许修改。</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" id="submitbutton">Yes</button>
+	<div class="modal fade" id="askModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="myModalLabel">提交确认</h4>
+				</div>
+				<div class="modal-body">
+					<p>请确认是否正式提交。</p>
+					<p>请注意：提交后将不再允许修改。</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary" id="submitbutton">Yes</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</form>
 {% endblock %}
 
 
 {% block js %}
 <script src="/static/common/js/jqBootstrapValidation.js"></script>
-<script src="/static/umunc_iris/js/step3.js"></script>
 {% ifequal profile.Status 4%}{% else %}
 	<script language="javascript">
 		$(function(){
