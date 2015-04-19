@@ -243,7 +243,7 @@ def step3(request):
 @login_required
 def step3_download(request):
 	if request.user.profile.Review:
-		tarball_file = open('/www/upload/review/'+request.user.profile.Review)
+		tarball_file = open('/www/upload/review/'+request.user.profile.Review.encode("utf-8"))
 		wrapper = FileWrapper(tarball_file)
 		if re.findall(r'[^.]+$',request.user.profile.Review)[-1].lower()=='doc':
 			response = HttpResponse(wrapper, content_type='application/msword')
