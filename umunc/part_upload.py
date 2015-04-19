@@ -9,7 +9,7 @@ import os
 
 
 def upload(request,path,filename,key):
-	try：
+	try:
 		try:
 			destination = open(path+'/'+filename,'wb+')
 		except:
