@@ -223,11 +223,11 @@ def step2(request):
 @login_required
 def step3(request):
 	Rmsg=''
-	if request.POST.has_key('review_text') and request.POST.has_key('submit'):
+	if request.POST.has_key('submit'):
 		file_path='%s_%s' %(time.time(),string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 6)).replace(' ',''))
-		result=upload('/www/upload/review/'+file_path,request.FILES['file'].name,'file')
+		result=upload('/www/upload/review/'+file_path,request.FILES['upload_file'].name,'upload_file')
 		if result:
-			request.user.profile.Review=file_path+'/'+request.FILES['file'].name
+			request.user.profile.Review=file_path+'/'+request.FILES['upload_file'].name
 			request.user.profile.save()
 		else:
 			Rmsg='<p>上传发生错误！</p>'
