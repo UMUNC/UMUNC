@@ -27,7 +27,7 @@ def upload_cheetah(request):
 	result=upload('/www/upload/cheetah/'+file_path,request.FILES['file'].name,'file')
 	if result:
 		return '/download/cheetah/'+file_path+'/'+request.FILES['file'].name
-	else
+	else:
 		return 'error'
 
 def upload_page(request):
