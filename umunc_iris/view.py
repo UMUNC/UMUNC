@@ -228,11 +228,11 @@ def step3(request):
 	if request.POST.has_key('submit'):
 		if request.FILES['upload_file'].size>(2*1024*1024):
 			Rmsg='文件过大！'
-		elif re.findall(r'[^.]+$',request.FILES['upload_file'].name)[-1].lower() in ['doc','docx','pdf']:
+		elif re.findall(r'[^.]+$',request.FILES['upload_file'].name.encode("utf-8"))[-1].lower() in ['doc','docx','pdf']:
 			file_path='%s_%s' %(time.time(),string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 6)).replace(' ',''))
-			result=part_upload.upload(request,'/www/upload/review/'+file_path+'/',request.FILES['upload_file'].name,'upload_file')
+			result=part_upload.upload(request,'/www/upload/review/'+file_path+'/',request.FILES['upload_file'].name.encode("utf-8"),'upload_file')
 			if result:
-				request.user.profile.Review=file_path+'/'+request.FILES['upload_file'].name
+				request.user.profile.Review=file_path+'/'+request.FILES['upload_file'].name.encode("utf-8")
 				request.user.profile.save()
 			else:
 				Rmsg='上传发生错误！'
@@ -252,7 +252,7 @@ def step3_download(request):
 		elif re.findall(r'[^.]+$',request.user.profile.Review)[-1].lower()=='pdf':
 			response = HttpResponse(wrapper, content_type='application/pdf')
 		response['Content-Encoding'] = 'utf-8'
-		response['Content-Disposition'] = 'attachment; filename=%s' % re.findall(r'[^/]+$',request.user.profile.Review)[-1].encode("utf-8")
+		response['Content-Disposition'] = 'attachment; filename=%s' % re.findall(r'[^/]+$',request.user.profile.Review)[-1]
 		return response 
 	else:
 		raise Http404
