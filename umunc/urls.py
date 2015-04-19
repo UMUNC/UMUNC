@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     (r'^iris/', include(umunc_iris.urls)),
     # (r'^cheetah/', include(umunc_cheetah.urls)),
     (r'^default$', view.default),
-    (r'^upload$', upload),
+    (r'^upload$', upload_page),
     
     # Examples:
     # url(r'^$', 'umunc.views.home', name='home'),
