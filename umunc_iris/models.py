@@ -62,6 +62,7 @@ class profile(models.Model):
 	Country=models.ForeignKey(country,verbose_name="席位-所属国家",null=True,blank=True)
 	Identify=models.CharField(max_length=255,verbose_name="席位-席位名称",blank=True)
 	TimeStamp=models.DateTimeField(auto_now_add=True,verbose_name='时间戳')
+	Review=models.CharField(max_length=255,blank=True,verbose_name='内容')
 	Status=models.IntegerField(verbose_name='状态',choices=(
 		(-3,'代表申请拒绝'),
 		(0,'未验证邮箱'),
@@ -83,12 +84,3 @@ class checkcode(models.Model):
 		ordering = ['-TimeStamp']
 	def __unicode__(self):
 		return u'[%s] %s' % (self.User.id,self.User.username)
-
-class review(models.Model):
-	User=models.OneToOneField(User,verbose_name='账户')
-	TimeStamp=models.DateTimeField(auto_now_add=True,verbose_name='时间戳')
-	Content=models.TextField(verbose_name='内容')
-	class Meta:
-		ordering = ['TimeStamp']
-	def __unicode__(self):
-		return u'%s %s' % (self.TimeStamp,self.User.username)

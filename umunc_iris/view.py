@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login,logout
-from umunc import part_mail
+from umunc import part_mail, part_upload
 from umunc_iris.models import *
 from django.contrib.auth.models import User
 
@@ -87,6 +87,7 @@ def pregister(request):
 				MunRsm='',
 				MunJoined=False,
 				Commitee=1,
+				Review='',
 				Status=0,)
 			tprofile.save()
 			tcheckcode_code = string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 32)).replace(' ','')
@@ -221,19 +222,14 @@ def step2(request):
 	
 @login_required
 def step3(request):
-	try:
-		Rreview=request.user.review
-	except:
-		Rreview = review(
-			User=request.user,
-			Content='<p>请输入您的学术测评。</p>',)
-		Rreview.save()
+	Rmsg=''
 	if request.POST.has_key('review_text') and request.POST.has_key('submit'):
-		request.user.review.Content=request.POST['review_text']
-		request.user.review.save()
-		if request.POST['submit']=='1':
-			request.user.profile.Status=5
-		request.user.profile.save()
-		return HttpResponseRedirect('/iris/step3')
-	return render_to_response('umunc_iris/step3.html',{'profile':request.user.profile,'review':request.user.review,},context_instance=RequestContext(request))
+		file_path='%s_%s' %(time.time(),string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 6)).replace(' ',''))
+		result=upload('/www/upload/review/'+file_path,request.FILES['file'].name,'file')
+		if result:
+			request.user.profile.Review=file_path+'/'+request.FILES['file'].name
+			request.user.profile.save()
+		else:
+			Rmsg='<p>上传发生错误！</p>'
+	return render_to_response('umunc_iris/step3.html',{'profile':request.user.profile,'msg':Rmsg,},context_instance=RequestContext(request))
 	

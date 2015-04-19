@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block body %}
-<form action="." method="post" class="form-horizontal"> 
+<form action="." method="post" class="form-horizontal" enctype="multipart/form-data"> 
 	{% csrf_token %}
 	<input type="hidden" id="submit" name="submit"  value="">
 	<div class="row">
@@ -25,12 +25,26 @@
 				{% endifequal %}
 				&nbsp;&nbsp;&nbsp;&nbsp;
 			</div>
-			<div class="text-left">
-				<span>&nbsp;学术测评 <a href="#">点此下载</a>。</span>
+			<div class="col-md-12">
+				<p>
+					学术测评下载:
+					<a class="btn btn-info btn-xs" href="/download/UMUNC2015MAIN-AT-JCCS.doc" target="_blank">危机联动体系</a>
+					<a class="btn btn-info btn-xs" href="/download/UMUNC2015MAIN-AT-EU.doc" target="_blank">欧洲体系</a>
+					<a class="btn btn-info btn-xs" href="/download/UMUNC2015MAIN-AT-PMDG.doc" target="_blank">后千年体系</a>
+				</p>
+				<hr/>
 			</div>
-			{% ifequal profile.Status 4%}
-			<div class="form-group">
-					<textarea name="review_text" id="review_text">{{review.Content}}</textarea>
+			{% ifequal profile.Status 4 %}
+			<div class="col-md-12">
+				<p>报告上传</p>
+				<div class="col-md-10">
+					<input type="file" name="upload_file" id="upload_file" accept=".pdf,.doc,.docx"/>
+					<p class="help-block">Only PDF/DOC/DOCX file will be accepted. File limit: 2M</p>
+				</div>
+				{% if User.profile.Review %}
+					<a class="btn btn-info btn-xs" href="/iris/step3/download_review" target="_blank">查看已上传文件</a>
+				{% endif %}
+				<p>{{msg}}</p>
 			</div>
 			{% else %}
 			<br/>
@@ -69,7 +83,6 @@
 
 {% block js %}
 <script src="/static/common/js/jqBootstrapValidation.js"></script>
-<script src="/static/common/tinymce/tinymce.min.js"></script>
 <script src="/static/umunc_iris/js/step3.js"></script>
 {% ifequal profile.Status 4%}{% else %}
 	<script language="javascript">

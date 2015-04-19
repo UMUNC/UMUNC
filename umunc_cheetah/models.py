@@ -17,6 +17,7 @@ class message(models.Model):
 	ToU=models.ForeignKey(room,verbose_name='接收房间')
 	TimeStamp=models.DateTimeField(auto_now_add=True,verbose_name='时间戳')
 	System=models.BooleanField(default=False,verbose_name='系统消息')
+	#Public=models.BooleanField(default=False,verbose_name='公共消息')
 	Content=models.TextField(blank=True,verbose_name='内容')
 	class Meta:
 		ordering = ['-TimeStamp']
