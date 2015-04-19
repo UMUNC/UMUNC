@@ -4,7 +4,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-from part_upload import upload
+from part_upload import upload_page
 import umunc_iris.urls
 import umunc_cheetah.urls
 import view
