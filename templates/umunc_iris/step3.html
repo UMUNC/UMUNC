@@ -36,14 +36,14 @@
 			</div>
 			{% ifequal profile.Status 4 %}
 			<div class="col-md-12">
-				<p>报告上传</p>
-				<div class="col-md-10">
-					<input type="file" name="upload_file" id="upload_file" accept=".pdf,.doc,.docx"/>
-					<p class="help-block">Only PDF/DOC/DOCX file will be accepted. File limit: 2M</p>
-				</div>
-				{% if User.profile.Review %}
-					<a class="btn btn-info btn-xs" href="/iris/step3/download_review" target="_blank">查看已上传文件</a>
-				{% endif %}
+				<p>
+					报告上传
+					{% if profile.Review %}
+						<a class="btn btn-info btn-xs" href="/iris/step3/download_review" target="_blank">查看已上传文件</a>
+					{% endif %}
+				</p>
+				<input type="file" name="upload_file" id="upload_file" required/>
+				<p class="help-block">Only PDF/DOC/DOCX file will be accepted. File limit: 2M</p>
 				<p>{{msg}}</p>
 			</div>
 			{% else %}

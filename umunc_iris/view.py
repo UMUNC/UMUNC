@@ -1,6 +1,6 @@
 #coding=utf-8
 import string, random, time
-from django.http import HttpResponseRedirect,HttpResponse
+from django.http import HttpResponseRedirect,HttpResponse,Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate, login,logout
 from umunc import part_mail, part_upload
 from umunc_iris.models import *
 from django.contrib.auth.models import User
+from django.core.servers.basehttp import FileWrapper
+import re
 
 @login_required
 def test(request):
@@ -224,12 +226,33 @@ def step2(request):
 def step3(request):
 	Rmsg=''
 	if request.POST.has_key('submit'):
-		file_path='%s_%s' %(time.time(),string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 6)).replace(' ',''))
-		result=part_upload.upload(request,'/www/upload/review/'+file_path,request.FILES['upload_file'].name,'upload_file')
-		if result:
-			request.user.profile.Review=file_path+'/'+request.FILES['upload_file'].name
-			request.user.profile.save()
+		if request.FILES['upload_file'].size>(2*1024*1024):
+			Rmsg='文件过大！'
+		elif re.findall(r'[^.]+$',request.FILES['upload_file'].name)[-1].lower() in ['doc','docx','pdf']:
+			file_path='%s_%s' %(time.time(),string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 6)).replace(' ',''))
+			result=part_upload.upload(request,'/www/upload/review/'+file_path+'/',request.FILES['upload_file'].name,'upload_file')
+			if result:
+				request.user.profile.Review=file_path+'/'+request.FILES['upload_file'].name
+				request.user.profile.save()
+			else:
+				Rmsg='上传发生错误！'
 		else:
-			Rmsg='<p>上传发生错误！</p>'
+			Rmsg='格式错误！'			
 	return render_to_response('umunc_iris/step3.html',{'profile':request.user.profile,'msg':Rmsg,},context_instance=RequestContext(request))
 	
+@login_required
+def step3_download(request):
+	if request.user.profile.Review:
+		tarball_file = open('/www/upload/review/'+request.user.profile.Review)
+		wrapper = FileWrapper(tarball_file)
+		if re.findall(r'[^.]+$',request.user.profile.Review)[-1].lower()=='doc':
+			response = HttpResponse(wrapper, content_type='application/msword')
+		elif re.findall(r'[^.]+$',request.user.profile.Review)[-1].lower()=='docx':
+			response = HttpResponse(wrapper, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.template')
+		elif re.findall(r'[^.]+$',request.user.profile.Review)[-1].lower()=='pdf':
+			response = HttpResponse(wrapper, content_type='application/pdf')
+		response['Content-Encoding'] = 'utf-8'
+		response['Content-Disposition'] = 'attachment; filename=%s' % re.findall(r'[^/]+$',request.user.profile.Review)[-1].encode("utf-8")
+		return response 
+	else:
+		raise Http404
