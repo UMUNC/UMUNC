@@ -41,3 +41,11 @@ def upload_page(request):
 		else:
 			Rmsg='上传发生错误！'
 	return render_to_response('upload.html',{'profile':request.user.profile,'msg':Rmsg,},context_instance=RequestContext(request))
+
+def upload_mpc(request):
+	file_path='%s_' %(string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 6)).replace(' ',''))
+	result=upload(request,'/www/upload/mpc/',file_path+request.FILES['upload_file'].name,'upload_file')
+	if result:
+		return '/download/mpc/'+file_path+request.FILES['upload_file'].name
+	else:
+		return 'error'

@@ -1,0 +1,27 @@
+{% extends "umunc_mpc/root.html" %}
+{% load myfilter %}
+
+{% block Rtitle %}LBlogger{% endblock %}
+
+{% block Rcss %}
+{% endblock %}
+
+{% block Rbody %}
+	<div class="container-fluid">
+		<div class="row">
+		{% for post in posts %}
+			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 list_block" onclick="location.href='/mpc/post/{{ post.id }}'">
+				<div>
+					<p class="list_title">{{post.title}}</p>
+					<p class="list_content">{{post.content|truncatewords_hans_html:300|safe}}</p>
+				</div>
+			</div>
+		{% endfor %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block Rjs %}
+	<script src="/static/js/imagesloaded.pkgd.min.js"></script>
+	<script src="/static/js/masonry.pkgd.min.js"></script>
+{% endblock %}

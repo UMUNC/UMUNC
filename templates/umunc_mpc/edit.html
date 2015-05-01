@@ -1,0 +1,58 @@
+{% extends "umunc_mpc/root.html" %}
+
+{% block Rtitle %}LBlogger{% endblock %}
+
+{% block Rcss %}
+	<link rel="stylesheet" type="text/css" href="/static/css/simditor.css" />
+	<link href="/static/css/common.css" rel="stylesheet">
+{% endblock %}
+
+{% block Rbody %}<form class="form-inline">
+	<div class="container post_block">
+		<div class="row">
+			<div class="post_head">
+				<input id="post_title" type="text" class="form-control input-lg" value="{{post.title}}" placeholder="Enter Title" required/>
+				<p class="text-center">时间：
+						<input size="16" type="text" readonly class="form-control form_datetime" required> 作者：{{post.author.username}}</p>
+			</div>
+			<div class="post_body">
+				<textarea id="editor" placeholder="这里输入内容" autofocus>
+					<p>{{post.content}}</p>
+					<p>{{post.content}}</p>
+					<p>{{post.content}}</p>
+					<p>{{post.content}}</p>
+					<p>{{post.content}}</p>
+					<p>{{post.content}}</p>
+					<p>{{post.content}}</p>
+					<p>{{post.content}}</p>
+					<p>{{post.content}}</p>
+					<p>{{post.content}}</p>
+					<p>{{post.content}}</p>
+					<p>{{post.content}}</p>
+					<p>{{post.content}}</p>
+					<p>{{post.content}}</p>
+					<p>{{post.content}}</p>
+					<p>{{post.content}}</p>
+					<p>{{post.content}}</p>
+					<p>{{post.content}}</p>
+					<p>{{post.content}}</p>
+				</textarea>
+			</div>
+			<div class="post_foot">
+				<p>文章标签：
+				{% for tag in post.tag.all %}
+					<span class="label label-info">{{tag.name}}</span>
+				{% endfor %}
+				</p>
+			</div>
+		</div>
+	</div>
+	</form>
+{% endblock %}
+
+{% block Rjs %}
+	<script type="text/javascript" src="/static/js/module.js"></script>
+	<script type="text/javascript" src="/static/js/hotkeys.js"></script>
+	<script type="text/javascript" src="/static/js/uploader.js"></script>
+	<script type="text/javascript" src="/static/js/simditor.js"></script>
+{% endblock %}

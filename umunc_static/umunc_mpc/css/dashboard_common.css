@@ -1,0 +1,64 @@
+*{
+	font-family:ff-tisa-web-pro-1,ff-tisa-web-pro-2,"Lucida Grande","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+}
+body{
+	padding-top: 70px;
+	background:#E6EBF1;
+	font-size: 14px;
+}
+.navbar-inverse {
+  background-color: rgba(52, 73, 94, 0.7);
+}
+.dashboard_block{
+	border-top: solid 5px #34495e;
+	background-color: rgba(255,255,255,0.9);
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+	padding: 0px 30px 30px 30px;
+}
+.nav.nav-dashboard.nav-stacked > li > a{
+	color:#749CC3;
+	font-size: 16px;
+}
+.nav.nav-dashboard.nav-stacked > li.active > a{
+	font-weight: bold;
+	color:#34495e;
+	border-left: 3px solid #34495e;
+	background-color: #EEEEEE;
+}
+.tags_btn_group{
+	margin-bottom: 10px;
+}
+.dropdown-menu, .select2-drop {
+	border: 1px solid rgba(0,0,0,.15);
+	box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+.post_foot .bootstrap-tagsinput{
+	box-shadow: 0px 0px 30px rgba(100,100,100,0.2);
+}
+.post_foot{
+	padding: 10px 0px 0px 0px;
+	margin: 30px 0px 0px 0px;
+}
+.post_block h3{
+	border-bottom: solid 2px rgba(52, 73, 94, 0.2);
+	padding-bottom: 20px;
+}
+#form_post_editor #title{
+	width: 100%;
+	margin: 30px 0px;
+	box-shadow: 0px 0px 30px rgba(100,100,100,0.2);
+}
+.simditor{
+	box-shadow: 0px 0px 30px rgba(100,100,100,0.2);
+}
+.simditor label{
+	font-size: 12px;
+}
+.simditor input{
+	line-height: normal;
+}
+.simditor .simditor-toolbar{
+	left: auto !important;
+	width: 100% !important;
+}

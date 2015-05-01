@@ -1,0 +1,30 @@
+{% extends "umunc_mpc/root.html" %}
+
+{% block Rtitle %}LBlogger{% endblock %}
+
+{% block Rcss %}
+{% endblock %}
+
+{% block Rbody %}
+	<div class="container post_block">
+		<div class="row">
+			<div class="post_head">
+				<h3 class="text-center">{{post.title}}</h3>
+				<p class="text-center">时间：{{post.timestamp | date:"Y-n-j G:i:s" }} 作者：{{post.author.username}}</p>
+			</div>
+			<div class="post_body">
+				{{post.content|safe}}
+			</div>
+			<div class="post_foot">
+				<p>文章标签：
+				{% for tag in post.tag.all %}
+					<span class="label label-info">{{tag.name}}</span>
+				{% endfor %}
+				</p>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block Rjs %}
+{% endblock %}
