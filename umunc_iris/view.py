@@ -73,7 +73,7 @@ def pregister(request):
 			tprofile = profile(
 				User=tuser,
 				Leader=False,
-				Init=True;
+				Init=True,
 				Name='',
 				Sex=True,
 				Age=0,
