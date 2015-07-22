@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 import os
 
 
-def upload(request,path,filename,key):
+def basicupload(request,path,filename,key):
 	try:
 		try:
 			destination = open(path+'/'+filename,'wb+')
@@ -24,7 +24,7 @@ def upload(request,path,filename,key):
 
 def upload_cheetah(request):
 	file_path='%s_%s' %(time.time(),string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 6)).replace(' ',''))
-	result=upload(request,'/www/OSS/upload/cheetah/'+file_path+'/',request.FILES['file'].name,'file')
+	result=basicupload(request,'/www/OSS/upload/cheetah/'+file_path+'/',request.FILES['file'].name,'file')
 	if result:
 		return 'http://umuncstatic.oss-cn-hangzhou.aliyuncs.com/upload/cheetah/'+file_path+'/'+request.FILES['file'].name
 	else:
@@ -35,7 +35,7 @@ def upload_page(request):
 		raise Http404
 	Rmsg=''
 	if request.method == 'POST':
-		result=upload(request,'/www/OSS/upload/',request.FILES['file'].name,'file')
+		result=basicupload(request,'/www/OSS/upload/',request.FILES['file'].name,'file')
 		if result:
 			Rmsg='<a href="http://umuncstatic.oss-cn-hangzhou.aliyuncs.com/upload/'+request.FILES['upload_file'].name+'" target="_blank">http://www.umunc.net/download/'+request.FILES['upload_file'].name+'</a>'
 		else:
@@ -44,7 +44,7 @@ def upload_page(request):
 
 def upload_mpc(request):
 	file_path='%s_' %(string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 6)).replace(' ',''))
-	result=upload(request,'/www/OSS/upload/mpc/',file_path+request.FILES['upload_file'].name,'upload_file')
+	result=basicupload(request,'/www/OSS/upload/mpc/',file_path+request.FILES['upload_file'].name,'upload_file')
 	if result:
 		return 'http://umuncstatic.oss-cn-hangzhou.aliyuncs.com/upload/mpc/'+file_path+request.FILES['upload_file'].name
 	else:
