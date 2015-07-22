@@ -90,12 +90,12 @@
 		}) 
 		</script>
 		{% endif %}
-		
+
 		{% if user.is_authenticated %}
 		{% if not user.profile.Init %}
 			<script language="javascript" type="text/javascript">
 				alert("初次登录，请修改密码（^_^）");
-				if (typeof(notredirect)!= "undefined") window.location.href="/iris/accounts/change"; 
+				if (typeof(notredirect)== "undefined") window.location.href="/iris/accounts/change"; 
 			</script>
 		{% endif %}
 		{% endif %}
