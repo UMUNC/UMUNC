@@ -14,7 +14,7 @@ urlpatterns = patterns('',
     (r'^iris/', include(umunc_iris.urls)),
     (r'^cheetah/', include(umunc_cheetah.urls)),
     (r'^mpc/', include(umunc_mpc.urls)),
-    (r'^default$', view.default),
+    (r'^$', view.default),
     (r'^upload$', upload_page),
     
     # Examples:

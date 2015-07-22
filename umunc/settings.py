@@ -10,17 +10,26 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+#         'NAME': 'umunc',                      # Or path to database file if using sqlite3.
+#         'USER': 'lvwt',                      # Not used with sqlite3.
+#         'PASSWORD': 'UMUNC2014',                  # Not used with sqlite3.
+#         'HOST': 'rdsqqabbbyuyiau.mysql.rds.aliyuncs.com',                      # Set to empty string for localhost. Not used with sqlite3.
+#         'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'umunc',                      # Or path to database file if using sqlite3.
-        'USER': 'lvwt',                      # Not used with sqlite3.
-        'PASSWORD': 'UMUNC2014',                  # Not used with sqlite3.
-        'HOST': 'rdsqqabbbyuyiau.mysql.rds.aliyuncs.com',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': '/home/eastpiger/a.sqlite3',                      # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
-
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['*',]
@@ -69,6 +78,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    'umunc_static',
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -109,6 +119,7 @@ WSGI_APPLICATION = 'umunc.wsgi.application'
 
 TEMPLATE_DIRS = (
     '/www/umunc/umunc_static/templates',
+    'templates',
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -121,13 +132,14 @@ INSTALLED_APPS = (
    # 'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'umunc.templatetags',
+    'umunc',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'umunc_iris',
     'umunc_cheetah',
+    'umunc_mpc',
 )
 
 LOGIN_URL='/iris/accounts/login'
