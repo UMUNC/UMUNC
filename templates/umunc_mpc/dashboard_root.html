@@ -70,12 +70,12 @@
 		<script src="/static/common/js/jquery.backstretch.min.js"></script>
 		{% block Rjs %}{% endblock %}
 		<script src="/static/umunc_mpc/js/dashboard_common.js"></script>
-		
+
 		{% if user.is_authenticated %}
 		{% if not user.profile.Init %}
 			<script language="javascript" type="text/javascript">
 				alert("初次登录，请修改密码（^_^）");
-				if (typeof(notredirect)!= "undefined") window.location.href="/iris/accounts/change"; 
+				if (typeof(notredirect)== "undefined") window.location.href="/iris/accounts/change"; 
 			</script>
 		{% endif %}
 		{% endif %}
