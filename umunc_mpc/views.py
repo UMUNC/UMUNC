@@ -8,39 +8,79 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-def view_list(request,id=0):
-    if id:
-        response_list=Tag.objects.get(id=id).post_set.filter(status=True)
+def view_list(request,pressname=''):
+    response_editable=False
+    if request.user.is_staff:
+        response_editable=True
+    elif pressname and (request.user in Press.objects.get(name=pressname).user.all()):
+        response_editable=True
+
+    if pressname:
+        response_list=Press.objects.get(name=pressname).post_set.filter(status=4)
+        response_template=Press.objects.get(name=pressname).template
+        response_list_gloable=Post.objects.filter(status=4)
     else:
-        response_list=Post.objects.filter(status=True)
-    response_tag=Tag.objects.all()
+        response_list=Post.objects.filter(status=4)
+        response_template='UMUNC'
+        response_list_gloable=Post.objects.filter(status=4)
+    response_press=Press.objects.all()
     return render_to_response('umunc_mpc/list.html',{
         'posts':response_list,
-        'tags':response_tag,
-        'id':int(id),
+        'posts_gloable':response_list_gloable[:5],
+        'pressess':response_press,
+        'pressname':pressname,
+        'editable':response_editable,
+        'template':response_template,
         },context_instance=RequestContext(request))
 
-def view_post(request, id):
+def view_post(request,pressname,id):
+    response_editable=False
+    if request.user.is_staff:
+        response_editable=True
+    elif pressname and (request.user in Press.objects.get(name=pressname).user.all()):
+        response_editable=True
+
     response_post=Post.objects.get(id=id)
-    response_tag=Tag.objects.all()
+    response_press=Press.objects.all()
+    if pressname:
+        response_template=Press.objects.get(name=pressname).template
+        tpress=Press.objects.get(name=pressname)
+        response_template=Press.objects.get(name=pressname).template
+        if tpress not in response_post.press.all():
+            raise Http404
+    else:
+        response_template=''
+        response_template='UMUNC'
+
     return render_to_response('umunc_mpc/post.html',{
         'post':response_post,
-        'tags':response_tag
+        'pressess':response_press,
+        'pressname':pressname,
+        'editable':response_editable,
+        'template':response_template,
         },context_instance=RequestContext(request))
+
+def view_post_gloable(request,id):
+    return view_post(request,'',id)
 
 @login_required
 def dashboard(request):
-    if not request.user.is_staff:
-        raise Http404
+    # if not request.user.is_staff:
+    #     raise Http404
     response_msg=''
     response_tab=0
     if request.method=='GET' and request.GET.has_key('command'):
+        if request.GET['command']=='GetPressPostList':
+            tpress=Press.objects.get(name=request.GET['pressname'])
+            return render_to_response('umunc_mpc/dashboard_post_list.html',{
+                'press':tpress
+                },context_instance=RequestContext(request))
         if request.GET['command']=='GetPost':
             tpost=Post.objects.get(id=request.GET['id'])
             return HttpResponse(simplejson.dumps({
                 'title':tpost.title,
                 'content':tpost.content,
-                'tags':[tag.id for tag in tpost.tag.all()],},ensure_ascii=False))
+                'pressess':[press.name for press in tpost.press.all()],},ensure_ascii=False))
     if request.method=='POST':
         if request.POST['command']=='ImageUpdate':
             content = request.FILES.get('upload_file', None)
@@ -69,89 +109,78 @@ def dashboard(request):
                     "file_path": "",
                     },ensure_ascii=False))
 
-        if request.POST['command']=='TagAdd':
-            if request.user.is_superuser:
-                response_tab=1
-                ttag=Tag(name=request.POST['name'])
-                ttag.save()
-            else:
-                response_msg='无权操作'
-        if request.POST['command']=='TagRename':
-            if request.user.is_superuser:
-                response_tab=1
-                ttag=Tag.objects.get(id=request.POST['id'])
-                ttag.name=request.POST['name']
-                ttag.save()
-            else:
-                response_msg='无权操作'
-        if request.POST['command']=='TagDelete':
-            if request.user.is_superuser:
-                response_tab=1
-                ttag=Tag.objects.get(id=request.POST['id'])
-                ttag.delete()
-            else:
-                response_msg='无权操作'
-        if request.POST['command']=='PostCheck_R':
-            if request.user.is_superuser:
-                response_tab=2
-                tpost=Post.objects.get(id=request.POST['id'])
-                tpost.status=False
-                tpost.save()
-            else:
-                response_msg='无权操作'
-        if request.POST['command']=='PostCheck_A':
-            if request.user.is_superuser:
-                response_tab=2
-                tpost=Post.objects.get(id=request.POST['id'])
-                tpost.status=True
+        if request.POST['command']=='PostCheck':
+            tpost=Post.objects.get(id=request.POST['id'])
+            if request.user.is_staff or ((request.user==tpost.author)and(request.POST['status']=='2')):
+                response_tab=request.POST['press']
+                tpost.status=request.POST['status']
                 tpost.save()
             else:
                 response_msg='无权操作'
         if request.POST['command']=='PostDelete':
             tpost=Post.objects.get(id=request.POST['id'])
-            if request.user.is_superuser or request.user==tpost.author:
-                response_tab=2
+            if request.user.is_staff or ((request.user==tpost.author)and(tpost.status==1)):
+                response_tab=request.POST['press']
                 tpost.delete()
             else:
                 response_msg='无权操作'
         if request.POST['command']=='PostNew':
-            response_tab=2
-            tpost=Post(
-                title=request.POST['title'],
-                content=request.POST['content'],
-                author=request.user,
-                status=False,)
-            tpost.save()
-            ttags=Tag.objects.all()
-            for tag in ttags:
-                if request.POST.has_key(str(tag.id)):
-                    tpost.tag.add(tag)
-            tpost.save()
+            response_tab=request.POST['press']
+            tpress=Press.objects.get(name=request.POST['press'])
+            if request.user.is_staff or (request.user in tpress.user.all()):
+                tpost=Post(
+                    title=request.POST['title'],
+                    content=request.POST['content'],
+                    author=request.user,
+                    status=1,
+                    level=0,)
+                tpost.save()
+                if request.user.is_staff:
+                    tpresses=Press.objects.all()
+                    for press in tpresses:
+                        if request.POST.has_key(press.name):
+                            tpost.press.add(press)
+                else:
+                    tpost.press.add(tpress)
+                tpost.save()
         if request.POST['command']=='PostEdit':
             tpost=Post.objects.get(id=request.POST['id'])
-            if request.user.is_superuser or request.user==tpost.author:
-                response_tab=2
+            if request.user.is_staff or ((request.user==tpost.author)and(tpost.status==1)):
+                response_tab=request.POST['press']
                 tpost.title=request.POST['title']
                 tpost.content=request.POST['content']
-                tpost.author=request.user
-                tpost.status=False
-                tpost.tag.clear()
-                ttags=Tag.objects.all()
-                for tag in ttags:
-                    if request.POST.has_key(str(tag.id)):
-                        tpost.tag.add(tag)
+                if request.user.is_staff:
+                    tpost.press.clear()
+                    tpresses=Press.objects.all()
+                    for press in tpresses:
+                        if request.POST.has_key(press.name):
+                            tpost.press.add(press)
                 tpost.save()
             else:
                 response_msg='无权操作'
-    response_post=Post.objects.all()
-    response_tag=Tag.objects.all()
-    response_user=User.objects.all()
+        if request.POST['command']=='PostLevel':
+            tpost=Post.objects.get(id=request.POST['id'])
+            if request.user.is_staff:
+                response_tab=request.POST['press']
+                tpost.level=request.POST['level']
+                tpost.save()
+            else:
+                response_msg='无权操作'
+
+    if request.user.is_staff:
+        response_press=Press.objects.all()
+    else:
+        response_press=request.user.press_set.all()
+    # response_post=Post.objects.all()
+    # response_tag=Tag.objects.all()
+    # response_user=User.objects.all()
     return render_to_response('umunc_mpc/dashboard_post.html',{
-        'msg':response_msg,
-        'posts':response_post,
-        'tags':response_tag,
+        'presses':response_press,
+        # 'msg':response_msg,
+        # 'posts':response_post,
+        # 'tags':response_tag,
         'tab':response_tab,
-        'users':response_user
+        # 'users':response_user
         },context_instance=RequestContext(request))
 
 

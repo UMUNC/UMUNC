@@ -8,8 +8,9 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^$', view_list),
-    url(r'^list/(\d*)/$', view_list),
-    url(r'^post/(\d+)/$', view_post),
+    url(r'^list/(.*)/$', view_list),
+    url(r'^post/(\d+)/$', view_post_gloable),
+    url(r'^post/(.*)/(\d+)/$', view_post),
     url(r'^dashboard/$', dashboard),
     url(r'^dashboard/edit/(\d)+/$', dashboard_edit),
 )

@@ -1,0 +1,72 @@
+								{% for post in press.post_set.all %}
+								<tr>
+									<td>{{post.id}}</td>
+									<td>{{post.title}}</td>
+									<td>{{post.author.profile.Name}}</td>
+									<td>{{post.timestamp | date:"Y-n-j G:i:s" }}</td>
+									<td>
+										{% if user.is_staff %}
+											<div class="btn-group">
+											{% ifequal post.status 1 %}
+												<button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													草稿 <span class="caret"></span>
+												</button>
+											{% endifequal %}
+											{% ifequal post.status 2 %}
+												<button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													待审核 <span class="caret"></span>
+												</button>
+											{% endifequal %}
+											{% ifequal post.status 3 %}
+												<button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													待发布 <span class="caret"></span>
+												</button>
+											{% endifequal %}
+											{% ifequal post.status 4 %}
+												<button type="button" class="btn btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													已发布 <span class="caret"></span>
+												</button>
+											{% endifequal %}
+												<ul class="dropdown-menu">
+													<li><a href="#" onclick="PostCheck({{post.id}},1)">草稿</a></li>
+													<li><a href="#" onclick="PostCheck({{post.id}},2)">待审核</a></li>
+													<li><a href="#" onclick="PostCheck({{post.id}},3)">待发布</a></li>
+													<li role="separator" class="divider"></li>
+													<li><a href="#" onclick="PostCheck({{post.id}},4)">已发布</a></li>
+												</ul>
+											</div>
+										{% else %}
+											{% ifequal post.status 1 %}
+											<div class="btn-group">
+												<button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													草稿 <span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu">
+													<li><a href="#" onclick="PostCheck({{post.id}},2)">提交待审核</a></li>
+												</ul>
+											</div>
+											{% endifequal %}
+											{% ifequal post.status 2 %}<span class="label label-info">待审核</span>{% endifequal %}
+											{% ifequal post.status 3 %}<span class="label label-info">待发布</span>{% endifequal %}
+											{% ifequal post.status 4 %}<span class="label label-success">已发布</span>{% endifequal %}
+										{% endif %}
+									</td>
+									<td>{{post.level}}</td>
+									<td class="text-right">
+										<div class="btn-group btn-group-xs" role="group">
+											{%　if user.is_staff %}
+												<button class="btn btn-primary btn-xs" type="button" onclick="PostLevel({{post.id}},{{post.level}})"><span class="fui-location"></span> Level</button>
+												<a href="#new_post" role="tab" class="btn btn-info btn-xs" data-toggle="tab" onclick="PostEdit({{post.id}});"><span class="fui-new"></span> Edit</a>
+												<button class="btn btn-danger btn-xs" type="button" onclick="PostDelete({{post.id}})"><span class="fui-cross"></span> Delete</button>
+											{% else %}
+												{% ifequal post.author.id user.id %}
+												{% ifequal post.status 1 %}
+												<a href="#new_post" role="tab" class="btn btn-info btn-xs" data-toggle="tab" onclick="PostEdit({{post.id}});"><span class="fui-new"></span> Edit</a>
+												<button class="btn btn-danger btn-xs" type="button" onclick="PostDelete({{post.id}})"><span class="fui-cross"></span> Delete</button>
+												{% endifequal %}
+												{% endifequal %}
+											{% endif %}
+										</div>
+									</td>
+								</tr>
+								{% endfor %}

@@ -10,16 +10,15 @@
 		<div class="row">
 			<div class="post_head">
 				<h3 class="text-center">{{post.title}}</h3>
-				<p class="text-center">时间：{{post.timestamp | date:"Y-n-j G:i:s" }} 作者：{{post.author.username}}</p>
 			</div>
 			<div class="post_body">
 				{{post.content|safe}}
 			</div>
 			<div class="post_foot">
-				<p>文章标签：
-				{% for tag in post.tag.all %}
-					<span class="label label-info">{{tag.name}}</span>
-				{% endfor %}
+				<p>作者：{{post.author.profile.Name}} 于 {{post.timestamp | date:"Y-n-j G:i:s" }} 发布在
+					{% for press in post.press.all %}
+						{{press.name}}{% if not forloop.last %}、{% endif %}
+					{% endfor%}
 				</p>
 			</div>
 		</div>

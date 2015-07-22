@@ -7,16 +7,43 @@
 {% endblock %}
 
 {% block Rbody %}
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
-		{% for post in posts %}
-			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 list_block" onclick="location.href='/mpc/post/{{ post.id }}'">
-				<div>
-					<p class="list_title">{{post.title}}</p>
-					<p class="list_content">{{post.content|truncatewords_hans_html:300|safe}}</p>
+			<div class="col-md-8">
+				<div class="col-md-12 coltitle"><span class="fui-new"></span> 本社资讯</div>
+				{% for post in posts %}
+					<div class="col-md-12 list_block" onclick="location.href='/mpc/post/{% if pressname %}{{pressname}}/{%endif%}{{ post.id }}'">
+						<p class="col-md-12 list_title">{{post.title}}</p>
+						<pre class="col-md-9 list_content">{{post.content|truncatewords_hans_html:150|safe}}</pre>
+						<div class="col-md-3 list_info">
+							<address>
+								{{post.author.profile.Name}} 发布于<br/>
+								{{post.timestamp | date:"Y-n-j G:i:s" }}<br/><br/>
+								<strong>
+								{% for press in post.press.all %}
+									{{press.name}}{% if not forloop.last %}<br/>{% endif %}
+								{% endfor%}
+								</strong>
+							</address>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="col-md-4">
+				<div class="col-md-12 coltitle"><span class="fui-cmd"></span> 环球讯息</div>
+				<div class="col-md-12 list_block">
+					<ul style="padding-left:20px;">
+						{% for post in posts_gloable %}
+						<li><a href="/mpc/post/{{ post.id }}"><strong>{{post.title}}</strong></a><br/>{{post.timestamp | date:"Y-n-j G:i:s" }}</li>
+						{% endfor %}
+					</ul>
+				</div>
+				<div class="col-md-12 coltitle"><span class="fui-volume"></span> UMUNC特别声明</div>	
+				<div class="col-md-12 list_block">
+					<p><small>本网站为UMUNC2015全国总会模拟联合国性质站点。本站所有新闻纯属虚构，与真实世界无关。</small></p>
+					<p><small>UMUNC2015全国总会保留本站包括且不仅限于代码、数据、设计等内容所有权，未经许可，不得传播与仿制。</small></p>
 				</div>
 			</div>
-		{% endfor %}
 		</div>
 	</div>
 {% endblock %}
@@ -24,4 +51,4 @@
 {% block Rjs %}
 	<script src="/static/js/imagesloaded.pkgd.min.js"></script>
 	<script src="/static/js/masonry.pkgd.min.js"></script>
-{% endblock %}
+{% endblock %} 

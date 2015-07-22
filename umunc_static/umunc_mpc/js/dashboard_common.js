@@ -4,43 +4,48 @@ Array.prototype.in_array=function(e){
 	var r=new RegExp(this.S+e+this.S);
 	return (r.test(this.S+this.join(this.S)+this.S));
 };
-function TagRename(id,name){
-	$('#TagRenameModal #id').val(id)
-	$('#TagRenameModal #name').val(name)
-	$('#TagRenameModal').modal('show')
-};
-function TagDelete(id){
-	$("#form_tag_delete #id").val(id);
-	$('#TagDeleteModal').modal('show');
-};
+function changepress(pressname){
+	$.get("/mpc/dashboard?command=GetPressPostList&pressname="+pressname,function(result){
+		$("#press_post_list").html(result);
+		$("#form_post_list #press").val(pressname);
+		$("#form_post_editor #press").val(pressname);
+		$("#form_post_delete #press").val(pressname);
+		$("#form_post_level #press").val(pressname);
+	});
+}
 function PostEdit(id){
-	$.getJSON("/dashboard?command=GetPost&id="+id,function(result){
+	$.getJSON("/mpc/dashboard?command=GetPost&id="+id,function(result){
 		$("#form_post_editor #command").val("PostEdit");
 		$("#form_post_editor #title").val(result.title);
 		$("#form_post_editor #id").val(id);
 		editor.setValue(result.content);
 		$('input[type=checkbox]').each(function(){
 			$(this).iCheck('uncheck');
-			if (result.tags.in_array($(this).attr("name"))){
+			if (result.pressess.in_array($(this).attr("name"))){
 				$(this).iCheck('check');
 			};
 		});
 	});
 };
 function PostCheck(id,handle){
-	if (handle==0){
-		$("#form_post_list #command").val("PostCheck_R");
-	}else{
-		$("#form_post_list #command").val("PostCheck_A");
-	};
+	$("#form_post_list #command").val("PostCheck");
 	$("#form_post_list #id").val(id);
+	$("#form_post_list #status").val(handle);
 	$("#form_post_list").submit();
 };
 function PostDelete(id){
 	$("#form_post_delete #id").val(id);
 	$('#PostDeleteModal').modal('show');
 };
-
+function PostDelete(id){
+	$("#form_post_delete #id").val(id);
+	$('#PostDeleteModal').modal('show');
+};
+function PostLevel(id,level){
+	$('#PostLevelModal #id').val(id)
+	$('#PostLevelModal #level').val(level)
+	$('#PostLevelModal').modal('show')
+};
 
 $(function(){
 	// $.backstretch([

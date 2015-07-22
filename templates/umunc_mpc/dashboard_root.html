@@ -42,10 +42,21 @@
 				</div>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						{% for tag in tags %}
-						<li {% ifequal id tag.id %}class="active"{% endifequal %}><a href="/mpc/list/{{tag.id}}">{{tag.name}}</a></li>
+						{% for press in pressess %}
+						<li {% ifequal pressname press.name %}class="active"{% endifequal %}><a href="/mpc/list/{{press.name}}">{{press.name}}</a></li>
 						{% endfor %}
 					</ul>
+					{% if user.is_authenticated %}
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.profile.Name}} <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="/iris/accounts/logout">Logout</a></li>
+								<li><a href="/iris/accounts/change">Change Password</a></li>
+							</ul>
+						</li>
+					</ul>
+					{% endif %}
 				</div>
 			</div>
 		</nav>
