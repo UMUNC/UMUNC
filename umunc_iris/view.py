@@ -73,6 +73,7 @@ def pregister(request):
 			tprofile = profile(
 				User=tuser,
 				Leader=False,
+				Init=True;
 				Name='',
 				Sex=True,
 				Age=0,
@@ -137,6 +138,8 @@ def pchange(request):
 		if user is not None:
 			request.user.set_password(Rpassword1)
 			request.user.save()
+			request.user.profile.Init=True;
+			request.user.profile.save()
 			Rerror='success'
 		else:
 			Rerror='密码错误，请确认原密码正确。'
