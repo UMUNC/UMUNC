@@ -8,7 +8,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
+from django.views.decorators.cache import cache_page
 
+@vary_on_headers('Cookie')
+@cache_page(5)
 def view_list(request,pressname=''):
 
     response_press=cache.get('umunc_mpc_press_all')
@@ -50,6 +53,8 @@ def view_list(request,pressname=''):
         'template':response_template,
         },context_instance=RequestContext(request))
 
+@vary_on_headers('Cookie')
+@cache_page(5)
 def view_post(request,pressname,id):
     response_post=cache.get('umunc_mpc_post_'+id)
     if response_post==None:
