@@ -34,6 +34,15 @@
 		<script src="/static/common/js/jquery.min.js"></script>
 		<script src="/static/common/js/flat-ui.min.js"></script>
 		{% block Rjs %}{% endblock %}
+
+		{% if user.is_authenticated %}
+		{% if not user.profile.Init %}
+			<script language="javascript" type="text/javascript">
+				alert("初次登录，请修改密码（^_^）");
+				if (notredirect==1) window.location.href="/iris/accounts/change"; 
+			</script>
+		{% endif %}
+		{% endif %}
 	</body>
 </html>
 
