@@ -14,6 +14,10 @@
 			<div class="post_body">
 				{{post.content|safe}}
 			</div>
+		</div>
+	</div>
+	<div class="container post_block">
+		<div class="row">
 			<div class="post_foot">
 				<p>作者：{{post.author.profile.Name}} 于 {{post.timestamp | date:"Y-n-j G:i:s" }} 发布在
 					{% for press in post.press.all %}
