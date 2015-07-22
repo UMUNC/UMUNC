@@ -3,7 +3,7 @@
 {% block Rtitle %}{% block title %}{% endblock %} - IRIS{% endblock %}
 
 {% block Rcss %}
-	<link href="/static/umunc_iris/css/common.css" rel="stylesheet">
+	<link href="{{ STATIC_URL }}umunc_iris/css/common.css" rel="stylesheet">
 	{% block css %}{% endblock %}
 {% endblock %}
 
@@ -11,8 +11,8 @@
  	<div class="container">
  		<div class="row">
  			<div class="col-md-12">
- 				<img id="umunclogo" src="/static/common/image/UMUNC-logo-white.png"/>
- 				<img id="irislogo" src="/static/common/image/iris-logo-white.png"/>
+ 				<img id="umunclogo" src="{{ STATIC_URL }}common/image/UMUNC-logo-white.png"/>
+ 				<img id="irislogo" src="{{ STATIC_URL }}common/image/iris-logo-white.png"/>
  			</div>
  		</div>
  	</div>
@@ -26,7 +26,7 @@
 {% endblock %}
 
 {% block Rjs %}
-	<script src="/static/common/js/jquery.backstretch.min.js"></script>
-	<script src="/static/umunc_iris/js/common.js" rel="stylesheet"></script>
+	<script src="{{ STATIC_URL }}common/js/jquery.backstretch.min.js"></script>
+	<script src="{{ STATIC_URL }}umunc_iris/js/common.js" rel="stylesheet"></script>
 	{% block js %}{% endblock %}
 {% endblock %}

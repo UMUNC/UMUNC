@@ -14,7 +14,7 @@ Change Password
 		<form action="." method="post" class="form-horizontal" id="change_form"> 
 			{% csrf_token %}				
 			<div class="text-center">
-				<img src="/static/umunc_iris/image/user.jpg">
+				<img src="{{ STATIC_URL }}umunc_iris/image/user.jpg">
 			</div>
 			{% ifequal error 'success' %}
 			<div class="text-center">
@@ -59,8 +59,8 @@ Change Password
 
 
 {% block js %}
-<script src="/static/common/js/jqBootstrapValidation.js"></script>
-<script src="/static/umunc_iris/js/register.js"></script>
+<script src="{{ STATIC_URL }}common/js/jqBootstrapValidation.js"></script>
+<script src="{{ STATIC_URL }}umunc_iris/js/register.js"></script>
 <script language="javascript" type="text/javascript">
 	var notredirect=1;
 </script>

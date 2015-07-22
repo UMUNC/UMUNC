@@ -3,8 +3,8 @@
 {% block Rtitle %}LBlogger{% endblock %}
 
 {% block Rcss %}
-	<link rel="stylesheet" type="text/css" href="/static/umunc_mpc/css/simditor.css" />
-	<link rel="stylesheet" type="text/css" href="/static/umunc_mpc/css/blue.css" />
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}umunc_mpc/css/simditor.css" />
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}umunc_mpc/css/blue.css" />
 {% endblock %}
 
 {% block Rbody %}
@@ -184,11 +184,11 @@
 {% endblock %}
 
 {% block Rjs %}
-	<script type="text/javascript" src="/static/umunc_mpc/js/module.js"></script>
-	<script type="text/javascript" src="/static/umunc_mpc/js/hotkeys.js"></script>
-	<script type="text/javascript" src="/static/umunc_mpc/js/uploader.js"></script>
-	<script type="text/javascript" src="/static/umunc_mpc/js/simditor.js"></script>
-	<script type="text/javascript" src="/static/umunc_mpc/js/icheck.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}umunc_mpc/js/module.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}umunc_mpc/js/hotkeys.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}umunc_mpc/js/uploader.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}umunc_mpc/js/simditor.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}umunc_mpc/js/icheck.min.js"></script>
 	{% if tab %}
 	<script>
 	$(function(){

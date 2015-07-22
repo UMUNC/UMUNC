@@ -12,7 +12,7 @@ UMUNC 2015
 	<div class="row">
 		<div class="col-md-1 hidden-sm"></div>
 		<div class="col-md-4">
-			<img id="umunclogo" src="/static/common/image/UMUNC-logo.png"/><br/><br/>
+			<img id="umunclogo" src="{{ STATIC_URL }}common/image/UMUNC-logo.png"/><br/><br/>
 			<a href="/cheetah/" class="btn btn-info btn-block">Cheetah即时通讯系统</a>
 			<a href="/mpc/" class="btn btn-info btn-block">MPC主媒体中心 全球新闻</a><br/>
 			<a class="btn btn-info btn-block" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Documents</a>
@@ -46,6 +46,6 @@ UMUNC 2015
 
 
 {% block js %}
-	<script src="/static/umunc/js/three.min.js"></script>
-	<script src="/static/umunc/js/common.js"></script>
+	<script src="{{ STATIC_URL }}umunc/js/three.min.js"></script>
+	<script src="{{ STATIC_URL }}umunc/js/common.js"></script>
 {% endblock %}

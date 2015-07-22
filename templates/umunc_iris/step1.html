@@ -206,8 +206,8 @@
 
 
 {% block js %}
-<script src="/static/common/js/jqBootstrapValidation.js"></script>
-<script src="/static/umunc_iris/js/step1.js"></script>
+<script src="{{ STATIC_URL }}common/js/jqBootstrapValidation.js"></script>
+<script src="{{ STATIC_URL }}umunc_iris/js/step1.js"></script>
 {% ifequal profile.Status 1%}{% else %}
 	<script language="javascript">
 		$(function(){

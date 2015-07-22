@@ -3,8 +3,8 @@
 {% block Rtitle %}LBlogger{% endblock %}
 
 {% block Rcss %}
-	<link rel="stylesheet" type="text/css" href="/static/css/simditor.css" />
-	<link href="/static/css/common.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/simditor.css" />
+	<link href="{{ STATIC_URL }}css/common.css" rel="stylesheet">
 {% endblock %}
 
 {% block Rbody %}<form class="form-inline">
@@ -51,8 +51,8 @@
 {% endblock %}
 
 {% block Rjs %}
-	<script type="text/javascript" src="/static/js/module.js"></script>
-	<script type="text/javascript" src="/static/js/hotkeys.js"></script>
-	<script type="text/javascript" src="/static/js/uploader.js"></script>
-	<script type="text/javascript" src="/static/js/simditor.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/module.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/hotkeys.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/uploader.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/simditor.js"></script>
 {% endblock %}

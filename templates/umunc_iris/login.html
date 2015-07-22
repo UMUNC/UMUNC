@@ -14,7 +14,7 @@ Login
 			<form action="." method="post" class="form-horizontal"> 
 				{% csrf_token %}				
 				<div class="text-center">
-					<img src="/static/umunc_iris/image/user.jpg">
+					<img src="{{ STATIC_URL }}umunc_iris/image/user.jpg">
 				</div>
 				<div class="form-group text-center">
 					<div class="input-group">

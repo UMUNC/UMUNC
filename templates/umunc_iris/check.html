@@ -15,7 +15,7 @@ Check
 			<div class="text-center">
 				{% csrf_token %}
 				<div class="text-center">
-					<img src="/static/umunc_iris/image/user.jpg">
+					<img src="{{ STATIC_URL }}umunc_iris/image/user.jpg">
 				</div>
 				{% if error%}
 				<h3>认证失败！</h3>
@@ -39,8 +39,8 @@ Check
 
 
 {% block js %}
-<script src="/static/common/js/jqBootstrapValidation.js"></script>
-<script src="/static/umunc_iris/js/register.js"></script>
+<script src="{{ STATIC_URL }}common/js/jqBootstrapValidation.js"></script>
+<script src="{{ STATIC_URL }}umunc_iris/js/register.js"></script>
 <script language="javascript">
 	var timeout = 5;
 	function show() {

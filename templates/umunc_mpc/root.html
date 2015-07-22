@@ -6,14 +6,14 @@
 		<meta name="renderer" content="webkit">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<title>{% block Rtitle %}{% endblock %}</title>
-		<link href="/static/common/css/bootstrap.min.css" rel="stylesheet">
-		<link href="/static/common/css/flat-ui.min.css" rel="stylesheet">
-		<link href="/static/common/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+		<link href="{{ STATIC_URL }}common/css/bootstrap.min.css" rel="stylesheet">
+		<link href="{{ STATIC_URL }}common/css/flat-ui.min.css" rel="stylesheet">
+		<link href="{{ STATIC_URL }}common/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 		{% block Rcss %}{% endblock %}
-		<link href="/static/umunc_mpc/css/common.css" rel="stylesheet">
+		<link href="{{ STATIC_URL }}umunc_mpc/css/common.css" rel="stylesheet">
 		<!--[if lt IE 9]>
-		  <script src="/static/js/html5shiv.js"></script>
-		  <script src="/static/js/respond.min.js"></script>
+		  <script src="{{ STATIC_URL }}js/html5shiv.js"></script>
+		  <script src="{{ STATIC_URL }}js/respond.min.js"></script>
 		<![endif]-->
 	</head>
 	<body>
@@ -48,18 +48,13 @@
 					</ul>
 					{% if user.is_authenticated %}
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="/iris/accounts/login/?next=/mpc/">登录</a></li>
+						<li><a href="/iris/accounts/logout">Logout</a></li>
+						<li><a href="/iris/accounts/change">Change Password</a></li>
+						<li><a href="/mpc/dashboard">Manage</a></li>
 					</ul>
 					{% else %}
 					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.profile.Name}} <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="/iris/accounts/logout">Logout</a></li>
-								<li><a href="/iris/accounts/change">Change Password</a></li>
-								{% if editable %}<li><a href="/mpc/dashboard">Manage</a></li>{% endif %}
-							</ul>
-						</li>
+						<li><a href="/iris/accounts/login/?next=/mpc/">登录</a></li>
 					</ul>
 					{% endif %}
 				</div>
@@ -76,21 +71,21 @@
 			<h1>Hello, world!</h1>
 		</div>
 		{% endblock %}
-		<script src="/static/common/js/jquery.min.js"></script>
-		<script src="/static/common/js/flat-ui.min.js"></script>
-		<script src="/static/common/js/jquery.backstretch.min.js"></script>
+		<script src="{{ STATIC_URL }}common/js/jquery.min.js"></script>
+		<script src="{{ STATIC_URL }}common/js/flat-ui.min.js"></script>
+		<script src="{{ STATIC_URL }}common/js/jquery.backstretch.min.js"></script>
 		{% block Rjs %}{% endblock %}
-		<script src="/static/umunc_mpc/js/common.js"></script>
+		<script src="{{ STATIC_URL }}umunc_mpc/js/common.js"></script>
 		{% if template %}
 		<script type="text/javascript">
 		$(function(){
 			$.backstretch([
-				"/static/umunc_mpc/image/bg_{{template}}.jpg",
+				"{{ STATIC_URL }}umunc_mpc/image/bg_{{template}}.jpg",
 			], {
 				fade: 1000,
 				duration: 5000
 			});
-			$("#press_logo > div > div").html("<img src='/static/umunc_mpc/image/logo_{{template}}.png' style='width:400px;height:auto;'>");
+			$("#press_logo > div > div").html("<img src='{{ STATIC_URL }}umunc_mpc/image/logo_{{template}}.png' style='width:400px;height:auto;'>");
 		}) 
 		</script>
 		{% endif %}

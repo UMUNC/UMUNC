@@ -79,7 +79,7 @@
 
 
 {% block js %}
-<script src="/static/common/js/jqBootstrapValidation.js"></script>
+<script src="{{ STATIC_URL }}common/js/jqBootstrapValidation.js"></script>
 {% ifequal profile.Status 4%}{% else %}
 	<script language="javascript">
 		$(function(){

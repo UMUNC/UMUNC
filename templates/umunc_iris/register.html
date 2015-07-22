@@ -14,7 +14,7 @@ Register
 		<form action="." method="post" class="form-horizontal" id="register_form"> 
 			{% csrf_token %}
 			<div class="text-center">
-				<img src="/static/umunc_iris/image/user.jpg">
+				<img src="{{ STATIC_URL }}umunc_iris/image/user.jpg">
 			</div>
 			{% ifequal error 'success' %}
 			<div class="text-center">
@@ -66,6 +66,6 @@ Register
 
 
 {% block js %}
-<script src="/static/common/js/jqBootstrapValidation.js"></script>
-<script src="/static/umunc_iris/js/register.js"></script>
+<script src="{{ STATIC_URL }}common/js/jqBootstrapValidation.js"></script>
+<script src="{{ STATIC_URL }}umunc_iris/js/register.js"></script>
 {% endblock %}
