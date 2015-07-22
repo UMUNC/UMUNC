@@ -35,7 +35,7 @@ def upload_page(request):
 		raise Http404
 	Rmsg=''
 	if request.method == 'POST':
-		result=basicupload(request,'/www/OSS/upload/',request.FILES['file'].name,'file')
+		result=basicupload(request,'/www/OSS/upload/',request.FILES['upload_file'].name,'upload_file')
 		if result:
 			Rmsg='<a href="http://umuncstatic.oss-cn-hangzhou.aliyuncs.com/upload/'+request.FILES['upload_file'].name+'" target="_blank">http://www.umunc.net/download/'+request.FILES['upload_file'].name+'</a>'
 		else:
