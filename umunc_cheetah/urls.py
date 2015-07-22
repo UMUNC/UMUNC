@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from view import *
 
-from umunc.part_upload import upload
+# from umunc.part_upload import upload
 
 urlpatterns = patterns('',
     (r'^$', default),
