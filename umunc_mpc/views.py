@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_headers
 
 @vary_on_headers('Cookie')
 @cache_page(5)
