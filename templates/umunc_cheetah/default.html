@@ -31,9 +31,11 @@ Center
 										<li class="list-group-item text-center" id="time_panel">
 											<p class="list-group-item-heading">Real: 2015-2-8 15:15:32<br/>Virtual: 2015-2-8 15:15:32</p>
 										</li>
-										{% for room in rooms %}
-										<a href="####" id="communication_btn_{{room.id}}" class="list-group-item" onclick="communication_fresh({{room.id}},'{{room.Name}}')">{{room.Name}}<span class="badge" id="new_message"></span></a>
-										{% endfor %}
+										<div id="room_list_panel">
+											{% for room in rooms %}
+											<a href="####" id="communication_btn_{{room.id}}" class="list-group-item" onclick="communication_fresh({{room.id}},'{{room.Name}}')">{{room.Name}}<span class="badge" id="new_message"></span></a>
+											{% endfor %}
+										</div>
 									</div>
 								</div>
 								<div class="col-md-9">

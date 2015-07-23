@@ -10,7 +10,6 @@ body{
   background-color: rgba(52, 73, 94, 0.7);
 }
 .list_block{
-	display: inline;
 	border-top: solid 5px #34495e;
 	margin: 10px 10px 20px 10px;
 	padding: 5px 10px;
@@ -50,15 +49,13 @@ p{
 	background-color: rgba(255,255,255,0.9);
 	box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
 	padding: 0px 30px;
-	margin-bottom: 30px;
+	margin-bottom: 50px;
 }
 .post_comment_block{
 	border-top: none;
 }
-.ds-powered-by{
-	display:none;
-}
 .post_foot{
+	border-top: solid 2px rgba(52, 73, 94, 0.2);
 	padding: 10px 0px 0px 0px;
 	margin: 30px 0px 0px 0px;
 }

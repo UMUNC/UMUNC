@@ -41,6 +41,10 @@ p{
 #main_panel #top_panel #Communications #time_panel p{
 	font-size: 14px;
 }
+#main_panel #top_panel #Communications #room_list_panel{
+	max-height: 525px;
+	overflow: auto;
+}
 #main_panel #top_panel #Communications .tooltip-inner{
 	max-width:500px;
 }

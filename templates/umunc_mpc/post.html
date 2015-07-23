@@ -14,16 +14,21 @@
 			<div class="post_body">
 				{{post.content|safe}}
 			</div>
-		</div>
-	</div>
-	<div class="container post_block">
-		<div class="row">
 			<div class="post_foot">
 				<p>作者：{{post.author.profile.Name}} 于 {{post.timestamp | date:"Y-n-j G:i:s" }} 发布在
 					{% for press in post.press.all %}
 						{{press.name}}{% if not forloop.last %}、{% endif %}
 					{% endfor%}
 				</p>
+			</div>
+		</div>
+	</div>
+	<div class="container post_comment_block">
+		<div class="row">
+			<div class="col-md-12">
+				<p></p>
+				<p><small>本网站为UMUNC2015全国总会模拟联合国性质站点。本站所有新闻纯属虚构，与真实世界无关。</small></p>
+				<p><small>UMUNC2015全国总会保留本站包括且不仅限于代码、数据、设计等内容所有权，未经许可，不得传播与仿制。</small></p>
 			</div>
 		</div>
 	</div>

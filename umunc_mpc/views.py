@@ -239,6 +239,11 @@ def dashboard(request):
             else:
                 response_msg='无权操作'
 
+    response_press=cache.get('umunc_mpc_press_all')
+    if response_press==None:
+        response_press=Press.objects.all()
+        cache.set('umunc_mpc_press_all',response_press)
+        
     if request.user.is_staff:
         response_press=Press.objects.all()
     else:
@@ -252,6 +257,7 @@ def dashboard(request):
         # 'posts':response_post,
         # 'tags':response_tag,
         'tab':response_tab,
+        'pressess':response_press,
         # 'users':response_user
         },context_instance=RequestContext(request))
 

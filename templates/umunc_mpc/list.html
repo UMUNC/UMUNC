@@ -12,21 +12,21 @@
 			<div class="col-md-8">
 				<div class="col-md-12 coltitle"><span class="fui-new"></span> 本社资讯</div>
 				{% for post in posts %}
-					<div class="col-md-12 list_block" onclick="location.href='/mpc/post/{% if pressname %}{{pressname}}/{%endif%}{{ post.id }}'">
-						<p class="col-md-12 list_title">{{post.title}}</p>
-						<pre class="col-md-9 list_content">{{post.content|truncatewords_hans_html:150|safe}}</pre>
-						<div class="col-md-3 list_info">
-							<address>
-								{{post.author.profile.Name}} 发布于<br/>
-								{{post.timestamp | date:"Y-n-j G:i:s" }}<br/><br/>
-								<strong>
-								{% for press in post.press.all %}
-									{{press.name}}{% if not forloop.last %}<br/>{% endif %}
-								{% endfor%}
-								</strong>
-							</address>
-						</div>
+				<div class="col-md-12 list_block" onclick="location.href='/mpc/post/{% if pressname %}{{pressname}}/{%endif%}{{ post.id }}'">
+					<p class="col-md-12 list_title">{{post.title}}</p>
+					<pre class="col-md-9 list_content">{{post.content|truncatewords_hans_html:150|safe}}</pre>
+					<div class="col-md-3 list_info">
+						<address>
+							{{post.author.profile.Name}} 发布于<br/>
+							{{post.timestamp | date:"Y-n-j G:i:s" }}<br/><br/>
+							<strong>
+							{% for press in post.press.all %}
+								{{press.name}}{% if not forloop.last %}<br/>{% endif %}
+							{% endfor%}
+							</strong>
+						</address>
 					</div>
+				</div>
 				{% endfor %}
 			</div>
 			<div class="col-md-4">
