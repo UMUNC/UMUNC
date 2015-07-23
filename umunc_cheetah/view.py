@@ -247,9 +247,6 @@ def datacontrol_meeting(request):
 				Check_F=True,
 				Check_T=None,
 				Check_A=True,)
-			# if tcountry.id==1:
-			# 	tmeeting.Check_T=True
-			# 	tmeeting.Check_A=None
 			tmeeting.save()
 			refresh_meeting_couple(fcountry,tcountry,request)
 			return HttpResponse(simplejson.dumps({
