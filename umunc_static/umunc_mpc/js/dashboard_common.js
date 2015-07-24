@@ -57,7 +57,7 @@ $(function(){
 	$('[data-toggle="popover"]').popover()
 	editor = new Simditor({
 		textarea: $('#editor'),
-		toolbarFloatOffset: 30,
+		toolbarFloatOffset: 52,
 		toolbar:[
 					'title',
 					'bold',
@@ -111,5 +111,6 @@ $(function(){
 			$(this).iCheck('uncheck');
 		});
 	});
-	$('#MSGModal').modal('show')
+	$('#MSGModal').modal('show');
+	$(".simditor-toolbar").attr("style",$(".simditor-toolbar").attr("style")+"width:"+$(".simditor").width()+"px!important");
 }) 
