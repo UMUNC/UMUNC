@@ -112,5 +112,5 @@ $(function(){
 		});
 	});
 	$('#MSGModal').modal('show');
-	$(".simditor-toolbar").attr("style",$(".simditor-toolbar").attr("style")+"width:"+$(".simditor").width()+"px!important");
+	$(".simditor-toolbar").attr("style",$(".simditor-toolbar").attr("style")+"width:"+$("#myTabContent").width()+"px!important;");
 }) 
