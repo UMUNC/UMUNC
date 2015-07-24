@@ -188,9 +188,9 @@ EMAIL_USE_TLS = True
 #    }
 #}
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': '/www/cache/cheetah/django_cache',
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+#         'LOCATION': '/www/cache/cheetah/django_cache',
+#     }
+# }

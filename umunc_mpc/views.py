@@ -11,8 +11,8 @@ from django.core.cache import cache
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_headers
 
-@vary_on_headers('Cookie')
-@cache_page(5)
+# @vary_on_headers('Cookie')
+# @cache_page(5)
 def view_list(request,pressname=''):
 
     response_press=cache.get('umunc_mpc_press_all')
@@ -54,8 +54,8 @@ def view_list(request,pressname=''):
         'template':response_template,
         },context_instance=RequestContext(request))
 
-@vary_on_headers('Cookie')
-@cache_page(5)
+# @vary_on_headers('Cookie')
+# @cache_page(5)
 def view_post(request,pressname,id):
     response_post=cache.get('umunc_mpc_post_'+id)
     if response_post==None:

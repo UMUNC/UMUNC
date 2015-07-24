@@ -57,6 +57,7 @@ $(function(){
 	$('[data-toggle="popover"]').popover()
 	editor = new Simditor({
 		textarea: $('#editor'),
+		toolbarFloatOffset: 30,
 		toolbar:[
 					'title',
 					'bold',
