@@ -2,10 +2,7 @@ import os
 
 str=''
 
-if os.getenv('CONFIG_DB_NAME') and
-	os.getenv('CONFIG_DB_USER') and
-	os.getenv('CONFIG_DB_PASSWORD') and
-	os.getenv('CONFIG_DB_HOST'):
+if os.getenv('CONFIG_DB_NAME') and os.getenv('CONFIG_DB_USER') and os.getenv('CONFIG_DB_PASSWORD') and os.getenv('CONFIG_DB_HOST'):
 	str+='''
 DATABASES = {
     'default': {
@@ -19,12 +16,14 @@ DATABASES = {
 }
 '''
 
-if os.getenv('CONFIG_UPLUAD_DIR')：
+if os.getenv('CONFIG_UPLUAD_DIR'):
 	str+='''
 UPLUAD_DIR = \''''+os.getenv('CONFIG_UPLUAD_DIR')+'''\'
 '''
 
-if os.getenv('CONFIG_UPLUAD_URL')：
+if os.getenv('CONFIG_UPLUAD_URL'):
 	str+='''
 UPLUAD_URL = \''''+os.getenv('CONFIG_UPLUAD_URL')+'''\'
 '''
+
+print(str)
