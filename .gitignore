@@ -2,3 +2,17 @@
 #umunc/setting.py
 #umunc_static/templates/umunc_cheetah/root.html
 
+
+*.sublime-project
+
+*.sublime-workspace
+
+*.tmp
+
+*.kate-swp
+
+*.tmp
+
+umunc/.settings.py.kate-swp
+
+umunc/.settings.py.kate-swp

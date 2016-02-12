@@ -3,13 +3,15 @@ Welcome to UMUNC!
 
 This is the online system for UMUNC.
 
+Version 2.0
+
 ----------
 
 
 Apps
 -------------
 
-Now this project contains 4 mainly apps/modules:
+Now this project contains 5 mainly apps/modules:
 
 ####**UMUNC-CORE** (/umunc)
 Basic core of system, including settings, common modules and main url config;
@@ -22,6 +24,9 @@ User center apps;
 
 ####**UMUNC_CHEETAH** (/umunc_cheetah)
 Live chat apps;
+
+####**UMUNC_MPC** (/umunc_mpc)
+Media Center apps;
 
 ----------
 
