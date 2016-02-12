@@ -1,4 +1,4 @@
-FROM daocloud.io/library/django:1.8.6-python2
+FROM daocloud.io/library/django:1.7-python2
 
 MAINTAINER eastpiger
 
