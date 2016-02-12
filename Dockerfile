@@ -9,5 +9,4 @@ WORKDIR /UMUNC
 COPY . /UMUNC
 RUN pip install simplejson mysql-python gunicorn
 
-
-CMD bash
+CMD /bin/bash
