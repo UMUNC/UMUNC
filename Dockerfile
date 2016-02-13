@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install nginx -y
 RUN pip install simplejson mysql-python gunicorn
 
 RUN mkdir /UMUNC
+RUN mkdir /upload/logs
 WORKDIR /UMUNC
 COPY . /UMUNC
 COPY umunc.conf /etc/nginx/sites-enabled/umunc.conf

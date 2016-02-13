@@ -147,5 +147,7 @@ LOGOUT_URL = '/iris/accounts/logout'
 
 UPLUAD_DIR = '/upload'
 UPLUAD_URL = '/download'
+TIME_DIR = '/UMUNC/time'
+REFRESH_DIR = '/UMUNC/refresh'
 
 from CONFIG import *

@@ -3,7 +3,7 @@ import string, random, time, simplejson
 from django.http import HttpResponseRedirect,HttpResponse
 from django.db.models import Q
 from django.template import Context
-from django.template.loader import get_template  
+from django.template.loader import get_template
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login,logout
@@ -13,6 +13,7 @@ from django.core.cache import cache
 from umunc_cheetah.models import *
 from umunc_iris.models import *
 from umunc import part_upload
+from .settings import TIME_DIR, REFRESH_DIR
 
 @login_required
 def default(request):
@@ -107,13 +108,13 @@ def refresh_meeting_couple(fcountry,tcountry,request):
 		cache.delete('umunc_cheetah_meeting_'+str(tcountry.id)+'_A'+'_list')
 
 def refresh_virtualtime():
-	destination = open('/www/cache/cheetah/time','r')
+	destination = open(TIME_DIR,'r')
 	t=destination.readline()
 	destination.close()
 	cache.set('umunc_cheetah_virtualtime', t,None)
 
 def check_refresh():
-	destination = open('/www/cache/cheetah/refresh','r')
+	destination = open(REFRESH_DIR,'r')
 	t=destination.readline()
 	destination.close()
 	return t[:7]
@@ -302,7 +303,6 @@ def datacontrol_file(request):
 		else:
 			return HttpResponse(simplejson.dumps({'result':'服务器错误，请重试。',},ensure_ascii=False))
 
-
 @login_required
 def datacontrol_setting(request):
 	if request.POST.has_key('command'):
@@ -314,18 +314,18 @@ def datacontrol_setting(request):
 				return HttpResponse('无权操作。')
 		if request.POST['command']=='FrontendRefresh':
 			if request.user.is_staff:
-				destination = open('/www/cache/cheetah/refresh','wd+')
+				destination = open(REFRESH_DIR,'wd+')
 				destination.write('REFRESH')
 				destination.close()
 				time.sleep(4)
-				destination = open('/www/cache/cheetah/refresh','wd+')
+				destination = open(REFRESH_DIR,'wd+')
 				destination.write('NONE')
 				destination.close()
 				return HttpResponse('success')
 			else:
 				return HttpResponse('无权操作。')
 		if request.POST['command']=='Time' and request.POST.has_key('BaseTime') and request.POST.has_key('VirtualBaseTime') and request.POST.has_key('TimeStep'):
-			destination = open('/www/cache/cheetah/time','wd+')
+			destination = open(TIME_DIR,'wd+')
 			destination.writelines('{"vtime_base":'+request.POST['BaseTime']+',"vtime_check":'+request.POST['VirtualBaseTime']+',"vtime_step":'+request.POST['TimeStep']+'}')
 			destination.close()
 			return HttpResponse(simplejson.dumps({

@@ -26,4 +26,14 @@ if os.getenv('CONFIG_UPLUAD_URL'):
 UPLUAD_URL = \''''+os.getenv('CONFIG_UPLUAD_URL')+'''\'
 '''
 
+if os.getenv('CONFIG_TIME_DIR'):
+	str+='''
+TIME_DIR = \''''+os.getenv('CONFIG_TIME_DIR')+'''\'
+'''
+
+if os.getenv('CONFIG_REFRESH_DIR'):
+	str+='''
+REFRESH_DIR = \''''+os.getenv('CONFIG_REFRESH_DIR')+'''\'
+'''
+
 print(str)
