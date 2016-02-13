@@ -7,6 +7,7 @@ EXPOSE 8080
 RUN apt-get update && apt-get install nginx -y
 RUN pip install simplejson mysql-python gunicorn
 
+RUN mkdir /logs
 RUN mkdir /UMUNC
 WORKDIR /UMUNC
 COPY . /UMUNC
