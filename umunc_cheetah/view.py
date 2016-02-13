@@ -13,7 +13,7 @@ from django.core.cache import cache
 from umunc_cheetah.models import *
 from umunc_iris.models import *
 from umunc import part_upload
-from .settings import TIME_DIR, REFRESH_DIR
+from umunc.settings import TIME_DIR, REFRESH_DIR
 
 @login_required
 def default(request):
