@@ -10,15 +10,15 @@ p{
 }
 #umunclogo{
 	display: inline-block;
-	width: 150px;
-	height:110px;
-	margin:60px 10px;
+	width: auto;
+	height:70px;
+	margin:30px 10px;
 }
 #cheetahlogo{
 	display: inline-block;
-	width: 402px;
-	height:100px;
-	margin:60px 10px;
+	width: auto;
+	height:70px;
+	margin:30px 10px;
 }
 #main_panel{
 	background-color: rgba(245, 245, 245, 0.8);

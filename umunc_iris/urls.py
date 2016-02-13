@@ -3,7 +3,7 @@ from view import *
 
 urlpatterns = patterns('',
     (r'^accounts/login/$', plogin),
-    (r'^accounts/register/$', pregister),
+    (r'^accounts/register/$', temp),
     (r'^accounts/check/$', pcheck),
     (r'^accounts/logout/$', plogout),
     (r'^accounts/change/$', pchange),

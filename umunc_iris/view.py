@@ -15,7 +15,6 @@ import re
 def test(request):
 	return HttpResponseRedirect('/cheetah')
 
-@login_required
 def temp(request):
 	return HttpResponse('IRIS已关闭')
 
@@ -107,7 +106,7 @@ def pregister(request):
 		'error':Rerror,
 		'email':Remail,},context_instance=RequestContext(request))
 
-def pcheck(request):	
+def pcheck(request):
 	Rerror='1'
 	if request.GET.has_key('checkcode'):
 		try:
@@ -123,8 +122,8 @@ def pcheck(request):
 		return render_to_response('umunc_iris/check.html',{
 			'error':Rerror,
 		},context_instance=RequestContext(request))
-	
-def plogout(request):    
+
+def plogout(request):
 	logout(request)
 	return HttpResponseRedirect('/')
 
@@ -170,7 +169,7 @@ def step1(request):
 		request.user.profile.save()
 		return HttpResponseRedirect('/iris/step1')
 	return render_to_response('umunc_iris/step1.html',{'profile':request.user.profile},context_instance=RequestContext(request))
-	
+
 @login_required
 def step2(request):
 	Rerror=''
@@ -224,7 +223,7 @@ def step2(request):
 			request.user.profile.save()
 			Rerror='success'
 	return render_to_response('umunc_iris/step2.html',{'profile':request.user.profile,'error':Rerror,'groups':Rgroups,},context_instance=RequestContext(request))
-	
+
 @login_required
 def step3(request):
 	Rmsg=''
@@ -241,9 +240,9 @@ def step3(request):
 			else:
 				Rmsg='上传发生错误！'
 		else:
-			Rmsg='格式错误！'			
+			Rmsg='格式错误！'
 	return render_to_response('umunc_iris/step3.html',{'profile':request.user.profile,'msg':Rmsg,},context_instance=RequestContext(request))
-	
+
 @login_required
 def step3_download(request):
 	if request.user.is_staff and request.GET.has_key("filename"):
@@ -257,7 +256,7 @@ def step3_download(request):
 			response = HttpResponse(wrapper, content_type='application/pdf')
 		response['Content-Encoding'] = 'utf-8'
 		response['Content-Disposition'] = 'attachment; filename=%s' % re.findall(r'[^/]+$',request.user.profile.Review)[-1].encode("utf-8")
-		return response 
+		return response
 
 	if request.user.profile.Review:
 		tarball_file = open('/www/upload/review/'+request.user.profile.Review.encode("utf-8"))
@@ -270,6 +269,6 @@ def step3_download(request):
 			response = HttpResponse(wrapper, content_type='application/pdf')
 		response['Content-Encoding'] = 'utf-8'
 		response['Content-Disposition'] = 'attachment; filename=%s' % re.findall(r'[^/]+$',request.user.profile.Review)[-1].encode("utf-8")
-		return response 
+		return response
 	else:
 		raise Http404
