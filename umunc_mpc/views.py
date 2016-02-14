@@ -144,39 +144,37 @@ def dashboard(request):
             if tpost==None:
                 tpost=Post.objects.get(id=request.POST['id'])
                 cache.set('umunc_mpc_post_'+request.POST['id'],tpost)
-
-            cache.delete('umunc_mpc_post_'+request.POST['id'])
-            cache.delete('umunc_mpc_press_list_')
-            for i in tpost.press.all():
-                cache.delete('umunc_mpc_press_list_'+i.name)
-
             if request.user.is_staff or ((request.user==tpost.author)and(request.POST['status']=='2')):
                 response_tab=request.POST['press']
                 tpost.status=request.POST['status']
                 tpost.save()
             else:
                 response_msg='无权操作'
-        if request.POST['command']=='PostDelete':
-            tpost=cache.get('umunc_mpc_post_'+request.POST['id'])
-            if tpost==None:
-                tpost=Post.objects.get(id=request.POST['id'])
-                cache.set('umunc_mpc_post_'+request.POST['id'],tpost)
 
             cache.delete('umunc_mpc_post_'+request.POST['id'])
             cache.delete('umunc_mpc_press_list_')
             for i in tpost.press.all():
                 cache.delete('umunc_mpc_press_list_'+i.name)
 
+        if request.POST['command']=='PostDelete':
+            tpost=cache.get('umunc_mpc_post_'+request.POST['id'])
+            if tpost==None:
+                tpost=Post.objects.get(id=request.POST['id'])
+                cache.set('umunc_mpc_post_'+request.POST['id'],tpost)
             if request.user.is_staff or ((request.user==tpost.author)and(tpost.status==1)):
                 response_tab=request.POST['press']
                 tpost.delete()
             else:
                 response_msg='无权操作'
+
+            cache.delete('umunc_mpc_post_'+request.POST['id'])
+            cache.delete('umunc_mpc_press_list_')
+            for i in tpost.press.all():
+                cache.delete('umunc_mpc_press_list_'+i.name)
+
         if request.POST['command']=='PostNew':
             response_tab=request.POST['press']
             tpress=Press.objects.get(name=request.POST['press'])
-
-            cache.delete('umunc_mpc_press_list_')
 
             if request.user.is_staff or (request.user in tpress.user.all()):
                 tpost=Post(
@@ -196,17 +194,12 @@ def dashboard(request):
                     tpost.press.add(tpress)
                     cache.delete('umunc_mpc_press_list_'+tpress.name)
                 tpost.save()
+            cache.delete('umunc_mpc_press_list_')
         if request.POST['command']=='PostEdit':
             tpost=cache.get('umunc_mpc_post_'+request.POST['id'])
             if tpost==None:
                 tpost=Post.objects.get(id=request.POST['id'])
                 cache.set('umunc_mpc_post_'+request.POST['id'],tpost)
-
-            cache.delete('umunc_mpc_post_'+request.POST['id'])
-            cache.delete('umunc_mpc_press_list_')
-            for i in tpost.press.all():
-                cache.delete('umunc_mpc_press_list_'+i.name)
-
             if request.user.is_staff or ((request.user==tpost.author)and(tpost.status==1)):
                 response_tab=request.POST['press']
                 tpost.title=request.POST['title']
@@ -221,17 +214,17 @@ def dashboard(request):
                 tpost.save()
             else:
                 response_msg='无权操作'
-        if request.POST['command']=='PostLevel':
-            tpost=cache.get('umunc_mpc_post_'+request.POST['id'])
-            if tpost==None:
-                tpost=Post.objects.get(id=request.POST['id'])
-                cache.set('umunc_mpc_post_'+request.POST['id'],tpost)
 
             cache.delete('umunc_mpc_post_'+request.POST['id'])
             cache.delete('umunc_mpc_press_list_')
             for i in tpost.press.all():
                 cache.delete('umunc_mpc_press_list_'+i.name)
 
+        if request.POST['command']=='PostLevel':
+            tpost=cache.get('umunc_mpc_post_'+request.POST['id'])
+            if tpost==None:
+                tpost=Post.objects.get(id=request.POST['id'])
+                cache.set('umunc_mpc_post_'+request.POST['id'],tpost)
             if request.user.is_staff:
                 response_tab=request.POST['press']
                 tpost.level=request.POST['level']
@@ -239,11 +232,17 @@ def dashboard(request):
             else:
                 response_msg='无权操作'
 
+            cache.delete('umunc_mpc_post_'+request.POST['id'])
+            cache.delete('umunc_mpc_press_list_')
+            for i in tpost.press.all():
+                cache.delete('umunc_mpc_press_list_'+i.name)
+
+
     response_press=cache.get('umunc_mpc_press_all')
     if response_press==None:
         response_press=Press.objects.all()
         cache.set('umunc_mpc_press_all',response_press)
-        
+
     if request.user.is_staff:
         response_press=Press.objects.all()
     else:

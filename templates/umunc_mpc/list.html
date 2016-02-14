@@ -1,7 +1,13 @@
 {% extends "umunc_mpc/root.html" %}
 {% load myfilter %}
 
-{% block Rtitle %}LBlogger{% endblock %}
+{% block Rtitle %}
+	{% if post.title %}
+		{{post.title}}
+	{% else %}
+		全球新闻总览
+	{% endif %}
+{% endblock %}
 
 {% block Rcss %}
 {% endblock %}
