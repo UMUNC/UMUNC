@@ -82,7 +82,7 @@ def refresh_meeting(user,number):
 	if user.is_staff:
 		response_meetings=meeting.objects.all()
 	else:
-		response_meetings=meeting.objects.filter(Q(FromC=user.profile.Country)|Q(ToC=user.profile.Country)|(Q(Global=True)&Q(property='Accepted')))
+		response_meetings=meeting.objects.filter(Q(FromC=user.profile.Country)|Q(ToC=user.profile.Country)|(Q(Global=True)&Q(Check_F=True)&Q(Check_T=True)&Q(Check_A=True)))
 	ttemplate = get_template('umunc_cheetah/datacontrol_meeting.html')
 	cache.set('umunc_cheetah_meeting_'+number, simplejson.dumps({
 				'result':'success',
