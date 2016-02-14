@@ -34,7 +34,7 @@ function communication_refresh(){
 					$("#main_panel #top_panel #Communications .panel-footer button").attr("disabled","disabled");
 				}else{
 					$("#main_panel #top_panel #Communications .panel-footer input#content").removeAttr("disabled");
-					$("#main_panel #top_panel #Communications .panel-footer button").removeAttr("disabled");						
+					$("#main_panel #top_panel #Communications .panel-footer button").removeAttr("disabled");
 				};
 				var height_delta=$("#main_panel #top_panel #Communications .panel-body div").height()-$("#main_panel #top_panel #Communications .panel-body").scrollTop();
 				$("#main_panel #top_panel #Communications .panel-heading h3").html(data.room.Name);
@@ -207,11 +207,32 @@ function meeting_change(user_number,number,accept){
 	});
 };
 
+function meeting_global(number){
+	$.ajax({
+		url: "/cheetah/datacontrol/meeting/",
+		data: {
+			command:"PostGlobal",
+			number:number,
+			csrfmiddlewaretoken:$("#main_panel #top_panel #Communications #form_communication_send [name='csrfmiddlewaretoken']").val()
+		},
+		success: function(data,status){
+			if (data.result=="success"){
+				$('#loaddialog').modal('show');
+				heartbeat();
+			}else{
+				alert("失败："+data.result);
+			};
+		},
+		dataType: 'json',
+		type: 'POST'
+	});
+};
+
 function startTime()
 {
 	function checkTime(i)
 	{
-		if (i<10) 
+		if (i<10)
 			{i="0" + i}
 			return i
 	}
@@ -250,7 +271,7 @@ $(function(){
 	], {
 		fade: 1000,
 		duration: 7000
-	});	
+	});
 	$('#loaddialog').modal({
 		keyboard: false,
 		backdrop: 'static',
@@ -373,10 +394,10 @@ $(function(){
 		return false;
 	});
 	$("#form_setting_time").submit(function(){
-		function getDate(strDate) {  
-			var date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,  
-			function (a) { return parseInt(a, 10) - 1; }).match(/\d+/g) + ')');  
-			return date;  
+		function getDate(strDate) {
+			var date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,
+			function (a) { return parseInt(a, 10) - 1; }).match(/\d+/g) + ')');
+			return date;
 		};
 		if (isNaN($("#form_setting_time #timestep").val())){
 			alert("请输入数字！");
@@ -489,4 +510,4 @@ $(function(){
 	$("#main_panel #top_panel #Communications .list-group a:first").click();
 	if ($("#communication_list").parent().height()>$("#Communications .panel").height()){$("#Communications .panel .panel-body").css("height",$("#communication_list").parent().height()-121)};
 	$("body").append('<audio id="chatAudio"><source src="/static/umunc_cheetah/sound/notify.mp3" type="audio/mpeg"><source src="/static/umunc_cheetah/sound/notify.wav" type="audio/wav"></audio>');
-}) 
+})

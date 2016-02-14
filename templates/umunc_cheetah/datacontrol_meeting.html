@@ -17,6 +17,13 @@
 		{% endifequal %}
 			{{meeting.check_accept}}
 		</strong>
+	{% ifequal meeting.check_accept "Accepted" %}
+		{% if user.is_staff %}
+			{% if not meeting.Global %}
+			<button class="btn btn-success" type="button" onclick="meeting_global({{meeting.id}})">Global</button>
+			{% endif %}
+		{% endif %}
+	{% endifequal %}
 	{% ifnotequal meeting.check_accept "Rejected" %}
 		<br/>
 		<div class="btn-group btn-group-xs" role="group" aria-label="...">

@@ -33,8 +33,10 @@ class meeting(models.Model):
 	Check_F=models.NullBooleanField(default=None,verbose_name='发起者确认')
 	Check_T=models.NullBooleanField(default=None,verbose_name='接受者确认')
 	Check_A=models.NullBooleanField(default=None,verbose_name='管理员确认')
+	Global=models.BooleanField(default=False,verbose_name='全局')
 	class Meta:
 		ordering = ['-id']
+	@property
 	def check_accept(self):
 		if (self.Check_A and self.Check_T and self.Check_F)==True:
 			return 'Accepted'

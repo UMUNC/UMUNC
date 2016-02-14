@@ -82,7 +82,7 @@ def refresh_meeting(user,number):
 	if user.is_staff:
 		response_meetings=meeting.objects.all()
 	else:
-		response_meetings=meeting.objects.filter(Q(FromC=user.profile.Country)|Q(ToC=user.profile.Country))
+		response_meetings=meeting.objects.filter(Q(FromC=user.profile.Country)|Q(ToC=user.profile.Country)|(Q(Global=True)&Q(property='Accepted')))
 	ttemplate = get_template('umunc_cheetah/datacontrol_meeting.html')
 	cache.set('umunc_cheetah_meeting_'+number, simplejson.dumps({
 				'result':'success',
@@ -253,6 +253,12 @@ def datacontrol_meeting(request):
 			return HttpResponse(simplejson.dumps({
 				'result':'success',
 				},ensure_ascii=False))
+		if request.POST['command']=='PostGlobal' and request.POST.has_key('number'):
+			if request.user.is_staff:
+				tmeeting=meeting.objects.get(id=request.POST['number'])
+				tmeeting.Global=True
+				tmeeting.save()
+				return HttpResponse(simplejson.dumps({'result':'success',},ensure_ascii=False))
 		if request.POST['command']=='PostChange' and request.POST.has_key('user_number') and request.POST.has_key('number') and request.POST.has_key('accept'):
 			tmeeting=meeting.objects.get(id=request.POST['number'])
 			if request.POST['user_number']=='0':
