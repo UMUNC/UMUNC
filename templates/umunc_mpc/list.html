@@ -18,7 +18,7 @@
 			<div class="col-md-8">
 				<div class="col-md-12 coltitle"><span class="fui-new"></span> 本社资讯</div>
 
-				{% Paginate request posts maxitem 15 maxmenuitem 10 key 'paginate_id' as paginatedposts %}
+				{% Paginate request posts maxitem 15 maxmenuitem 10 page 0 key 'paginate_id' as paginatedposts %}
 
 				{% for post in paginatedposts.containerP %}
 				<div class="col-md-12 list_block" onclick="location.href='/mpc/post/{% if pressname %}{{pressname}}/{%endif%}{{ post.id }}'">
