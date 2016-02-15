@@ -182,10 +182,10 @@ class Paginate(AsTag):
         maxpage = int(math.ceil(length / maxitem))
 
         if not page:
-            try:
-                page = int(request.GET[key])
-            except:
-                page = 1;
+            #try:
+            page = int(request.GET[key])
+            #except:
+            #    page = 1;
 
         if page > maxpage : page = maxpage
         if page < 1: page = 1
