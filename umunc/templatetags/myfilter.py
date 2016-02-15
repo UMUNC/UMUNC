@@ -169,7 +169,7 @@ class Paginate(AsTag):
         'maxmenuitem',
         Argument('maxmenuitem', resolve=False, required=False, default=10),
         'page',
-        Argument('page', resolve=False, required=False, default=1),
+        Argument('page', resolve=False, required=False, default=0),
         'key',
         Argument('key', resolve=False, required=False, default='paginate_id'),
         'as',
@@ -186,6 +186,8 @@ class Paginate(AsTag):
                 page = int(request.GET[key])
             except:
                 page = 1;
+        else:
+            page = 1
 
         if page > maxpage : page = maxpage
         if page < 1: page = 1
