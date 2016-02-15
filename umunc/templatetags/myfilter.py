@@ -179,7 +179,7 @@ class Paginate(AsTag):
     def get_value(self, context, request, container, maxitem, maxmenuitem, page, key):
         maxitem, maxmenuitem, page = int(maxitem), int(maxmenuitem), int(page)
         length = len(container)
-        maxpage = math.ceil(length / maxitem)
+        maxpage = int(math.ceil(length / maxitem))
 
         if not page:
             try:
