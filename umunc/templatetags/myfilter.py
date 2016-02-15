@@ -177,7 +177,7 @@ class Paginate(AsTag):
     )
 
     def __init__(self, parser, tokens, **kwargs):
-        super().__init__(parser, tokens)
+        super(Paginate, Paginate).__init__(parser, tokens)
 
     def get_value(self, context, request, container, maxitem, maxmenuitem, page, key):
         maxitem, maxmenuitem, page = int(maxitem), int(maxmenuitem), int(page)
