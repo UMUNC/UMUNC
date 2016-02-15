@@ -16,6 +16,16 @@ DATABASES = {
 }
 '''
 
+if os.getenv('CONFIG_CACHE'):
+    str+='''
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': \''''+os.getenv('CONFIG_CACHE')+'''\',
+    }
+}
+'''
+
 if os.getenv('CONFIG_UPLUAD_DIR'):
 	str+='''
 UPLUAD_DIR = \''''+os.getenv('CONFIG_UPLUAD_DIR')+'''\'

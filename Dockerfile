@@ -5,7 +5,7 @@ MAINTAINER eastpiger
 EXPOSE 8080
 
 RUN apt-get update && apt-get install nginx -y
-RUN pip install simplejson mysql-python gunicorn
+RUN pip install simplejson mysql-python gunicorn python-memcached
 
 RUN mkdir /logs
 RUN mkdir /UMUNC
