@@ -258,6 +258,19 @@ def datacontrol_meeting(request):
 				tmeeting=meeting.objects.get(id=request.POST['number'])
 				tmeeting.Global=True
 				tmeeting.save()
+				all_users = User.objects.all()
+				for i in all_users:
+					if i.is_staff:
+						if i.profile.Country:
+							number=str(i.profile.Country.id)+'_A'
+						else:
+							number=str(0)+'_A'
+					else:
+						if i.profile.Country:
+							number=str(i.profile.Country.id)
+						else:
+							number=str(0)
+					refresh_meeting_list(i, number)
 				refresh_meeting_couple(tmeeting.FromC,tmeeting.ToC,request)
 				return HttpResponse(simplejson.dumps({'result':'success',},ensure_ascii=False))
 		if request.POST['command']=='PostChange' and request.POST.has_key('user_number') and request.POST.has_key('number') and request.POST.has_key('accept'):
