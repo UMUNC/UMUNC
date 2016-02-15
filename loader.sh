@@ -1,4 +1,5 @@
 python2 makeconf.py > umunc/CONFIG.py
+python2 manage.py createcachetable
 python2 manage.py makemigrations
 python2 manage.py migrate
 
