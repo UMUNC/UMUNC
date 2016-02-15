@@ -1,4 +1,4 @@
-{% for meeting in meetings %}
+{% for meeting in meetings|slice":100" %}
 <tr>
 	<td>{{meeting.FromC.Name}}</td>
 	<td>{{meeting.ToC.Name}}</td>
@@ -50,17 +50,21 @@
 				{% endifequal %}
 			{% endif %}
 		{% endifequal %}
+
+		{% ifequal meeting.check_accept "Accepted" %}
+			{% if user.is_staff %}
+				{% if not meeting.Global %}
+				<button class="btn btn-success" type="button" onclick="meeting_global({{meeting.id}})">Global</button>
+				{% else %}
+				<button class="btn btn-success" type="button" disabled>Global</button>
+				{% endif %}
+			{% endif %}
+		{% endifequal %}
 		</div>
 	{% endifnotequal %}
-	{% ifequal meeting.check_accept "Accepted" %}
-		{% if user.is_staff %}
-			{% if not meeting.Global %}
-			<button class="btn btn-success btn-xs" type="button" onclick="meeting_global({{meeting.id}})">Global</button>
-			{% else %}
-			<span class="label label-success">Global Meeting</span>
-			{% endif %}
-		{% endif %}
-	{% endifequal %}
 	</td>
 </tr>
 {% endfor %}
+{% if meetings|slice"100:" %}
+<p class="text-center"><a class="btn btn-info btn-sm" target="_blank" href="/cheetah/history/meeting/" role="button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;查看全部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></p>
+{% %}
