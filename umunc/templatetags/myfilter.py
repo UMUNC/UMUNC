@@ -177,6 +177,7 @@ class Paginate(AsTag):
     )
 
     def get_value(self, context, request, container, maxitem, maxmenuitem, page, key):
+        if not key: key = 'paginate_id'
         maxitem, maxmenuitem, page = int(maxitem), int(maxmenuitem), int(page)
         length = len(container)
         maxpage = int(math.ceil(length / maxitem))
