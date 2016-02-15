@@ -9,6 +9,7 @@ RUN pip install simplejson mysql-python gunicorn python-memcached
 
 RUN mkdir /logs
 RUN mkdir /UMUNC
+RUN mkdir /cache
 WORKDIR /UMUNC
 COPY . /UMUNC
 COPY umunc.conf /etc/nginx/sites-enabled/umunc.conf

@@ -133,12 +133,12 @@ INSTALLED_APPS = (
 #    }
 #}
 
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-#         'LOCATION': '/www/cache/cheetah/django_cache',
-#     }
-# }
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/cache',
+    }
+}
 
 
 LOGIN_REDIRECT_URL = '/iris/'
