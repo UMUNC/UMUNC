@@ -186,8 +186,6 @@ class Paginate(AsTag):
                 page = int(request.GET[key])
             except:
                 page = 1;
-        else:
-            page = 1
 
         if page > maxpage : page = maxpage
         if page < 1: page = 1

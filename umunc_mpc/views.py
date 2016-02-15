@@ -52,6 +52,7 @@ def view_list(request,pressname=''):
         'pressess':response_press,
         'pressname':pressname,
         'template':response_template,
+        'request':request,
         },context_instance=RequestContext(request))
 
 # @vary_on_headers('Cookie')
