@@ -16,22 +16,6 @@ DATABASES = {
 }
 '''
 
-# if os.getenv('CONFIG_CACHE') and os.getenv('CONFIG_CACHE_PROFIX'):
-#     str+='''
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-#         'LOCATION': \''''+os.getenv('CONFIG_CACHE')+'''\',
-#         'KEY_PREFIX': \''''+os.getenv('CONFIG_CACHE_PROFIX')+'''\',
-#     }
-# }
-# '''
-
-if os.getenv('CONFIG_CACHE'):
-    str+='''
-KEY_PREFIX =
-'''
-
 if os.getenv('CONFIG_UPLUAD_DIR'):
 	str+='''
 UPLUAD_DIR = \''''+os.getenv('CONFIG_UPLUAD_DIR')+'''\'
