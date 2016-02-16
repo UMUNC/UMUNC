@@ -170,7 +170,7 @@ Center
 		</div>
 	</div>
 </div>
-{% if user.is_superuser%}
+{% if user.is_staff %}
 <form id="form_communication_send_all">
 	<div class="modal fade" id="communication_send_all_modal" tabindex="-1" role="dialog" aria-labelledby="setting_time_modal" aria-hidden="true">
 		<div class="modal-dialog">
@@ -194,6 +194,8 @@ Center
 		</div>
 	</div>
 </form>
+{% endif %}
+{% if user.is_superuser %}
 <form id="form_setting_time">
 	<div class="modal fade" id="setting_time_modal" tabindex="-1" role="dialog" aria-labelledby="setting_time_modal" aria-hidden="true">
 		<div class="modal-dialog">
