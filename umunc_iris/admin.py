@@ -22,8 +22,8 @@ class ProfileAdmin(admin.ModelAdmin):
             'fields': (('Review', 'GetReview'))
         }),
     )
-    list_display = ('Name', 'Status')
-    readonly_fields = ('GetReview')
+    list_display = ('User', 'Name', 'Status')
+    readonly_fields = ('GetReview', 'TimeStamp')
 
 admin.site.register(group)
 admin.site.register(profile, ProfileAdmin)
