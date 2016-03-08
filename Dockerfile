@@ -5,7 +5,7 @@ MAINTAINER eastpiger
 EXPOSE 8080
 
 RUN apt-get update && apt-get install nginx -y
-RUN pip install simplejson mysql-python gunicorn django-classy-tags
+RUN pip install simplejson mysql-python gunicorn django-classy-tags django-material
 
 RUN mkdir /logs
 RUN mkdir /UMUNC
