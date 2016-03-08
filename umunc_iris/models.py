@@ -12,7 +12,7 @@ class group(models.Model):
 		ordering = ['-id']
 	def __unicode__(self):
 		return u'%s - %s' % (self.Name,self.Payment)
-	
+
 class country(models.Model):
 	Name=models.CharField(max_length=255,verbose_name="名称")
 	class Meta:
