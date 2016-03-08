@@ -21,9 +21,10 @@ class ProfileAdmin(admin.ModelAdmin):
 			'classes': ('collapse'),
             'fields': (('Review', 'GetReview'))
         }),
-    ),
-    list_display = ('Name', 'Status'),
+    )
+    list_display = ('Name', 'Status')
     readonly_fields = ('GetReview')
+
 admin.site.register(group)
 admin.site.register(profile, ProfileAdmin)
 admin.site.register(checkcode)
