@@ -22,11 +22,13 @@ class country(models.Model):
 
 class profile(models.Model):
 	User=models.OneToOneField(User,verbose_name='账户')
-	Init=models.BooleanField(default=False,verbose_name='初始化')
+	Init=models.BooleanField(default=False,verbose_name='初始化？')
 	Group=models.ForeignKey(group,blank=True,null=True,verbose_name='团队')
-	Leader=models.BooleanField(default=False,verbose_name=' 领队')
+	Leader=models.BooleanField(default=False,verbose_name='领队？')
 	Name=models.CharField(max_length=255,blank=True,verbose_name="姓名")
-	Sex=models.BooleanField(default=False,verbose_name='性别')
+	Sex=models.BooleanField(default=False,verbose_name='性别',choices=(
+		(1,'男'),
+		(0,'女'),))
 	Age=models.IntegerField(verbose_name='年龄')
 	IDNum=models.CharField(max_length=18,verbose_name='身份证号',blank=True)
 	School=models.CharField(max_length=255,verbose_name="在读学校",blank=True)
@@ -45,7 +47,7 @@ class profile(models.Model):
 	Wechat=models.CharField(max_length=255,verbose_name="Wechat",blank=True)
 	MunAge=models.IntegerField(verbose_name='模联年龄')
 	MunRsm=models.TextField(verbose_name='模联经历',blank=True)
-	MunJoined=models.BooleanField(default=False,verbose_name='参与过UMUNC')
+	MunJoined=models.BooleanField(default=False,verbose_name='参与过UMUNC？')
 	MunJoinedC=models.CharField(max_length=255,verbose_name="参与过的UMUNC会议",blank=True)
 	Commitee=models.IntegerField(verbose_name='志愿',choices=(
 		('2015总会',(
@@ -61,8 +63,8 @@ class profile(models.Model):
 		),))
 	Country=models.ForeignKey(country,verbose_name="席位-所属国家",null=True,blank=True)
 	Identify=models.CharField(max_length=255,verbose_name="席位-席位名称",blank=True)
-	TimeStamp=models.DateTimeField(auto_now_add=True,verbose_name='时间戳')
-	Review=models.CharField(max_length=255,blank=True,verbose_name='内容')
+	TimeStamp=models.DateTimeField(auto_now_add=True,verbose_name='注册时间戳')
+	Review=models.CharField(max_length=255,blank=True,verbose_name='学测地址')
 	Status=models.IntegerField(verbose_name='状态',choices=(
 		(-3,'代表申请拒绝'),
 		(0,'未验证邮箱'),
@@ -75,6 +77,8 @@ class profile(models.Model):
 		ordering = ['id']
 	def __unicode__(self):
 		return u'[%s] %s' % (self.User.username,self.Name)
+	def GetReview(self):
+		return u'<a href="%s">Download</a>' % (self.Review)
 
 class checkcode(models.Model):
 	User=models.OneToOneField(User,verbose_name='账户')
