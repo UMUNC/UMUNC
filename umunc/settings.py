@@ -93,7 +93,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     "django.core.context_processors.request",
-    'django.template.context_processors.request',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -126,8 +125,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    'material',
-    'material.admin',
+    'flat',
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
@@ -136,7 +134,6 @@ INSTALLED_APPS = (
     'umunc_cheetah',
     'umunc_mpc',
     'gunicorn',
-
 )
 
 
