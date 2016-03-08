@@ -4,10 +4,10 @@ from umunc_iris.models import *
 class ProfileAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Status', {
-            'fields': ('User', 'TimeStamp', 'Init', 'Status')
+            'fields': ('User', 'TimeStamp', 'LastMotified', 'Init', 'Status')
         }),
         ('Basic Information', {
-            'fields': ('Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'MunAge', 'MunRsm', 'MunJoined', 'MunJoinedC', 'Commitee')
+            'fields': ('Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'MunAge', 'MunRsm', 'Commitee', 'Commitee2', 'Adjust')
         }),
         ('Group Information', {
 			'classes': ('collapse'),
@@ -19,11 +19,11 @@ class ProfileAdmin(admin.ModelAdmin):
         }),
         ('Review', {
 			'classes': ('collapse'),
-            'fields': (('Review', 'GetReview'))
+            'fields': ('Review', 'GetReview')
         }),
     )
     list_display = ('User', 'Name', 'Status')
-    readonly_fields = ('GetReview', 'TimeStamp')
+    readonly_fields = ('GetReview', 'TimeStamp', 'LastMotified')
 
 admin.site.register(group)
 admin.site.register(profile, ProfileAdmin)

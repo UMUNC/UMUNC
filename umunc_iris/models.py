@@ -1,6 +1,7 @@
 #coding=utf-8
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.safestring import mark_safe
 
 class group(models.Model):
 	Name=models.CharField(max_length=255,verbose_name="名称")
@@ -47,8 +48,6 @@ class profile(models.Model):
 	Wechat=models.CharField(max_length=255,verbose_name="Wechat",blank=True)
 	MunAge=models.IntegerField(verbose_name='模联年龄')
 	MunRsm=models.TextField(verbose_name='模联经历',blank=True)
-	MunJoined=models.BooleanField(default=False,verbose_name='参与过UMUNC？')
-	MunJoinedC=models.CharField(max_length=255,verbose_name="参与过的UMUNC会议",blank=True)
 	Commitee=models.IntegerField(verbose_name='志愿',choices=(
 		('2015总会',(
 				(1,'联动体系 - 国家内阁'),
@@ -61,9 +60,24 @@ class profile(models.Model):
 				(8,'General Assembly United System - United Nations General Assembly 3rd Committee (SOCHUM)'),
 			)
 		),))
+	Commitee2=models.IntegerField(verbose_name='志愿',choices=(
+		('2015总会',(
+				(0,'无'),
+				(1,'联动体系 - 国家内阁'),
+				(2,'联动体系 - 联合国安全理事会'),
+				(3,'联动体系 - 主新闻中心'),
+				(4,'联动体系 - 联合国秘书处'),
+				(5,'欧洲体系 - 欧盟委员会'),
+				(6,'欧洲体系 - 欧盟理事会'),
+				(7,'General Assembly United System - United Nations Security Council'),
+				(8,'General Assembly United System - United Nations General Assembly 3rd Committee (SOCHUM)'),
+			)
+		),))
+	Adjust=models.BooleanField(default=False,verbose_name='接受调剂？')
 	Country=models.ForeignKey(country,verbose_name="席位-所属国家",null=True,blank=True)
 	Identify=models.CharField(max_length=255,verbose_name="席位-席位名称",blank=True)
 	TimeStamp=models.DateTimeField(auto_now_add=True,verbose_name='注册时间戳')
+	LastMotified=models.DateTimeField(auto_now=True,verbose_name='修改时间戳')
 	Review=models.CharField(max_length=255,blank=True,verbose_name='学测地址')
 	Status=models.IntegerField(verbose_name='状态',choices=(
 		(-3,'代表申请拒绝'),
@@ -74,11 +88,11 @@ class profile(models.Model):
 		(4,'团队已确认，等待提交学术评测'),
 		(5,'学术评测已提交'),))
 	class Meta:
-		ordering = ['id']
+		ordering = ['LastMotified']
 	def __unicode__(self):
 		return u'[%s] %s' % (self.User.username,self.Name)
 	def GetReview(self):
-		return u'<a href="%s">Download</a>' % (self.Review)
+		return mark_safe(u'<a href="%s">Download</a>' % (self.Review))
 
 class checkcode(models.Model):
 	User=models.OneToOneField(User,verbose_name='账户')
