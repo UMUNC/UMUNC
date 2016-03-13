@@ -65,6 +65,15 @@ body{
 	background-color: #85c1e9;
 	color: white;
 }
+
+#main_container {
+	background-color: rgba(245, 245, 245, 0.8);
+}
+
+#main_content_container {
+	border-left: 1px solid #333;
+}
+
 #umunclogo{
 	display: inline-block;
 	width: auto;
@@ -131,9 +140,6 @@ body{
 	color: #e74c3c;
 	font-weight:bold;
 }
-#main_panel{
-	background-color: rgba(245, 245, 245, 0.8);
-}
 #main_panel #step .col-md-2 h1{
 	border-right:solid 3px rgb(52, 73, 94);
 	padding-right:20px;
@@ -146,9 +152,6 @@ body{
 #main_panel #step .col-md-10  .btn-info[disabled]{
 	background-color:#76ADD2;
 }
-#step1_panel{
-	background-color: rgba(245, 245, 245, 0.8);
-}
 #step1_panel .control-label{
 	font-weight:bold;
 }
@@ -157,9 +160,6 @@ body{
 }
 #step1_panel .form-control[disabled]{
 	color:black;
-}
-#step2_panel{
-	background-color: rgba(245, 245, 245, 0.8);
 }
 #step2_panel .control-label{
 	font-weight:bold;
@@ -177,9 +177,6 @@ body{
 #step2_panel .btn-primary{
 	margin-top:20px;
 	margin-right:20px;
-}
-#step3_panel{
-	background-color: rgba(245, 245, 245, 0.8);
 }
 #step3_panel .control-label{
 	font-weight:bold;
