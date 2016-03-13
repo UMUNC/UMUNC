@@ -2,7 +2,68 @@
 	font-family:ff-tisa-web-pro-1,ff-tisa-web-pro-2,"Lucida Grande","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
 }
 body{
-	background:url("/static/umunc_iris/image/bg.jpg") repeat;
+	background: linear-gradient(to bottom, #090037 0%,#941971 100%) fixed;
+}
+.process_panel {
+	padding-top: 40px;
+}
+.process_panel_title,.process_panel_describe {
+	padding-left: 50px;
+	margin-bottom: 10px;
+	color: #71808e;
+}
+.process_panel_title {
+	font-weight: bold;
+	height: 30px;
+	line-height: 30px;
+}
+.process_panel_describe {
+	line-height: 30px;
+	padding-bottom: 30px;
+}
+.process_panel_icon {
+	position: absolute;
+	left: 10px;
+	height: 30px;
+	width: 30px;
+	border-radius: 15px;
+	border: 1px solid black;
+	line-height: 30px;
+	padding: 0px;
+	text-align: center;
+	font-weight: bold;
+	border-color: #71808e;
+}
+.process_panel_line {
+	position: absolute;
+	left: 25px;
+	height: 100%;
+	width: 0px;
+	border-left: 1px solid black;
+	border-color: #71808e;
+}
+
+.process_panel_item.active .process_panel_title,
+.process_panel_item.active .process_panel_describe {
+	color: #344964;
+}
+.process_panel_item.active .process_panel_icon,
+.process_panel_item.active .process_panel_line {
+	border-color: #3498db;
+	background-color: #3498db;
+	color: white;
+}
+
+.process_panel_item.success .process_panel_icon,
+.process_panel_item.success .process_panel_line {
+	border-color: #3498db;
+	color: #3498db;
+}
+.process_panel_item.success .process_panel_icon,
+.process_panel_item.success .process_panel_line {
+	border-color: #85c1e9;
+	background-color: #85c1e9;
+	color: white;
 }
 #umunclogo{
 	display: inline-block;

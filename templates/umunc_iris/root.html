@@ -10,7 +10,7 @@
 {% block Rbody %}
  	<div class="container">
  		<div class="row">
- 			<div class="col-md-12">
+ 			<div class="col-md-12 text-center">
  				<img id="umunclogo" src="{{ STATIC_URL }}common/image/UMUNC-logo-white.png"/>
  				<img id="irislogo" src="{{ STATIC_URL }}common/image/iris-logo-white.png"/>
  			</div>
@@ -18,7 +18,69 @@
  	</div>
  	<div class="container">
  		<div class="row">
- 			<div class="col-md-12">
+			<div class="col-md-3 process_panel">
+				<div class="row process_panel_item success">
+					<div class="col-md-12 process_panel_title">
+						<div class="process_panel_icon">1</div>
+						一个与众不同的你
+					</div>
+					<div class="col-md-12 process_panel_describe">
+						<div class="process_panel_line"></div>
+						认真的成就，一个与众不同的你。
+					</div>
+				</div>
+				<div class="row process_panel_item active">
+					<div class="col-md-12 process_panel_title">
+						<div class="process_panel_icon">2</div>
+						代表信息填报
+					</div>
+					<div class="col-md-12 process_panel_describe">
+						<div class="process_panel_line"></div>
+						慢慢地写下，你独特的信息。
+					</div>
+				</div>
+				<div class="row process_panel_item">
+					<div class="col-md-12 process_panel_title">
+						<div class="process_panel_icon">3</div>
+						团队状态确认
+					</div>
+					<div class="col-md-12 process_panel_describe">
+						<div class="process_panel_line"></div>
+						无论孑然一身抑或高朋满座，无妨。
+					</div>
+				</div>
+				<div class="row process_panel_item">
+					<div class="col-md-12 process_panel_title">
+						<div class="process_panel_icon">4</div>
+						学术评测提交
+					</div>
+					<div class="col-md-12 process_panel_describe">
+						<div class="process_panel_line"></div>
+						只需要讲述你心中的思想，这是独特的价值。
+					</div>
+				</div>
+				<div class="row process_panel_item">
+					<div class="col-md-12 process_panel_title">
+						<div class="process_panel_icon">5</div>
+						学术团队面试
+					</div>
+					<div class="col-md-12 process_panel_describe">
+						<div class="process_panel_line"></div>
+						谈笑言语，便是不一样的你。
+					</div>
+				</div>
+				<div class="row process_panel_item">
+					<div class="col-md-12 process_panel_title">
+						<div class="process_panel_icon">6</div>
+						缴费
+					</div>
+					<div class="col-md-12 process_panel_describe">
+						<div class="process_panel_line"></div>
+						喂，该交钱了。
+					</div>
+				</div>
+			</div>
+ 			<div class="col-md-9">
  			{% block body %}{% endblock %}
  			</div>
  		</div>

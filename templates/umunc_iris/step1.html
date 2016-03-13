@@ -8,13 +8,12 @@
 {% endblock %}
 
 {% block body %}
-<form action="." method="post" class="form-horizontal"> 
+<form action="." method="post" class="form-horizontal">
 	{% csrf_token %}
 	<input type="hidden" id="submit" name="submit"  value="">
 	<div class="row">
 		<div class="well col-md-12" id="step1_panel">
 			<div class="row text-center">
-				<h3>IRIS代表信息管理系统 v2.0</h3>
 				<p>请按照要求尽可能全面地填写您的个人信息，您的信息可以多次保存，直到您点击提交。提交信息之后将由会务团队审核。</p>
 			</div>
 			<div class="row text-right">

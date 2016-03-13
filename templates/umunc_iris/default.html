@@ -10,26 +10,6 @@ Center
 {% block body %}
 <div class="row">
 	<div class="well col-md-12" id="main_panel">
-		<div class="row text-center">
-			<h3>IRIS代表信息管理系统 v2.0</h3>
-		</div>
-		<div class="row">
-			<div class="col-md-8 text-left">
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="fui-arrow-right"></span>&nbsp;当前状态：
-					{% ifequal profile.Status 1 %}【1】请编辑并提交代表资格申请。{% endifequal %}
-					{% ifequal profile.Status 2 %}【1】代表资格申请已提交，请耐心等待审核。{% endifequal %}
-					{% ifequal profile.Status -3 %}【1】代表资格申请未通过审核，无法继续报名流程。{% endifequal %}
-					{% ifequal profile.Status 3 %}【2】代表资格申请已通过审核，请选择是否作为团队参加。{% endifequal %}
-					{% ifequal profile.Status 4 %}【3】请提交学术测评。{% endifequal %}
-					{% ifequal profile.Status 5 %}【3】学术测评已提交，请耐心等待核心学术团队给以评级。{% endifequal %}
-				</p>
-			</div>
-			<div class="col-md-4 text-right">
-				<a class="btn btn-info btn-sm" href="/iris/accounts/change">Change Password</a>
-				<a class="btn btn-danger btn-sm" href="/iris/accounts/logout">Logout</a>
-				&nbsp;&nbsp;&nbsp;&nbsp;
-			</div>
-		</div>
 		<div class="row" id="step">
 			<div class="col-md-2 text-right"><h1>1</h1></div>
 			<div class="col-md-10">

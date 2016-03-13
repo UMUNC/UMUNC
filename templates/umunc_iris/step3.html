@@ -8,12 +8,11 @@
 {% endblock %}
 
 {% block body %}
-<form action="." method="post" class="form-horizontal" enctype="multipart/form-data"> 
+<form action="." method="post" class="form-horizontal" enctype="multipart/form-data">
 	{% csrf_token %}
 	<div class="row">
 		<div class="well col-md-12" id="step3_panel">
 			<div class="row text-center">
-				<h3>IRIS代表信息管理系统 v2.0</h3>
 				<p>成员提交学术评测，并由核心学术团队给予评级。</p>
 			</div>
 			<div class="row text-right">
