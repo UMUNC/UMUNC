@@ -57,7 +57,7 @@ def pregister(request):
 	Remail=''
 	if request.user.is_authenticated():
 		return HttpResponseRedirect('/')
-	if request.POST.has_key('username')  and request.POST.has_key('password') and request.POST.has_key('email'):
+	if request.POST.has_key('username') and request.POST.has_key('password') and request.POST.has_key('email'):
 		Rusername = request.POST['username']
 		Rpassword = request.POST['password']
 		Remail = request.POST['email']
@@ -130,7 +130,7 @@ def plogout(request):
 @login_required
 def pchange(request):
 	Rerror=''
-	if request.POST.has_key('password')  and request.POST.has_key('password1'):
+	if request.POST.has_key('password') and request.POST.has_key('password1'):
 		Rpassword = request.POST['password']
 		Rpassword1 = request.POST['password1']
 		user = authenticate(username=request.user.username, password=Rpassword)
@@ -146,7 +146,7 @@ def pchange(request):
 
 @login_required
 def step1(request):
-	if request.POST.has_key('name')  and request.POST.has_key('sex')  and request.POST.has_key('age')  and request.POST.has_key('idnum')  and request.POST.has_key('school')  and request.POST.has_key('grade')  and request.POST.has_key('phone')  and request.POST.has_key('phone2')  and request.POST.has_key('qq')  and request.POST.has_key('wechat')  and request.POST.has_key('gname')  and request.POST.has_key('gphone')  and request.POST.has_key('munage')  and request.POST.has_key('munrsm')  and request.POST.has_key('munjoined')  and request.POST.has_key('munjoinedc') and request.POST.has_key('commitee') and request.POST.has_key('submit'):
+	if request.POST.has_key('name') and request.POST.has_key('sex') and request.POST.has_key('age') and request.POST.has_key('idnum') and request.POST.has_key('school') and request.POST.has_key('grade') and request.POST.has_key('phone') and request.POST.has_key('phone2') and request.POST.has_key('qq') and request.POST.has_key('wechat') and request.POST.has_key('gname') and request.POST.has_key('gphone') and request.POST.has_key('munage') and request.POST.has_key('munrsm') and request.POST.has_key('commitee') and request.POST.has_key('commitee2') and request.POST.has_key('adjust') and request.POST.has_key('submit'):
 		request.user.profile.Name=request.POST['name']
 		request.user.profile.Sex=(request.POST['sex']=='1')
 		request.user.profile.Age=request.POST['age']
@@ -161,9 +161,9 @@ def step1(request):
 		request.user.profile.Wechat=request.POST['wechat']
 		request.user.profile.MunAge=request.POST['munage']
 		request.user.profile.MunRsm=request.POST['munrsm']
-		request.user.profile.MunJoined=(request.POST['munjoined']=='1')
-		request.user.profile.MunJoinedC=request.POST['munjoinedc']
 		request.user.profile.Commitee=request.POST['commitee']
+		request.user.profile.Commitee2=request.POST['commitee2']
+		request.user.profile.Adjust=(request.POST['adjust']=='1')
 		if request.POST['submit']=='1':
 			request.user.profile.Status=2
 		request.user.profile.save()
@@ -174,7 +174,7 @@ def step1(request):
 def step2(request):
 	Rerror=''
 	Rgroups=group.objects.filter(Group=True)
-	if request.POST.has_key('name')  and request.POST.has_key('school')  and request.POST.has_key('password')  and request.POST.has_key('class') and request.POST.has_key('group'):
+	if request.POST.has_key('name') and request.POST.has_key('school') and request.POST.has_key('password') and request.POST.has_key('class') and request.POST.has_key('group'):
 		if request.POST['class']=='1':
 			try:
 				tgroup=group.objects.get(Name= request.POST['name'])

@@ -79,6 +79,11 @@ body{
 	border-left: 1px solid #999;
 }
 
+.process_panel,
+#main_content_container {
+	padding: 40px 30px;
+}
+
 #umunclogo{
 	display: inline-block;
 	width: auto;

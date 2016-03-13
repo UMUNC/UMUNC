@@ -25,15 +25,15 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;
 			</div>
 			<div class="form-group">
-				<label for="name" class="col-sm-3 control-label">姓名 Name</label>
-				<div class="col-sm-6 input-group">
+				<label for="name" class="col-sm-4 control-label">姓名 Name</label>
+				<div class="col-sm-7 input-group">
 					<input class="form-control" type="text" placeholder="Enter Name" id="name" name="name" value="{{profile.Name}}" required>
 					<span class="fui-user form-control-feedback"  for="name"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="sex" class="col-sm-3 control-label">性别 Sex</label>
-				<div class="col-sm-6 input-group">
+				<label for="sex" class="col-sm-4 control-label">性别 Sex</label>
+				<div class="col-sm-7 input-group">
 					<select class="form-control" id="sex" name="sex" required>
 						<option value="1"{% ifequal profile.Sex 1 %} selected{% endifequal %}>男 Male</option>
 						<option value="0"{% ifequal profile.Sex 0 %} selected{% endifequal %}>女 Female</option>
@@ -42,29 +42,29 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="age" class="col-sm-3 control-label">年龄 Age</label>
-				<div class="col-sm-6 input-group">
+				<label for="age" class="col-sm-4 control-label">年龄 Age</label>
+				<div class="col-sm-7 input-group">
 					<input class="form-control" type="number" placeholder="Enter Age" id="age" name="age"  maxlength="2" pattern="[0-9+]*" intro="输入非法" value="{{profile.Age}}" required>
 					<span class="fui-calendar form-control-feedback"  for="age"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="idnum" class="col-sm-3 control-label">身份证号码 ID Number</label>
-				<div class="col-sm-6 input-group">
+				<label for="idnum" class="col-sm-4 control-label">身份证号码 ID Number</label>
+				<div class="col-sm-7 input-group">
 					<input class="form-control" type="text" placeholder="Enter IDNumber" id="idnum" name="idnum" value="{{profile.IDNum}}" minlength="18" maxlength="18" pattern="[0-9+]*" intro="输入非法" required>
 					<span class="fui-credit-card form-control-feedback"  for="idnum"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="school" class="col-sm-3 control-label">在读学校 School</label>
-				<div class="col-sm-6 input-group">
+				<label for="school" class="col-sm-4 control-label">在读学校 School</label>
+				<div class="col-sm-7 input-group">
 					<input class="form-control" type="text" placeholder="Enter School" id="school" name="school" value="{{profile.School}}" maxlength="255" required>
 					<span class="fui-home form-control-feedback"  for="school"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="grade" class="col-sm-3 control-label">在读年级 Grade</label>
-				<div class="col-sm-6 input-group">
+				<label for="grade" class="col-sm-4 control-label">在读年级 Grade</label>
+				<div class="col-sm-7 input-group">
 					<select class="form-control" id="grade" name="grade" required>
 						<option value="1"{% ifequal profile.Grade 1 %} selected{% endifequal %}>初中及以下 Middle school and under</option>
 						<option value="2"{% ifequal profile.Grade 2 %} selected{% endifequal %}>高一 Grade 10</option>
@@ -80,44 +80,44 @@
 			<p>联系方式 Contact</p>
 			<p>个人联系方式 Contact for Self</p>
 			<div class="form-group">
-				<label for="phone" class="col-sm-3 control-label">手机 Mobile Phone</label>
-				<div class="col-sm-6 input-group">
+				<label for="phone" class="col-sm-4 control-label">手机 Mobile Phone</label>
+				<div class="col-sm-7 input-group">
 					<input class="form-control" type="text" placeholder="Enter Mobile Phone" id="phone" name="phone" value="{{profile.Phone}}" minlength="11"   maxlength="255" pattern="[0-9+]*" intro="输入非法" required>
 					<span class="fui-android form-control-feedback"  for="phone"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="phone2" class="col-sm-3 control-label">备选手机 Alternative Mobile Phone</label>
-				<div class="col-sm-6 input-group">
+				<label for="phone2" class="col-sm-4 control-label">备选手机 Alternative Mobile Phone</label>
+				<div class="col-sm-7 input-group">
 					<input class="form-control" type="text" placeholder="Enter Alternative Mobile Phone" id="phone2" name="phone2" value="{{profile.Phone2}}" minlength="11"  maxlength="255" pattern="[0-9+]*" intro="输入非法">
 					<span class="fui-android form-control-feedback"  for="phone2"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="qq" class="col-sm-3 control-label">QQ</label>
-				<div class="col-sm-6 input-group">
+				<label for="qq" class="col-sm-4 control-label">QQ</label>
+				<div class="col-sm-7 input-group">
 					<input class="form-control" type="text" placeholder="Enter QQ" id="qq" name="qq" value="{{profile.QQ}}">
 					<span class="fui-user form-control-feedback"  for="qq"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="wechat" class="col-sm-3 control-label">微信 WeChat</label>
-				<div class="col-sm-6 input-group">
+				<label for="wechat" class="col-sm-4 control-label">微信 WeChat</label>
+				<div class="col-sm-7 input-group">
 					<input class="form-control" type="text" placeholder="Enter WeChat" id="wechat" name="wechat" value="{{profile.Wechat}}">
 					<span class="fui-user form-control-feedback"  for="wechat"></span>
 				</div>
 			</div>
 			<p class="text-danger">紧急联系方式 Emergency Contact (注意：该项内容用于为代表购买会议期间内的保险 请如实填写)</p>
 			<div class="form-group">
-				<label for="gname" class="col-sm-3 control-label">监护人姓名 Name of Guardian</label>
-				<div class="col-sm-6 input-group">
+				<label for="gname" class="col-sm-4 control-label">监护人姓名 Name of Guardian</label>
+				<div class="col-sm-7 input-group">
 					<input class="form-control" type="text" placeholder="Enter Name of Guardian" id="gname" name="gname" value="{{profile.GName}}" required>
 					<span class="fui-user form-control-feedback"  for="gname"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="gphone" class="col-sm-3 control-label">监护人手机 Mobile of Guardian</label>
-				<div class="col-sm-6 input-group">
+				<label for="gphone" class="col-sm-4 control-label">监护人手机 Mobile of Guardian</label>
+				<div class="col-sm-7 input-group">
 					<input class="form-control" type="text" placeholder="Enter Mobile of Guardian" id="gphone" name="gphone" value="{{profile.GPhone}}" minlength="11" maxlength="255" pattern="[0-9]*" intro="输入非法" required>
 					<span class="fui-apple form-control-feedback"  for="gphone"></span>
 				</div>
@@ -125,46 +125,23 @@
 			<hr/>
 			<p>模联相关信息 MUN-related Information</p>
 			<div class="form-group">
-				<label for="munage" class="col-sm-3 control-label">模联年龄 (接触模联的时间) Time in ModelUN</label>
-				<div class="col-sm-6 input-group">
+				<label for="munage" class="col-sm-4 control-label">模联年龄 (接触模联的时间) Time in ModelUN</label>
+				<div class="col-sm-7 input-group">
 					<input class="form-control" type="number" placeholder="Enter Time in ModelUN" id="munage" name="munage"  maxlength="2" pattern="[0-9+]*" intro="输入非法" value="{{profile.MunAge}}" required>
 					<span class="fui-calendar form-control-feedback"  for="munage"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="munrsm" class="col-sm-3 control-label">模联履历 ModelUN Resume</label>
-				<div class="col-sm-6 input-group">
+				<label for="munrsm" class="col-sm-4 control-label">模联履历 ModelUN Resume</label>
+				<div class="col-sm-7 input-group">
 					<textarea class="form-control" id="munrsm" name="munrsm" required>{{profile.MunRsm}}</textarea>
 					<span class="fui-bookmark form-control-feedback"  for="munrsm"></span>
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="munjoined" class="col-sm-3 control-label">是否参加过UMUNC组织过的会议 Have you ever attended a UMUNC Conference?</label>
-				<div class="col-sm-6 input-group">
-					<select class="form-control" id="munjoined" name="munjoined" value="{{profile.MunJoined}}" required>
-						<option value="0"{% ifequal profile.MunJoined 0 %} selected{% endifequal %}>否 No</option>
-						<option value="1"{% ifequal profile.MunJoined 1 %} selected{% endifequal %}>是 Yes</option>
-					</select>
-					<span class="fui-question-circle form-control-feedback"  for="munjoined"></span>
-				</div>
-				<div class="col-sm-6 input-group">
-					<input class="form-control" type="text" placeholder="Enter Conference" id="munjoinedc" name="munjoinedc" value="{{profile.MunJoinedC}}" maxlength="255"  required>
-					<span class="fui-bookmark form-control-feedback"  for="munjoinedc"></span>
-				</div>
-			</div>
 			<hr/>
 			<div class="form-group">
-				<label for="commitee" class="col-sm-3 control-label">参会志愿 Choice of Conference</label>
-				<div class="col-sm-6 input-group">
-					<select class="form-control" id="conference" required>
-						<option value="1"{% if profile.Commitee >= 1 and profile.Commitee <= 8  %} selected{% endif %}>2015总会</option>
-					</select>
-					<span class="fui-heart form-control-feedback"  for="commitee"></span>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="commitee" class="col-sm-3 control-label">委员会志愿 Choice of Committee</label>
-				<div class="col-sm-6 input-group">
+				<label for="commitee" class="col-sm-4 control-label">委员会志愿#1 Choice of Committee #1</label>
+				<div class="col-sm-7 input-group">
 					<select class="form-control" id="commitee" name="commitee" required>
 						{% if profile.Commitee >= 1 and profile.Commitee <= 8  %}
 						<option value="1"{% ifequal profile.Commitee 1 %} selected{% endifequal %}>联动体系 - 国家内阁</option>
@@ -178,6 +155,34 @@
 						{% endif %}
 					</select>
 					<span class="fui-heart form-control-feedback"  for="commitee"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="commitee2" class="col-sm-4 control-label">委员会志愿#2 Choice of Committee #2</label>
+				<div class="col-sm-7 input-group">
+					<select class="form-control" id="commitee2" name="commitee2" required>
+						{% if profile.Commitee2 >= 1 and profile.Commitee2 <= 8  %}
+						<option value="1"{% ifequal profile.Commitee2 1 %} selected{% endifequal %}>联动体系 - 国家内阁</option>
+						<option value="2"{% ifequal profile.Commitee2 2 %} selected{% endifequal %}>联动体系 - 联合国安全理事会</option>
+						<option value="3"{% ifequal profile.Commitee2 3 %} selected{% endifequal %}>联动体系 - 主新闻中心</option>
+						<option value="4"{% ifequal profile.Commitee2 4 %} selected{% endifequal %}>联动体系 - 联合国秘书处</option>
+						<option value="5"{% ifequal profile.Commitee2 5 %} selected{% endifequal %}>欧洲体系 - 欧盟委员会</option>
+						<option value="6"{% ifequal profile.Commitee2 6 %} selected{% endifequal %}>欧洲体系 - 欧盟理事会</option>
+						<option value="7"{% ifequal profile.Commitee2 7 %} selected{% endifequal %}>General Assembly United System - United Nations Security Council</option>
+						<option value="8"{% ifequal profile.Commitee2 8 %} selected{% endifequal %}>General Assembly United System - United Nations General Assembly 3rd Committee (SOCHUM)</option>
+						{% endif %}
+					</select>
+					<span class="fui-heart form-control-feedback"  for="commitee2"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="adjust" class="col-sm-4 control-label">接受调剂 Accept Adjustment</label>
+				<div class="col-sm-7 input-group">
+					<select class="form-control" id="adjust" name="adjust" value="{{profile.adjust}}" required>
+						<option value="0"{% ifequal profile.adjust 0 %} selected{% endifequal %}>否 No</option>
+						<option value="1"{% ifequal profile.adjust 1 %} selected{% endifequal %}>是 Yes</option>
+					</select>
+					<span class="fui-question-circle form-control-feedback"  for="adjust"></span>
 				</div>
 			</div>
 		</div>
