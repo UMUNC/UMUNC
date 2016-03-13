@@ -24,12 +24,12 @@ class ProfileAdmin(admin.ModelAdmin):
     )
     list_display = ('User', 'Name','Status')
 
-    # readonly_fields = ('TimeStamp', 'LastMotified')
+    readonly_fields = ('TimeStamp', 'LastMotified')
     def get_readonly_fields(self, request, obj=None):
         if request.user.has_perm('profile.control_all'):
-            return ('User', 'Name', 'Status')
+            return ('TimeStamp', 'LastMotified')
         else:
-            return ('User', 'Name', 'Status')
+            return ('TimeStamp', 'LastMotified')
 
 admin.site.register(group)
 admin.site.register(profile, ProfileAdmin)
