@@ -7,8 +7,8 @@ class group(models.Model):
 	Name=models.CharField(max_length=255,verbose_name="名称")
 	School=models.CharField(max_length=255,verbose_name="在读学校")
 	Password=models.CharField(max_length=255,verbose_name="口令")
-	Payment=models.BooleanField(default=False,verbose_name=' 缴费')
-	Group=models.BooleanField(default=False,verbose_name=' 集体团队/个人团队')
+	Payment=models.BooleanField(default=False,verbose_name='缴费')
+	Group=models.BooleanField(default=False,verbose_name='集体团队/个人团队')
 	class Meta:
 		ordering = ['-id']
 	def __unicode__(self):
@@ -78,21 +78,25 @@ class profile(models.Model):
 	Identify=models.CharField(max_length=255,verbose_name="席位-席位名称",blank=True)
 	TimeStamp=models.DateTimeField(auto_now_add=True,verbose_name='注册时间戳')
 	LastMotified=models.DateTimeField(auto_now=True,verbose_name='修改时间戳')
-	Review=models.CharField(max_length=255,blank=True,verbose_name='学测地址')
+	Review=models.TextField(verbose_name='学术评测',blank=True)
+	Comment=models.TextField(verbose_name='学团评价',blank=True)
 	Status=models.IntegerField(verbose_name='状态',choices=(
 		(-3,'代表申请拒绝'),
 		(0,'未验证邮箱'),
-		(1,'等待提交代表申请'),
-		(2,'代表申请已提交'),
-		(3,'代表申请已通过，等待确认团队'),
-		(4,'团队已确认，等待提交学术评测'),
-		(5,'学术评测已提交'),))
+		(1,'等待提交代表信息'),
+		(2,'代表信息已提交，请确认团队信息'),
+		(3,'代表团队已提交，请提交学术评测'),
+		(4,'代表学测已提交，请等待分配面试'),
+		(5,'代表面试已分配，请准备面试'),
+		(6,'代表面试已通过，请进行缴费'),
+		(7,'代表缴费已完成，申请完成'),))
 	class Meta:
 		ordering = ['LastMotified']
+		permissions = (
+			("control_all", "Can Control All Data"),
+		)
 	def __unicode__(self):
 		return u'[%s] %s' % (self.User.username,self.Name)
-	def GetReview(self):
-		return mark_safe(u'<a href="%s">Download</a>' % (self.Review))
 
 class checkcode(models.Model):
 	User=models.OneToOneField(User,verbose_name='账户')
