@@ -66,6 +66,11 @@ body{
 	color: white;
 }
 
+#info_container p {
+	color: white;
+	font-size: 14px;
+}
+
 #main_container {
 	background-color: rgba(245, 245, 245, 0.8);
 }

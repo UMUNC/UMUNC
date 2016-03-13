@@ -10,55 +10,26 @@ Center
 {% block body %}
 <div class="row">
 	<div class="col-md-12" id="main_panel">
-		<div class="row" id="step">
-			<div class="col-md-2 text-right"><h1>1</h1></div>
-			<div class="col-md-10">
-				<h4>代表资格申请</h4>
-				<p>请按照要求尽可能全面地填写您的个人信息，您的信息可以多次保存，直到您点击提交。提交信息之后将由会务团队审核。</p>
-				<p class="text-right"><a class="btn btn-info" href="/iris/step1">编辑/查看信息</a></p>
-			</div>
-		</div>
-		<div class="row" id="step">
-			<div class="col-md-2 text-right"><h1>2</h1></div>
-			<div class="col-md-10">
-				<h4>团队/个人身份确认</h4>
-				<p>如果您是个人代表，请直接选择个人代表跳过此步。</p>
-				<p>如果您是团队领队，请创建团队。</p>
-				<p>如果您是团队成员，请在领队创建团队后选择您参加的团队。</p>
-				<p class="text-right"><a class="btn btn-info"{% if profile.Status < 3 %} disabled="disabled"{% endif %}  href="/iris/step2">团队/个人身份确认</a></p>
-			</div>
-		</div>
-		<div class="row" id="step">
-			<div class="col-md-2 text-right"><h1>3</h1></div>
-			<div class="col-md-10">
-				<h4>学术测评</h4>
-				<p>成员提交学术评测，并由核心学术团队给予评级。</p>
-				<p class="text-right"><a class="btn btn-info"{% if profile.Status < 4 %} disabled="disabled"{% endif %} href="/iris/step3">提交学术测评</a></p>
-			</div>
-		</div>
-		<div class="row" id="step">
-			<div class="col-md-2 text-right"><h1>4</h1></div>
-			<div class="col-md-10">
-				<h4>面试</h4>
-				<p>由系统分配面试官，并等待分配席位。</p>
-				<p class="text-right"><button type="button" class="btn btn-info" disabled="disabled">查看面试信息</button></p>
-			</div>
-		</div>
-		<div class="row" id="step">
-			<div class="col-md-2 text-right"><h1>5</h1></div>
-			<div class="col-md-10">
-				<h4>支付</h4>
-				<p>请按照要求支付会费。</p>
-				<p class="text-right"><button type="button" class="btn btn-info" disabled="disabled">支付会费</button></p>
-			</div>
-		</div>
-		<div class="row" id="step">
-			<div class="col-md-2 text-right"><h1>6</h1></div>
-			<div class="col-md-10">
-				<h4>后续工作</h4>
-				<p></p>
-			</div>
-		</div>
+		<h5><span class="fui-tag"></span> 欢迎与众不同的你</h5>
+		<p>有梦最美，笃信力行。2016年，UMUNC发展至今的第五年，我们向过去致敬，感谢每一位曾经的陪伴。在这里，我们也隆重的宣布，优梦UMUNC2016年度总会正式启动，并将在2016年7月22日—25日在北京举办。</p>
+		<p>华北与西北两场分会的圆满闭幕也标志着优梦UMUNC从去年开始的学术及团队革新正式完成，从现在开始，UMUNC进入了2016年度总会时间，在之后的一周，我们将陆续开始会务与学术团队招新，网站及最新的会议报名系统将正式上线，代表报名也将线上线下同步开启。</p>
+		<p>优梦UMUNC始于模联，但不至于模联，一个未曾想象的世界，在这里，你将会去创造它，让我们7月的北京见。</p>
+		<hr/>
+		<h5><span class="fui-new"></span> 申请席位说明</h5>
+		<p>本年度席位申请全程采用线上报名的形式，故为更好的服务各位参会同学及老师，请注意以下申请事项：</p>
+		<ol>
+			<li>申请步骤如页面所示，每一步都会有具体的详细提示信息，请确保认真阅读。</li>
+			<li>每一申请步骤都支持中途的暂存，但请注意，一旦确认提交，即进入下一流程，既往提交信息便锁定不可修改。</li>
+			<li>无论您是团队身份，亦或是个人身份申请，系统都会予以接受，具体信息可在【团队状态确认】中提交。请务必注意，团队状态涉及最终缴费的细节，请确保如实填写。</li>
+			<li>学术评测的提交，即会被发送到学术团队并等待分配面试，其中需要一定的时间，请耐心等待。</li>
+			<li>账号注册、面试分配、面试结果以及最终缴费通知都会即时通知到您注册的邮箱。</li>
+			<li>如若出现账号遗失或信息提交有误，请联系UMUNC团队。</li>
+		</ol>
+		<hr/>
+		<h5><span class="fui-info-circle"></span> UMUNC系统说明</h5>
+		<p>UMUNC会议系统是由UMUNC技术团队完全自主研发的一整套模联会议在线解决方案。全套体系包括IRIS用户中心模块、CHEETAH即时通讯模块、MPC综合信息模块等，各个模块之间共享所有的用户数据和身份。</p>
+		<p>请务必牢记当前账号的密码等信息，在会议期间，您将再次需要这个账号用以进入其他模块部分。</p>
+
 	</div>
 </div>
 {% endblock %}
