@@ -1,3 +1,3 @@
 $(function() {
-	$(".process_panel_item")[4].addClass("active");
+	$(".process_panel_item:nth-child(5)").addClass("active");
 });

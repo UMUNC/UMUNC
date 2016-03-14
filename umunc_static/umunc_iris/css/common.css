@@ -49,17 +49,6 @@ textarea {
 	border-color: #71808e;
 }
 
-.process_panel_item.active .process_panel_title,
-.process_panel_item.active .process_panel_describe {
-	color: #344964;
-}
-.process_panel_item.active .process_panel_icon,
-.process_panel_item.active .process_panel_line {
-	border-color: #3498db;
-	background-color: #3498db;
-	color: white;
-}
-
 .process_panel_item.success .process_panel_icon,
 .process_panel_item.success .process_panel_line {
 	border-color: #3498db;
@@ -69,6 +58,17 @@ textarea {
 .process_panel_item.success .process_panel_line {
 	border-color: #85c1e9;
 	background-color: #85c1e9;
+	color: white;
+}
+
+.process_panel_item.active .process_panel_title,
+.process_panel_item.active .process_panel_describe {
+	color: #344964;
+}
+.process_panel_item.active .process_panel_icon,
+.process_panel_item.active .process_panel_line {
+	border-color: #3498db;
+	background-color: #3498db;
 	color: white;
 }
 

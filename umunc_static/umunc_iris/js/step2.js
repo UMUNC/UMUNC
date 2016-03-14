@@ -30,5 +30,5 @@ $(function() {
 		$('#askModal').modal('hide');
 		$("#savebutton").click();
 	});
-	$(".process_panel_item")[2].addClass("active");
+	$(".process_panel_item:nth-child(3)").addClass("active");
 });
