@@ -266,6 +266,6 @@ def sendmail(request):
 			part_mail.sendmail_payment_user(User.objects.get(id=request.GET['id']))
 		if request.GET['command'] == 'sendmail_payment':
 			part_mail.sendmail_payment(group.objects.get(id=request.GET['id']))
-		HttpResponse('<script>alert("Done.");history.go(-1);</script>')
+		return HttpResponse('<script>alert("Done.");history.go(-1);</script>')
 	else:
 		raise Http404
