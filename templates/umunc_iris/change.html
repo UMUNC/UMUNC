@@ -7,12 +7,12 @@ Change Password
 {% block css %}
 {% endblock %}
 
-{% block body %}
+{% block IRIS-Rbody %}
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="well col-md-6" id="change_panel">
-		<form action="." method="post" class="form-horizontal" id="change_form"> 
-			{% csrf_token %}				
+		<form action="." method="post" class="form-horizontal" id="change_form">
+			{% csrf_token %}
 			<div class="text-center">
 				<img src="{{ STATIC_URL }}umunc_iris/image/user.jpg">
 			</div>
@@ -38,7 +38,7 @@ Change Password
 			</div>
 			<div class="form-group text-center">
 				<div class="input-group">
-					<input class="form-control" type="password" placeholder="Enter New Password Again" minlength="6" maxlength="30" pattern="[a-zA-Z0-9@_+-]*" intro="只接受字母、数字和字符@/./+/-/_" data-validation-match-match="password1" required> 
+					<input class="form-control" type="password" placeholder="Enter New Password Again" minlength="6" maxlength="30" pattern="[a-zA-Z0-9@_+-]*" intro="只接受字母、数字和字符@/./+/-/_" data-validation-match-match="password1" required>
 					<span class="fui-lock form-control-feedback"  for="password2"></span>
 				</div>
 			</div>
@@ -51,14 +51,14 @@ Change Password
 				<a class="btn btn-primary btn-lg" id="register_button" href="/iris/accounts/login" >Back</a>
 			</div>
 			{% endifequal %}
-		</form>	
+		</form>
 	</div>
 	<div class="col-md-3"></div>
 </div>
 {% endblock %}
 
 
-{% block js %}
+{% block IRIS-Rjs %}
 <script src="{{ STATIC_URL }}common/js/jqBootstrapValidation.js"></script>
 <script src="{{ STATIC_URL }}umunc_iris/js/register.js"></script>
 <script language="javascript" type="text/javascript">

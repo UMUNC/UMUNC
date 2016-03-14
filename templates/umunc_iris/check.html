@@ -7,11 +7,11 @@ Check
 {% block css %}
 {% endblock %}
 
-{% block body %}
+{% block IRIS-Rbody %}
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="well col-md-6" id="register_panel">
-		<form action="." method="post" class="form-horizontal" id="register_form"> 
+		<form action="." method="post" class="form-horizontal" id="register_form">
 			<div class="text-center">
 				{% csrf_token %}
 				<div class="text-center">
@@ -31,14 +31,14 @@ Check
 				</div>
 				{% endif %}
 			</div>
-		</form>	
+		</form>
 	</div>
 	<div class="col-md-3"></div>
 </div>
 {% endblock %}
 
 
-{% block js %}
+{% block IRIS-Rjs %}
 <script src="{{ STATIC_URL }}common/js/jqBootstrapValidation.js"></script>
 <script src="{{ STATIC_URL }}umunc_iris/js/register.js"></script>
 <script language="javascript">
