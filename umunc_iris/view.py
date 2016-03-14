@@ -44,7 +44,7 @@ def plogin(request):
 			Rerror='登录失败，请确认用户名密码正确。'
 	else:
 		Rnext=request.GET.get('next')
-		if not Rnext:Rnext='/'
+		if not Rnext:Rnext='/iris/'
 	return render_to_response('umunc_iris/login.html',{
 		'username':Rusername,
 		'error':Rerror,
@@ -127,7 +127,7 @@ def pcheck(request):
 
 def plogout(request):
 	logout(request)
-	return HttpResponseRedirect('/')
+	return HttpResponseRedirect('/iris/')
 
 @login_required
 def pchange(request):
