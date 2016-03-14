@@ -1,6 +1,7 @@
 #coding=utf-8
 from django.contrib import admin
 from umunc_iris.models import *
+import django.utils.html.escape
 
 class GroupAdmin(admin.ModelAdmin):
     fieldsets = (
