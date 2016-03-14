@@ -74,7 +74,10 @@ textarea {
 
 .process_panel_item.success:hover,
 .process_panel_item.next:hover,
-.process_panel_item.active:hover {
+.process_panel_item.active:hover,
+.process_panel_item.success:hover *,
+.process_panel_item.next:hover *,
+.process_panel_item.active:hover *{
 	cursor: pointer;
 }
 

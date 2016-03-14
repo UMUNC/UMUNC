@@ -23,7 +23,7 @@ class ProfileAdmin(admin.ModelAdmin):
         }),
         ('Interviewer', {
             'classes': ('collapse'),
-            'fields': ('Interviewer')
+            'fields': ('Interviewer',)
         }),
     )
     list_display = ('User', 'Name','Status')
