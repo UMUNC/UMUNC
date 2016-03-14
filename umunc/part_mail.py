@@ -191,4 +191,4 @@ def sendmail_payment_user(user):
 
 def sendmail_payment(group):
 	for i in group.profile_set.all():
-		sendmail_payment_user(i)
+		sendmail_payment_user(i.User)
