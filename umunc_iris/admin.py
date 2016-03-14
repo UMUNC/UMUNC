@@ -21,6 +21,10 @@ class ProfileAdmin(admin.ModelAdmin):
 			'classes': ('collapse'),
             'fields': ('Review', 'Comment')
         }),
+        ('Interviewer', {
+            'classes': ('collapse'),
+            'fields': ('Interviewer')
+        }),
     )
     list_display = ('User', 'Name','Status')
 

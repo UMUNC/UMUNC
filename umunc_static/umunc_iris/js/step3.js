@@ -5,4 +5,5 @@ $(function() {
 		$('#askModal').modal('hide');
 		$("#savebutton").click();
 	});
+	$(".process_panel_item")[3].addClass("active");
 });

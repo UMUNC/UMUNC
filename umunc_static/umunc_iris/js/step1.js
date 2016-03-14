@@ -5,4 +5,5 @@ $(function() {
 		$("#submit").val("1");
 		$("#savebutton").click();
 	});
+	$(".process_panel_item")[1].addClass("active");
 });
