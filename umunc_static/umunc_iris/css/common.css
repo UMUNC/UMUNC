@@ -112,9 +112,9 @@ textarea {
 	margin:40px 10px;
 }
 
-#login_error_msg,
-#register_error_msg,
-#change_error_msg {
+#login_error_msg p,
+#register_error_msg p,
+#change_error_msg p{
 	color: white;
 }
 
