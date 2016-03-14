@@ -232,5 +232,5 @@ def step3(request):
 			request.user.profile.Status=5
 		request.user.profile.save()
 		return HttpResponseRedirect('/iris/step3')
-	return render_to_response('umunc_iris/step3.html',{'profile':request.user.profile,'msg':Rmsg,},context_instance=RequestContext(request))
+	return render_to_response('umunc_iris/step3.html',{'profile':request.user.profile,},context_instance=RequestContext(request))
 
