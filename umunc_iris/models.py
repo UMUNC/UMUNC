@@ -7,6 +7,7 @@ class group(models.Model):
 	Name=models.CharField(max_length=255,verbose_name="名称")
 	School=models.CharField(max_length=255,verbose_name="在读学校")
 	Password=models.CharField(max_length=255,verbose_name="口令")
+	Paycode=models.CharField(max_length=255,verbose_name="缴费密钥")
 	Payment=models.BooleanField(default=False,verbose_name='缴费')
 	Group=models.BooleanField(default=False,verbose_name='集体团队/个人团队')
 	class Meta:

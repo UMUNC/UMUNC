@@ -179,10 +179,12 @@ def step2(request):
 			try:
 				tgroup=group.objects.get(Name= request.POST['name'])
 			except:
+				tpaycode = string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 6)).replace(' ','')
 				tgroup = group(
 					Name=request.POST['name'],
 					School=request.POST['school'],
 					Password=request.POST['password'],
+					Paycode=tpaycode,
 					Payment=False,
 					Group=True,)
 				tgroup.save()
@@ -210,10 +212,12 @@ def step2(request):
 					Rerror='口令错误。'
 		if request.POST['class']=='3':
 			tcode = string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 32)).replace(' ','') + request.user.username
+			tpaycode = string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 6)).replace(' ','')
 			tgroup = group(
 				Name=tcode,
 				School='none',
 				Password='none',
+				Paycode=tpaycode,
 				Payment=False,
 				Group=False,)
 			tgroup.save()
