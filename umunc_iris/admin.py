@@ -16,7 +16,7 @@ class GroupAdmin(admin.ModelAdmin):
             'fields': ('sendmail',)
         }),
     )
-    list_display = ('User', 'Name','Status')
+    list_display = ('Name', 'School', 'Paycode', 'Payment')
 
     readonly_fields = ('TimeStamp', 'LastMotified', 'sendmail')
     def sendmail(self, obj):
@@ -49,7 +49,7 @@ class ProfileAdmin(admin.ModelAdmin):
             'fields': ('Interviewer','sendmail')
         }),
     )
-    list_display = ('User', 'Name','Status')
+    list_display = ('User', 'Name', 'Status', )
 
     readonly_fields = ('TimeStamp', 'LastMotified', 'sendmail')
     def get_readonly_fields(self, request, obj=None):
