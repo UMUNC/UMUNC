@@ -7,12 +7,12 @@ Login
 {% block css %}
 {% endblock %}
 
-{% block body %}
+{% block IRIS-Rbody %}
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="well col-md-6" id="login_panel">
-			<form action="." method="post" class="form-horizontal"> 
-				{% csrf_token %}				
+			<form action="." method="post" class="form-horizontal">
+				{% csrf_token %}
 				<div class="text-center">
 					<img src="{{ STATIC_URL }}umunc_iris/image/user.jpg">
 				</div>
@@ -36,12 +36,12 @@ Login
 					<button class="btn btn-info btn-lg" id="login_button" type="submit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 					<a class="btn btn-primary btn-lg" id="register_button" href="/iris/accounts/register" >Register</a>
 				</div>
-			</form>	
+			</form>
 	</div>
 	<div class="col-md-3"></div>
 </div>
 {% endblock %}
 
 
-{% block js %}
+{% block IRIS-Rjs %}
 {% endblock %}

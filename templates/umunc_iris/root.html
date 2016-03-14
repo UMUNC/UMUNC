@@ -16,120 +16,7 @@
  			</div>
  		</div>
  	</div>
- 	<div class="container" id="main_container">
- 		<div class="row">
-			<div class="col-md-3 process_panel">
-				<div class="row process_panel_item
-					{% if profile.Status > 0 %}success{% endif %}
-					{% if profile.Status == 0 %}next{% endif %}
-				"
-					{% if profile.Status >= 0 %}href="/iris/"{% endif %}
-				>
-					<div class="col-md-12 process_panel_title">
-						<div class="process_panel_icon">1</div>
-						一个与众不同的你
-					</div>
-					<div class="col-md-12 process_panel_describe">
-						<div class="process_panel_line"></div>
-						认真的成就，一个与众不同的你。
-					</div>
-				</div>
-				<div class="row process_panel_item
-					{% if profile.Status > 1 %}success{% endif %}
-					{% if profile.Status == 1 %}next{% endif %}
-				"
-					{% if profile.Status >= 1 %}href="/iris/step1/"{% endif %}
-				>
-					<div class="col-md-12 process_panel_title">
-						<div class="process_panel_icon">2</div>
-						代表信息填报
-					</div>
-					<div class="col-md-12 process_panel_describe">
-						<div class="process_panel_line"></div>
-						慢慢地写下，你独特的信息。
-					</div>
-				</div>
-				<div class="row process_panel_item
-					{% if profile.Status > 2 %}success{% endif %}
-					{% if profile.Status == 2 %}next{% endif %}
-				"
-					{% if profile.Status >= 2 %}href="/iris/step2/"{% endif %}
-				>
-					<div class="col-md-12 process_panel_title">
-						<div class="process_panel_icon">3</div>
-						团队状态确认
-					</div>
-					<div class="col-md-12 process_panel_describe">
-						<div class="process_panel_line"></div>
-						无论孑然一身抑或高朋满座，无妨。
-					</div>
-				</div>
-				<div class="row process_panel_item
-					{% if profile.Status > 3 %}success{% endif %}
-					{% if profile.Status == 3 %}next{% endif %}
-				"
-					{% if profile.Status >= 0 %}href="/iris/step3/"{% endif %}
-				>
-					<div class="col-md-12 process_panel_title">
-						<div class="process_panel_icon">4</div>
-						学术评测提交
-					</div>
-					<div class="col-md-12 process_panel_describe">
-						<div class="process_panel_line"></div>
-						只需要讲述你心中的思想，这是独特的价值。
-					</div>
-				</div>
-				<div class="row process_panel_item
-					{% if profile.Status > 5 %}success{% endif %}
-					{% if profile.Status == 4 %}next{% endif %}
-					{% if profile.Status == 5 %}next{% endif %}
-				"
-					{% if profile.Status >= 4 %}href="/iris/step4/"{% endif %}
-				>
-					<div class="col-md-12 process_panel_title">
-						<div class="process_panel_icon">5</div>
-						学术团队面试
-					</div>
-					<div class="col-md-12 process_panel_describe">
-						<div class="process_panel_line"></div>
-						谈笑言语，便是不一样的你。
-					</div>
-				</div>
-				<div class="row process_panel_item
-					{% if profile.Status > 6 %}success{% endif %}
-					{% if profile.Status == 6 %}next{% endif %}
-				"
-					{% if profile.Status >= 6 %}href="/iris/step5/"{% endif %}
-				>
-					<div class="col-md-12 process_panel_title">
-						<div class="process_panel_icon">6</div>
-						缴费
-					</div>
-					<div class="col-md-12 process_panel_describe">
-						<div class="process_panel_line"></div>
-						喂，醒醒吧，该交钱了。
-					</div>
-				</div>
-				<div class="row process_panel_item
-					{% if profile.Status > 6 %}success{% endif %}
-				"
-					{% if profile.Status > 6 %}href="/iris/step6/"{% endif %}
-				>
-					<div class="col-md-12 process_panel_title">
-						<div class="process_panel_icon">7</div>
-						完成
-					</div>
-					<div class="col-md-12 process_panel_describe">
-						<div class="process_panel_line"></div>
-						UMUNC，欢迎您！
-					</div>
-				</div>
-			</div>
- 			<div class="col-md-9" id="main_content_container">
- 			{% block body %}{% endblock %}
- 			</div>
- 		</div>
- 	</div>
+ 	{% block IRIS-Rbody %}{% endblock %}
  	<div class="container" id="info_container">
  		<div class="row">
 			<div class="col-md-12 text-center">
@@ -141,6 +28,5 @@
 
 {% block Rjs %}
 	<script src="{{ STATIC_URL }}common/js/jquery.backstretch.min.js"></script>
-	{% block js %}{% endblock %}
-	<script src="{{ STATIC_URL }}umunc_iris/js/common.js" rel="stylesheet"></script>
+	{% block IRIS-Rjs %}{% endblock %}
 {% endblock %}
