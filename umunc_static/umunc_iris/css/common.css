@@ -72,6 +72,12 @@ textarea {
 	color: white;
 }
 
+.process_panel_item.success:hover,
+.process_panel_item.next:hover,
+.process_panel_item.active:hover {
+	cursor: pointer;
+}
+
 #info_container p {
 	color: white;
 	font-size: 14px;
