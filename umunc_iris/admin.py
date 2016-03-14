@@ -21,7 +21,7 @@ class GroupAdmin(admin.ModelAdmin):
     readonly_fields = ('TimeStamp', 'LastMotified', 'sendmail')
     def sendmail(self, obj):
         return mark_safe(u'''
-            <a href=\"/iris/admin/sendmail/?command=sendmail_payment&id='''+obj.id+u'''\">发送缴费确认邮件</a>
+            <a href=\"/iris/admin/sendmail/?command=sendmail_payment&id='''+str(obj.id)+u'''\">发送缴费确认邮件</a>
             ''')
 
 class ProfileAdmin(admin.ModelAdmin):
@@ -61,7 +61,7 @@ class ProfileAdmin(admin.ModelAdmin):
         return mark_safe(u'''
             <a href=\"/iris/admin/sendmail/?command=sendmail_emailcheck&id='''+str(obj.User.id)+u'''\">发送注册邮件</a><br/>
             <a href=\"/iris/admin/sendmail/?command=sendmail_interview&id='''+str(obj.User.id)+u'''\">发送面试通知邮件</a><br/>
-            <a href=\"/iris/admin/sendmail/?command=sendmail_identify&id='''+obj.User.id+u'''\">发送席位通知邮件</a><br/>
+            <a href=\"/iris/admin/sendmail/?command=sendmail_identify&id='''+str(obj.User.id)+u'''\">发送席位通知邮件</a><br/>
             <a href=\"/iris/admin/sendmail/?command=sendmail_payment_user&id='''+str(obj.User.id)+u'''\">发送缴费确认邮件</a>
             ''')
 
