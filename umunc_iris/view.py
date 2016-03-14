@@ -188,7 +188,7 @@ def step2(request):
 				tgroup.save()
 				request.user.profile.Group=tgroup
 				request.user.profile.Leader=True
-				request.user.profile.Status=4
+				request.user.profile.Status=3
 				request.user.profile.save()
 				Rerror='success'
 			else:
@@ -203,7 +203,7 @@ def step2(request):
 					tgroup=group.objects.get(Name= request.POST['group'])
 					request.user.profile.Group=tgroup
 					request.user.profile.Leader=False
-					request.user.profile.Status=4
+					request.user.profile.Status=3
 					request.user.profile.save()
 					Rerror='success'
 				else:
@@ -219,7 +219,7 @@ def step2(request):
 			tgroup.save()
 			request.user.profile.Group=tgroup
 			request.user.profile.Leader=True
-			request.user.profile.Status=4
+			request.user.profile.Status=3
 			request.user.profile.save()
 			Rerror='success'
 	return render_to_response('umunc_iris/step2.html',{'profile':request.user.profile,'error':Rerror,'groups':Rgroups,},context_instance=RequestContext(request))
@@ -229,7 +229,7 @@ def step3(request):
 	if request.POST.has_key('review') and request.POST.has_key('submit'):
 		request.user.profile.Review=request.POST['review']
 		if request.POST['submit']=='1':
-			request.user.profile.Status=5
+			request.user.profile.Status=4
 		request.user.profile.save()
 		return HttpResponseRedirect('/iris/step3')
 	return render_to_response('umunc_iris/step3.html',{'profile':request.user.profile,},context_instance=RequestContext(request))

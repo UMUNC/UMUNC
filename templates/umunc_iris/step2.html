@@ -15,7 +15,7 @@
 			<div class="row text-center">
 				<p>如果您是个人代表，请直接选择个人代表跳过此步；<br/>如果您是团队领队，请创建团队；如果您是团队成员，请选择您参加的团队。</p>
 			</div>
-			{% ifequal profile.Status 3%}
+			{% ifequal profile.Status 2 %}
 			<div class="form-group text-center text-danger">
 				<p>{{error}}</p>
 			</div>
@@ -77,8 +77,10 @@
 				</div>
 			</div>
 			{% endifequal %}
+			<hr/>
 			<div class="row text-right">
-				{% ifequal profile.Status 3%}
+				{% ifequal profile.Status 2%}
+				<button class="btn btn-danger btn-sm" type="submit" id="savebutton" style="display: none;">Save</button>
 				<button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#askModal">Submit</button>
 				{% else %}
 				已经提交啦，不能修改咯~

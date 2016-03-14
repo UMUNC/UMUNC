@@ -4,6 +4,11 @@
 body{
 	background: linear-gradient(to bottom, #090037 0%,#941971 100%) fixed;
 }
+
+textarea {
+	resize: vertical;
+}
+
 .process_panel {
 	padding-top: 40px;
 }

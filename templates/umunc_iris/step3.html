@@ -23,8 +23,9 @@
 					<span class="fui-bookmark form-control-feedback"  for="review"></span>
 				</div>
 			</div>
+			<hr/>
 			<div class="row text-right">
-				{% ifequal profile.Status 4%}
+				{% ifequal profile.Status 3 %}
 				<button class="btn btn-danger btn-sm" type="submit" id="savebutton">Save</button>
 				<button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#askModal">Submit</button>
 				{% else %}
@@ -60,7 +61,7 @@
 {% block js %}
 <script src="{{ STATIC_URL }}common/js/jqBootstrapValidation.js"></script>
 <script src="{{ STATIC_URL }}umunc_iris/js/step3.js"></script>
-{% ifequal profile.Status 4%}{% else %}
+{% ifequal profile.Status 3 %}{% else %}
 	<script language="javascript">
 		$(function(){
 			$("form input,textarea,select").attr("disabled","disabled")

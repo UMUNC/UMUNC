@@ -82,21 +82,21 @@
 				<label for="phone2" class="col-sm-4 control-label">备选手机 Alternative Mobile Phone</label>
 				<div class="col-sm-7 input-group">
 					<input class="form-control" type="text" placeholder="Enter Alternative Mobile Phone" id="phone2" name="phone2" value="{{profile.Phone2}}" minlength="11"  maxlength="255" pattern="[0-9+]*" intro="输入非法">
-					<span class="fui-android form-control-feedback"  for="phone2"></span>
+					<span class="fui-apple form-control-feedback"  for="phone2"></span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="qq" class="col-sm-4 control-label">QQ</label>
 				<div class="col-sm-7 input-group">
 					<input class="form-control" type="text" placeholder="Enter QQ" id="qq" name="qq" value="{{profile.QQ}}">
-					<span class="fui-user form-control-feedback"  for="qq"></span>
+					<span class="fui-bubble form-control-feedback"  for="qq"></span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="wechat" class="col-sm-4 control-label">微信 WeChat</label>
 				<div class="col-sm-7 input-group">
 					<input class="form-control" type="text" placeholder="Enter WeChat" id="wechat" name="wechat" value="{{profile.Wechat}}">
-					<span class="fui-user form-control-feedback"  for="wechat"></span>
+					<span class="fui-chat form-control-feedback"  for="wechat"></span>
 				</div>
 			</div>
 			<p class="text-danger">紧急联系方式 Emergency Contact (注意：该项内容用于为代表购买会议期间内的保险 请如实填写)</p>
@@ -177,6 +177,7 @@
 					<span class="fui-question-circle form-control-feedback"  for="adjust"></span>
 				</div>
 			</div>
+			<hr/>
 			<div class="row text-right">
 				{% ifequal profile.Status 1%}
 				<button class="btn btn-danger btn-sm" type="submit" id="savebutton">Save</button>
