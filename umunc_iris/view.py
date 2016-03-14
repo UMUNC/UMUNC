@@ -252,15 +252,15 @@ def step5(request):
 @login_required
 def sendmail(request):
 	if request.user.is_staff:
-		if request.Get['command'] == 'sendmail_emailcheck':
-			part_mail.sendmail_emailcheck(User.objects.get(id=request.Get['id']))
-		if request.Get['command'] == 'sendmail_interview':
-			part_mail.sendmail_interview(User.objects.get(id=request.Get['id']))
-		if request.Get['command'] == 'sendmail_identify':
-			part_mail.sendmail_identify(User.objects.get(id=request.Get['id']))
-		if request.Get['command'] == 'sendmail_payment_user':
-			part_mail.sendmail_payment_user(User.objects.get(id=request.Get['id']))
-		if request.Get['command'] == 'sendmail_payment':
-			part_mail.sendmail_payment(Group.objects.get(id=request.Get['id']))
+		if request.GET['command'] == 'sendmail_emailcheck':
+			part_mail.sendmail_emailcheck(User.objects.get(id=request.GET['id']))
+		if request.GET['command'] == 'sendmail_interview':
+			part_mail.sendmail_interview(User.objects.get(id=request.GET['id']))
+		if request.GET['command'] == 'sendmail_identify':
+			part_mail.sendmail_identify(User.objects.get(id=request.GET['id']))
+		if request.GET['command'] == 'sendmail_payment_user':
+			part_mail.sendmail_payment_user(User.objects.get(id=request.GET['id']))
+		if request.GET['command'] == 'sendmail_payment':
+			part_mail.sendmail_payment(Group.objects.get(id=request.GET['id']))
 	else:
 		raise Http404
