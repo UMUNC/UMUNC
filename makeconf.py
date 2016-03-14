@@ -48,6 +48,7 @@ EMAIL_HOST = \''''+os.getenv('CONFIG_EMAIL_HOST')+'''\'
 EMAIL_PORT = \''''+os.getenv('CONFIG_EMAIL_PORT')+'''\'
 EMAIL_HOST_PASSWORD = \''''+os.getenv('CONFIG_EMAIL_HOST_PASSWORD')+'''\'
 EMAIL_HOST_USER = \''''+os.getenv('CONFIG_EMAIL_HOST_USER')+'''\'
+DEFAULT_FROM_EMAIL = \''''+os.getenv('CONFIG_EMAIL_HOST_USER')+'''\'
 '''
 
 print(str)

@@ -40,3 +40,35 @@ def sendmail_emailcheck(to,username,code):
 			</tr>
 		</table>
 		''')
+
+def sendmail_interview(to,username,code):
+	sendmail(to,u"UMUNC面试通知",u'''
+		<style type="text/css">
+			table {border: 0px;}
+			table * {border: 0px;}
+			.text-center {align:center;}
+			.head {background:#1C9EFF;color:white;}
+			tr {padding:20px;}
+		</style>
+		<table>
+			<tr>
+				<td class="text-center head">
+					<h3>UMUNC面试通知</h3>
+					<span>'''+username+u'''</span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>致 与众不同的你：</p>
+					<p>您收到此邮件是因为此账号（ '''+username+u''' ）已经被核心学术团队分配了面试。</p>
+					<p>如果这不是您的操作，请直接忽视本邮件；如果您确认这是您的操作，请点击下面的地址或将其复制到浏览器地址栏并进入，即可验证您的邮箱，激活账号：</p>
+					<h4><a href=\"http://www.umunc.org/iris/accounts/check?checkcode='''+code+u'''\">http://www.umunc.org/iris/accounts/check?checkcode='''+code+u'''</a></h4>
+				</td>
+			</tr>
+			<tr>
+				<td class="text-center">
+					<p><small>UMUNC</small></p>
+				</td>
+			</tr>
+		</table>
+		''')
