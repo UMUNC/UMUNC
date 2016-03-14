@@ -4,9 +4,10 @@ from django.core.mail import EmailMultiAlternatives
 def sendmail(to,subject,html):
 	msg = EmailMultiAlternatives(
 		subject= subject,
-		body = html,
+		body = '',
 		to = [to])
 	msg.attach_alternative(html, "text/html")
+	msg.content_subtype = "html"
 	msg.send()
 
 def sendmail_emailcheck(user):
