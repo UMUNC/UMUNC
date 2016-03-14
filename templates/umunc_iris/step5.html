@@ -21,13 +21,17 @@
 			<div class="form-group">
 				<label for="interviewer" class="col-sm-4 control-label">国家或组织 Nation/Organization</label>
 				<div class="col-sm-7 input-group">
-					<span>{{profile.Country.Name}}</span>
+					<label class="control-label text-left">
+					{{profile.Country.Name}}
+					</label>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="interviewer" class="col-sm-4 control-label">席位 Identify</label>
 				<div class="col-sm-7 input-group">
-					<span>{{profile.Identify}}</span>
+					<label class="control-label text-left">
+					{{profile.Identify}}
+					</label>
 				</div>
 			</div>
 				{% if profile.Leader %}
@@ -35,7 +39,9 @@
 				<div class="form-group">
 					<label for="interviewer" class="col-sm-4 control-label">缴费码 Pay Code</label>
 					<div class="col-sm-7 input-group">
-						<span>{{profile.Group.Paycode}}</span>
+						<label class="control-label text-left">
+						{{profile.Group.Paycode}}
+						</label>
 					</div>
 				</div>
 					{% if profile.Group.Group %}

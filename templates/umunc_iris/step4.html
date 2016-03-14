@@ -20,7 +20,9 @@
 			<div class="form-group">
 				<label for="interviewer" class="col-sm-4 control-label">学测状态 Review Status</label>
 				<div class="col-sm-7 input-group">
-					<span>正在审核</span>
+					<label class="control-label text-left">
+					正在审核
+					</label>
 				</div>
 			</div>
 			{% else %}
@@ -28,26 +30,34 @@
 				<div class="form-group">
 					<label for="interviewer" class="col-sm-4 control-label">面试官 Interviewer</label>
 					<div class="col-sm-7 input-group">
-						<span>{{profile.Interviewer.profile.Name}}</span>
+						<label class="control-label text-left">
+						{{profile.Interviewer.profile.Name}}
+						</label>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="interviewer" class="col-sm-4 control-label">面试官电话 Phone</label>
 					<div class="col-sm-7 input-group">
-						<span>{{profile.Interviewer.profile.Phone}}</span>
+						<label class="control-label text-left">
+						{{profile.Interviewer.profile.Phone}}
+						</label>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="interviewer" class="col-sm-4 control-label">面试官邮箱 Email</label>
 					<div class="col-sm-7 input-group">
-						<span>{{profile.Interviewer.email}}</span>
+						<label class="control-label text-left">
+						{{profile.Interviewer.email}}
+						</label>
 					</div>
 				</div>
 				{% else %}
 				<div class="form-group">
 					<label for="interviewer" class="col-sm-4 control-label">面试官 Interviewer</label>
 					<div class="col-sm-7 input-group">
-						<span>尚未分配</span>
+						<label class="control-label text-left">
+						尚未分配
+						</label>
 					</div>
 				</div>
 				{% endif %}
