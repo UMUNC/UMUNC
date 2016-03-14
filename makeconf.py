@@ -42,4 +42,12 @@ if os.getenv('CONFIG_REFRESH_DIR'):
 REFRESH_DIR = \''''+os.getenv('CONFIG_REFRESH_DIR')+'''\'
 '''
 
+if os.getenv('CONFIG_EMAIL_HOST') and os.getenv('CONFIG_EMAIL_PORT') and os.getenv('CONFIG_EMAIL_HOST_PASSWORD') and os.getenv('CONFIG_EMAIL_HOST_USER'):
+    str+='''
+EMAIL_HOST = \''''+os.getenv('CONFIG_EMAIL_HOST')+'''\'
+EMAIL_PORT = \''''+os.getenv('CONFIG_EMAIL_PORT')+'''\'
+EMAIL_HOST_PASSWORD = \''''+os.getenv('CONFIG_EMAIL_HOST_PASSWORD')+'''\'
+EMAIL_HOST_USER = \''''+os.getenv('CONFIG_EMAIL_HOST_USER')+'''\'
+'''
+
 print(str)

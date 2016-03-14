@@ -90,9 +90,9 @@
 							{% if u.Status > 5 %}success{% endif %}
 							{% if u.Status < 0 %}danger{% endif %}
 						">
-							<td>u.User.username</td>
-							<td>u.Name</td>
-							<td>u.get_Status_display</td>
+							<td>{{u.User.username}}</td>
+							<td>{{u.Name}}</td>
+							<td>{{u.get_Status_display}}</td>
 						</tr>
 					{% endfor %}
 				</tbody>
@@ -101,11 +101,18 @@
 			{% endifequal %}
 			<hr/>
 			<div class="row text-right">
+				<a class="btn btn-info btn-sm" href="/iris/step1/">
+					<span class="fui-arrow-left"></span>
+					Previous
+				</a>
 				{% ifequal profile.Status 2 %}
 				<button class="btn btn-danger btn-sm" type="submit" id="savebutton" style="display: none;">Save</button>
 				<button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#askModal">Submit</button>
 				{% else %}
-				已经提交啦，不能修改咯~
+				<a class="btn btn-info btn-sm" href="/iris/step3/">
+					<span class="fui-arrow-right"></span>
+					Next
+				</a>
 				{% endifequal %}
 				&nbsp;&nbsp;&nbsp;&nbsp;
 			</div>

@@ -111,6 +111,13 @@ textarea {
 	height:50px;
 	margin:40px 10px;
 }
+
+#login_error_msg,
+#register_error_msg,
+#change_error_msg {
+	color: white;
+}
+
 #login_panel{
 	background-color: rgba(245, 245, 245, 0.6);
 	margin-top:60px;

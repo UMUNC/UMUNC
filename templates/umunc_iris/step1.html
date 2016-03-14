@@ -180,11 +180,18 @@
 			</div>
 			<hr/>
 			<div class="row text-right">
+				<a class="btn btn-info btn-sm" href="/iris/">
+					<span class="fui-arrow-left"></span>
+					Previous
+				</a>
 				{% ifequal profile.Status 1 %}
 				<button class="btn btn-danger btn-sm" type="submit" id="savebutton">Save</button>
 				<button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#askModal">Submit</button>
 				{% else %}
-				已经提交啦，不能修改咯~
+				<a class="btn btn-info btn-sm" href="/iris/step2/">
+					<span class="fui-arrow-right"></span>
+					Next
+				</a>
 				{% endifequal %}
 				&nbsp;&nbsp;&nbsp;&nbsp;
 			</div>
