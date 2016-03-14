@@ -76,6 +76,25 @@
 					</label>
 				</div>
 			</div>
+
+			{% if profile.Group.Group %}
+<table class="table table-striped table-hover table-bordered">
+	<thead>
+		<th>用户名</th>
+		<th>姓名</th>
+		<th>状态</th>
+	</thead>
+	<tbody>
+		{% for u in profile.Group.Group.profile.all %}
+			<tr>
+				<td>u.User.username</td>
+				<td>u.Name</td>
+				<td>u.get_Status_display</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+			{% endif %}
 			{% endifequal %}
 			<hr/>
 			<div class="row text-right">

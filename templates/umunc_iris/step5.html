@@ -13,29 +13,20 @@
 		<div class="col-md-12" id="step3_panel">
 			<div class="row text-center">
 				<p>恭喜您通过学术团队的面试，待核心学术团队分配席位之后，您就可以进行最后一步——缴费啦。</p>
-				<p>请注意：缴费时，请将缴费码填写在备注留言内，我们收到费用后将会尽快对照缴费码完成您的缴费核对工作。</p>
+				<p>请注意：缴费时，请将缴费码填写在备注留言内，我们收到费用后将会尽快完成核对。</p>
 				<p>对于团队申报的同学，报名窗口仅对首席代表开放，团队统一完成缴费。</p>
 				<p>查询及其他疑问，请联系UMUNC组委会。</p>
 			</div>
 			{% ifequal profile.Status 6 %}
 			<div class="form-group">
-				<label for="interviewer" class="col-sm-4 control-label">国家或组织 Nation/Organization</label>
-				<div class="col-sm-7 input-group">
-					<label class="control-label text-left">
-					{{profile.Country.Name}}
-					</label>
-				</div>
-			</div>
-			<div class="form-group">
 				<label for="interviewer" class="col-sm-4 control-label">席位 Identify</label>
 				<div class="col-sm-7 input-group">
 					<label class="control-label text-left">
-					{{profile.Identify}}
+					【{{profile.Country.Name}}】 {{profile.Identify}}
 					</label>
 				</div>
 			</div>
 				{% if profile.Leader %}
-				<hr/>
 				<div class="form-group">
 					<label for="interviewer" class="col-sm-4 control-label">缴费码 Pay Code</label>
 					<div class="col-sm-7 input-group">
@@ -44,25 +35,6 @@
 						</label>
 					</div>
 				</div>
-					{% if profile.Group.Group %}
-<table class="table table-striped table-hover">
-	<thead>
-		<th>用户名</th>
-		<th>姓名</th>
-		<th>状态</th>
-	</thead>
-	<tbody>
-		{% for u in profile.Group.Group.profiles.all %}
-			<tr>
-				<td>u.User.username</td>
-				<td>u.Name</td>
-				<td>u.get_Status_display</td>
-			</tr>
-		{% endfor %}
-	</tbody>
-</table>
-
-					{% endif %}
 				{% endif %}
 			{% endifequal %}
 		</div>
