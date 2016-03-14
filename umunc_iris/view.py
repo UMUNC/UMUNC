@@ -250,6 +250,10 @@ def step5(request):
 	return render_to_response('umunc_iris/step5.html',{'profile':request.user.profile,},context_instance=RequestContext(request))
 
 @login_required
+def step6(request):
+	return render_to_response('umunc_iris/step6.html',{'profile':request.user.profile,},context_instance=RequestContext(request))
+
+@login_required
 def sendmail(request):
 	if request.user.is_staff:
 		if request.GET['command'] == 'sendmail_emailcheck':

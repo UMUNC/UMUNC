@@ -1,0 +1,34 @@
+{% extends "umunc_iris/root_dashboard.html" %}
+
+{% block title %}
+缴费
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block body %}
+<form class="form-horizontal">
+	<div class="row">
+		<div class="col-md-12" id="step3_panel">
+			<div class="row text-center">
+				<h4>恭喜!</h4>
+				<p>UMUNC报名流程已经全部结束，您已成功申请到席位。UMUNC感谢您的参与，我们会场再见！</p>
+			</div>
+			<hr/>
+			<div class="row text-right">
+				<a class="btn btn-info btn-sm" href="/iris/step4/">
+					<span class="fui-arrow-left"></span>
+					Previous
+				</a>
+			</div>
+		</div>
+	</div>
+</form>
+{% endblock %}
+
+
+{% block js %}
+<script src="{{ STATIC_URL }}common/js/jqBootstrapValidation.js"></script>
+<script src="{{ STATIC_URL }}umunc_iris/js/step5.js"></script>
+{% endblock %}
