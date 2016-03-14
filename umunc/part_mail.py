@@ -61,13 +61,13 @@ def sendmail_interview(user):
 			</style>
 			<table>
 				<tr>
-					<td class="text-center head" rowspan="2">
+					<td class="text-center head" colspan="2">
 						<h3>UMUNC面试通知</h3>
 						<span>'''+user.username+u'''</span>
 					</td>
 				</tr>
 				<tr>
-					<td rowspan="2">
+					<td colspan="2">
 						<p>致 与众不同的你：</p>
 						<p>您收到此邮件是因为此账号（ '''+user.username+u''' ）已经被核心学术团队分配了面试。</p>
 						<p>您被分配的面试官为：</p>
@@ -86,14 +86,14 @@ def sendmail_interview(user):
 					</td>
 				</tr>
 				<tr>
-					<td rowspan="2">
+					<td colspan="2">
 						<p>您现在可以准备进行面试了。</p>
 						<p>详细信息：</p>
 						<h4><a href=\"http://www.umunc.org/iris/step4/\">http://www.umunc.org/iris/step4/</a></h4>
 					</td>
 				</tr>
 				<tr>
-					<td class="text-center" rowspan="2">
+					<td class="text-center" colspan="2">
 						<p><small>UMUNC</small></p>
 					</td>
 				</tr>
@@ -116,13 +116,13 @@ def sendmail_identify(user):
 			</style>
 			<table>
 				<tr>
-					<td class="text-center head" rowspan="2">
+					<td class="text-center head" colspan="2">
 						<h3>UMUNC席位分配通知</h3>
 						<span>'''+user.username+u'''</span>
 					</td>
 				</tr>
 				<tr>
-					<td rowspan="2">
+					<td colspan="2">
 						<p>致 与众不同的你：</p>
 						<p>您收到此邮件是因为此账号（ '''+user.username+u''' ）已经被核心学术团队分配了席位。</p>
 						<p>您被分配的席位为：</p>
@@ -138,14 +138,14 @@ def sendmail_identify(user):
 					</td>
 				</tr>
 				<tr>
-					<td rowspan="2">
+					<td colspan="2">
 						<p>您现在可以准备进行缴费了。</p>
 						<p>详细信息：</p>
 						<h4><a href=\"http://www.umunc.org/iris/step5/\">http://www.umunc.org/iris/step5/</a></h4>
 					</td>
 				</tr>
 				<tr>
-					<td class="text-center" rowspan="2">
+					<td class="text-center" colspan="2">
 						<p><small>UMUNC</small></p>
 					</td>
 				</tr>
@@ -168,13 +168,13 @@ def sendmail_payment_user(user):
 			</style>
 			<table>
 				<tr>
-					<td class="text-center head" rowspan="2">
+					<td class="text-center head" colspan="2">
 						<h3>UMUNC缴费确认通知</h3>
 						<span>'''+user.username+u'''</span>
 					</td>
 				</tr>
 				<tr>
-					<td rowspan="2">
+					<td colspan="2">
 						<p>致 与众不同的你：</p>
 						<p>您收到此邮件是因为此账号（ '''+user.username+u''' ）所在团队已经核实完成了缴费流程。</p>
 						<p>请注意，报名成功的前提是完成缴费和完成报名流程，详细情况可以到这里确认：</p>
@@ -182,7 +182,7 @@ def sendmail_payment_user(user):
 					</td>
 				</tr>
 				<tr>
-					<td class="text-center" rowspan="2">
+					<td class="text-center" colspan="2">
 						<p><small>UMUNC</small></p>
 					</td>
 				</tr>
