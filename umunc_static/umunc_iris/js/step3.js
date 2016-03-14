@@ -5,5 +5,7 @@ $(function() {
 		$('#askModal').modal('hide');
 		$("#savebutton").click();
 	});
+	$(".process_panel_item:nth-child(4)").removeClass("success");
+	$(".process_panel_item:nth-child(4)").removeClass("next");
 	$(".process_panel_item:nth-child(4)").addClass("active");
 });

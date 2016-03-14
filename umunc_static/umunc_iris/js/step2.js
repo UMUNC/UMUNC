@@ -30,5 +30,7 @@ $(function() {
 		$('#askModal').modal('hide');
 		$("#savebutton").click();
 	});
+	$(".process_panel_item:nth-child(3)").removeClass("success");
+	$(".process_panel_item:nth-child(3)").removeClass("next");
 	$(".process_panel_item:nth-child(3)").addClass("active");
 });
