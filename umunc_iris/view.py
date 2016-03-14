@@ -99,7 +99,7 @@ def pregister(request):
 				User = tuser,
 				CheckCode = tcheckcode_code,)
 			tcheckcode.save()
-			part_mail.sendmail_emailcheck(request.POST['email'],request.POST['username'],tcheckcode_code)
+			part_mail.sendmail_emailcheck(tuser)
 			Rerror='success'
 		else:
 				Rerror='此账号已存在。'
