@@ -226,49 +226,11 @@ def step2(request):
 
 @login_required
 def step3(request):
-	Rmsg=''
-	if request.FILES.has_key('upload_file'):
-		if request.FILES['upload_file'].size>(2*1024*1024):
-			Rmsg='文件过大！'
-		elif re.findall(r'[^.]+$',request.FILES['upload_file'].name.encode("utf-8"))[-1].lower() in ['doc','docx','pdf']:
-			file_path='%s_%s' %(time.time(),string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 6)).replace(' ',''))
-			result=part_upload.upload(request,'/www/upload/review/'+file_path+'/',request.FILES['upload_file'].name.encode("utf-8"),'upload_file')
-			if result:
-				request.user.profile.Review=file_path+'/'+request.FILES['upload_file'].name.encode("utf-8")
-				request.user.profile.Status=5
-				request.user.profile.save()
-			else:
-				Rmsg='上传发生错误！'
-		else:
-			Rmsg='格式错误！'
+	if request.POST.has_key('review') and request.POST.has_key('submit'):
+		request.user.profile.Review=request.POST['review']
+		if request.POST['submit']=='1':
+			request.user.profile.Status=5
+		request.user.profile.save()
+		return HttpResponseRedirect('/iris/step3')
 	return render_to_response('umunc_iris/step3.html',{'profile':request.user.profile,'msg':Rmsg,},context_instance=RequestContext(request))
 
-@login_required
-def step3_download(request):
-	if request.user.is_staff and request.GET.has_key("filename"):
-		tarball_file = open('/www/upload/review/'+request.GET[filename].encode("utf-8"))
-		wrapper = FileWrapper(tarball_file)
-		if re.findall(r'[^.]+$',request.user.profile.Review)[-1].encode("utf-8").lower()=='doc':
-			response = HttpResponse(wrapper, content_type='application/msword')
-		elif re.findall(r'[^.]+$',request.user.profile.Review)[-1].encode("utf-8").lower()=='docx':
-			response = HttpResponse(wrapper, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.template')
-		elif re.findall(r'[^.]+$',request.user.profile.Review)[-1].encode("utf-8").lower()=='pdf':
-			response = HttpResponse(wrapper, content_type='application/pdf')
-		response['Content-Encoding'] = 'utf-8'
-		response['Content-Disposition'] = 'attachment; filename=%s' % re.findall(r'[^/]+$',request.user.profile.Review)[-1].encode("utf-8")
-		return response
-
-	if request.user.profile.Review:
-		tarball_file = open('/www/upload/review/'+request.user.profile.Review.encode("utf-8"))
-		wrapper = FileWrapper(tarball_file)
-		if re.findall(r'[^.]+$',request.user.profile.Review)[-1].encode("utf-8").lower()=='doc':
-			response = HttpResponse(wrapper, content_type='application/msword')
-		elif re.findall(r'[^.]+$',request.user.profile.Review)[-1].encode("utf-8").lower()=='docx':
-			response = HttpResponse(wrapper, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.template')
-		elif re.findall(r'[^.]+$',request.user.profile.Review)[-1].encode("utf-8").lower()=='pdf':
-			response = HttpResponse(wrapper, content_type='application/pdf')
-		response['Content-Encoding'] = 'utf-8'
-		response['Content-Disposition'] = 'attachment; filename=%s' % re.findall(r'[^/]+$',request.user.profile.Review)[-1].encode("utf-8")
-		return response
-	else:
-		raise Http404

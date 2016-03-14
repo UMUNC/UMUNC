@@ -14,15 +14,7 @@
 	<div class="row">
 		<div class="col-md-12" id="step1_panel">
 			<div class="row text-center">
-				<p>请按照要求尽可能全面地填写您的个人信息，您的信息可以多次保存，直到您点击提交。提交信息之后将由会务团队审核。</p>
-			</div>
-			<div class="row text-right">
-				<a class="btn btn-inverse btn-sm" href="/iris">Back</a>
-				{% ifequal profile.Status 1%}
-				<button class="btn btn-danger btn-sm" type="submit" id="savebutton">Save</button>
-				<button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#askModal">Submit</button>
-				{% endifequal %}
-				&nbsp;&nbsp;&nbsp;&nbsp;
+				<p>请按照要求尽可能全面地填写您的个人信息，您的信息可以多次保存，直到您点击提交。</p>
 			</div>
 			<div class="form-group">
 				<label for="name" class="col-sm-4 control-label">姓名 Name</label>
@@ -185,6 +177,15 @@
 					<span class="fui-question-circle form-control-feedback"  for="adjust"></span>
 				</div>
 			</div>
+			<div class="row text-right">
+				{% ifequal profile.Status 1%}
+				<button class="btn btn-danger btn-sm" type="submit" id="savebutton">Save</button>
+				<button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#askModal">Submit</button>
+				{% else %}
+				已经提交啦，不能修改咯~
+				{% endifequal %}
+				&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
 		</div>
 	</div>
 </form>
@@ -198,7 +199,7 @@
 			</div>
 			<div class="modal-body">
 				<p>请确认是否正式提交报名资料。</p>
-				<p>请注意：报名资料提交后将不再允许修改，请耐心等待审核。</p>
+				<p>请注意：报名资料提交后将不再允许修改。</p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

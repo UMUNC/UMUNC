@@ -15,21 +15,13 @@
 			<div class="row text-center">
 				<p>如果您是个人代表，请直接选择个人代表跳过此步；<br/>如果您是团队领队，请创建团队；如果您是团队成员，请选择您参加的团队。</p>
 			</div>
-			<div class="row text-right">
-				<a class="btn btn-inverse btn-sm" href="/iris">Back</a>
-				{% ifequal profile.Status 3%}
-				<button class="btn btn-danger btn-sm" type="submit" id="savebutton" style="display:none;">Save</button>
-				<button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#askModal">Submit</button>
-				{% endifequal %}
-				&nbsp;&nbsp;&nbsp;&nbsp;
-			</div>
 			{% ifequal profile.Status 3%}
 			<div class="form-group text-center text-danger">
 				<p>{{error}}</p>
 			</div>
 			<div class="form-group">
-				<label for="class" class="col-sm-3 control-label">代表类别 Delegation Class</label>
-				<div class="col-sm-6 input-group">
+				<label for="class" class="col-sm-4 control-label">代表类别 Delegation Class</label>
+				<div class="col-sm-7 input-group">
 					<select class="form-control" id="class" name="class" required>
 						<option value="1">代表团-首席代表 Group Delegation-Chief Delegate</option>
 						<option value="2">代表团-非首席代表(成员) Group Delegation-Member Delegate</option>
@@ -39,29 +31,29 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="name" class="col-sm-3 control-label">团队名称 Group Name</label>
-				<div class="col-sm-6 input-group">
+				<label for="name" class="col-sm-4 control-label">团队名称 Group Name</label>
+				<div class="col-sm-7 input-group">
 					<input class="form-control" type="text" placeholder="Enter Name" id="name" name="name" maxlength="255" required>
 					<span class="fui-new form-control-feedback"  for="name"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="school" class="col-sm-3 control-label">所属学校 School</label>
-				<div class="col-sm-6 input-group">
+				<label for="school" class="col-sm-4 control-label">所属学校 School</label>
+				<div class="col-sm-7 input-group">
 					<input class="form-control" type="text" placeholder="Enter School" id="school" name="school"  maxlength="255" required>
 					<span class="fui-home form-control-feedback"  for="school"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="password" class="col-sm-3 control-label">加入口令 Password</label>
-				<div class="col-sm-6 input-group">
+				<label for="password" class="col-sm-4 control-label">设定加入口令 Password</label>
+				<div class="col-sm-7 input-group">
 					<input class="form-control" type="text" placeholder="Enter Password" id="password" name="password"  maxlength="255" required>
 					<span class="fui-lock form-control-feedback"  for="password"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="group" class="col-sm-3 control-label">团队 Group</label>
-				<div class="col-sm-6 input-group">
+				<label for="group" class="col-sm-4 control-label">团队 Group</label>
+				<div class="col-sm-7 input-group">
 					<input class="form-control" type="text" placeholder="Select Group" id="group" name="group"  maxlength="255" readonly="readonly" required>
 					<span class="fui-calendar-solid form-control-feedback"  for="school"></span>
 					<label  class="control-label text-left">以下为所有团队，请选择您要加入的团队。</label><br/>
@@ -72,8 +64,8 @@
 			</div>
 			{% else %}
 			<div class="form-group">
-				<label class="col-sm-3 control-label">您的选择 Your Choice</label>
-				<div class="col-sm-6 input-group">
+				<label class="col-sm-4 control-label">您的选择 Your Choice</label>
+				<div class="col-sm-7 input-group">
 					<label  class="control-label text-left">
 					{% if profile.Group.Group %}
 						{% if profile.Leader %}代表团-首席代表 Group Delegation-Chief Delegate<br/>{% else %}代表团-非首席代表(成员) Group Delegation-Member Delegate<br/>{% endif %}
@@ -85,6 +77,14 @@
 				</div>
 			</div>
 			{% endifequal %}
+			<div class="row text-right">
+				{% ifequal profile.Status 3%}
+				<button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#askModal">Submit</button>
+				{% else %}
+				已经提交啦，不能修改咯~
+				{% endifequal %}
+				&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
 		</div>
 	</div>
 </form>
