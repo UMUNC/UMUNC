@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     (r'^step1/$', step1),
     (r'^step2/$', step2),
     (r'^step3/$', step3),
+    (r'^step4/$', step4),
     # (r'^.*/$', temp),
     # Examples:
     # url(r'^$', 'umunc.views.home', name='home'),

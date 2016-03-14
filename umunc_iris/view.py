@@ -234,3 +234,8 @@ def step3(request):
 		return HttpResponseRedirect('/iris/step3')
 	return render_to_response('umunc_iris/step3.html',{'profile':request.user.profile,},context_instance=RequestContext(request))
 
+
+@login_required
+def step4(request):
+	return render_to_response('umunc_iris/step4.html',{'profile':request.user.profile,},context_instance=RequestContext(request))
+

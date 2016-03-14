@@ -1,0 +1,61 @@
+{% extends "umunc_iris/root.html" %}
+
+{% block title %}
+面试
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block body %}
+<div class="row">
+	<div class="col-md-12" id="step3_panel">
+		<div class="row text-center">
+			<p>核心学术团队审核通过学术评测后，将收到来自学术团队的面试分配信息，请根据要求完成面试流程。</p>
+			<p>面试通过并分配席位后，您将自动进入下一阶段。</p>
+			<p>面试分配完成以及席位分配完成时，系统均会向您的邮箱发送通知。</p>
+		</div>
+		{% ifequal profile.Status 4 %}
+		<div class="form-group">
+			<label for="interviewer" class="col-sm-4 control-label">学测状态 Review Status</label>
+			<div class="col-sm-7 input-group">
+				<span>正在审核</span>
+			</div>
+		</div>
+		{% else %}
+			{% if profile.Interviewer %}
+			<div class="form-group">
+				<label for="interviewer" class="col-sm-4 control-label">面试官 Interviewer</label>
+				<div class="col-sm-7 input-group">
+					<span>{{profile.Interviewer.profile.Name}}</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="interviewer" class="col-sm-4 control-label">面试官电话 Phone</label>
+				<div class="col-sm-7 input-group">
+					<span>{{profile.Interviewer.profile.Phone}}</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="interviewer" class="col-sm-4 control-label">面试官邮箱 Email</label>
+				<div class="col-sm-7 input-group">
+					<span>{{profile.Interviewer.email}}</span>
+				</div>
+			</div>
+			{% else %}
+			<div class="form-group">
+				<label for="interviewer" class="col-sm-4 control-label">面试官 Interviewer</label>
+				<div class="col-sm-7 input-group">
+					<span>尚未分配</span>
+				</div>
+			</div>
+			{% endif %}
+		{% endifequal %}
+	</div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script src="{{ STATIC_URL }}common/js/jqBootstrapValidation.js"></script>
+{% endblock %}

@@ -7,6 +7,7 @@ body{
 
 textarea {
 	resize: vertical;
+	height: auto;
 }
 
 .process_panel {
