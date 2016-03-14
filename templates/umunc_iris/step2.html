@@ -85,8 +85,11 @@
 		<th>状态</th>
 	</thead>
 	<tbody>
-		{% for u in profile.Group.Group.profile.all %}
-			<tr>
+		{% for u in profile.Group.profiles.all %}
+			<tr class="
+				{% if u.Status > 5 %}success{% endif %}
+				{% if u.Status < 0 %}danger{% endif %}
+			">
 				<td>u.User.username</td>
 				<td>u.Name</td>
 				<td>u.get_Status_display</td>
