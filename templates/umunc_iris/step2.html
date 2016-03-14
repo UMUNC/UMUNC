@@ -78,25 +78,25 @@
 			</div>
 
 			{% if profile.Group.Group %}
-<table class="table table-striped table-hover table-bordered">
-	<thead>
-		<th>用户名</th>
-		<th>姓名</th>
-		<th>状态</th>
-	</thead>
-	<tbody>
-		{% for u in profile.Group.profiles.all %}
-			<tr class="
-				{% if u.Status > 5 %}success{% endif %}
-				{% if u.Status < 0 %}danger{% endif %}
-			">
-				<td>u.User.username</td>
-				<td>u.Name</td>
-				<td>u.get_Status_display</td>
-			</tr>
-		{% endfor %}
-	</tbody>
-</table>
+			<table class="table table-striped table-hover table-bordered">
+				<thead>
+					<th>用户名</th>
+					<th>姓名</th>
+					<th>状态</th>
+				</thead>
+				<tbody>
+					{% for u in profile.Group.profile.all %}
+						<tr class="
+							{% if u.Status > 5 %}success{% endif %}
+							{% if u.Status < 0 %}danger{% endif %}
+						">
+							<td>u.User.username</td>
+							<td>u.Name</td>
+							<td>u.get_Status_display</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
 			{% endif %}
 			{% endifequal %}
 			<hr/>

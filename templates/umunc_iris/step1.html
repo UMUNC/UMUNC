@@ -153,7 +153,8 @@
 				<label for="commitee2" class="col-sm-4 control-label">委员会志愿#2 Choice of Committee #2</label>
 				<div class="col-sm-7 input-group">
 					<select class="form-control" id="commitee2" name="commitee2" required>
-						{% if profile.Commitee2 >= 1 and profile.Commitee2 <= 8  %}
+						{% if profile.Commitee2 >= 0 and profile.Commitee2 <= 8  %}
+						<option value="0"{% ifequal profile.Commitee2 0 %} selected{% endifequal %}>无</option>
 						<option value="1"{% ifequal profile.Commitee2 1 %} selected{% endifequal %}>联动体系 - 国家内阁</option>
 						<option value="2"{% ifequal profile.Commitee2 2 %} selected{% endifequal %}>联动体系 - 联合国安全理事会</option>
 						<option value="3"{% ifequal profile.Commitee2 3 %} selected{% endifequal %}>联动体系 - 主新闻中心</option>

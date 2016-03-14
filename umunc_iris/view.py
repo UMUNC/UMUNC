@@ -87,9 +87,11 @@ def pregister(request):
 				Wechat='',
 				MunAge=0,
 				MunRsm='',
-				MunJoined=False,
 				Commitee=1,
+				Commitee2=0,
+				Adjust=1,
 				Review='',
+				Comment='',
 				Status=0,)
 			tprofile.save()
 			tcheckcode_code = string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 32)).replace(' ','')
