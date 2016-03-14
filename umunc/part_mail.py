@@ -1,13 +1,13 @@
 #coding=utf-8
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives
 
 def sendmail(to,subject,html):
-	email = EmailMessage(
+	msg = EmailMultiAlternatives(
 		subject= subject,
 		body = html,
 		to = [to])
-	email.content_subtype = "html"
-	email.send()
+	msg.attach_alternative(html, "text/html")
+	msg.send()
 
 def sendmail_emailcheck(user):
 	# try:
