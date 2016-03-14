@@ -22,6 +22,7 @@ class country(models.Model):
 		return u'%s' % (self.Name)
 
 class profile(models.Model):
+	Interviewer=models.ForeignKey(User,verbose_name='面试官',null=True,blank=True,related_name='Interviewee')
 	User=models.OneToOneField(User,verbose_name='账户')
 	Init=models.BooleanField(default=False,verbose_name='初始化？')
 	Group=models.ForeignKey(group,blank=True,null=True,verbose_name='团队')
@@ -80,7 +81,6 @@ class profile(models.Model):
 	LastMotified=models.DateTimeField(auto_now=True,verbose_name='修改时间戳')
 	Review=models.TextField(verbose_name='学术评测',blank=True)
 	Comment=models.TextField(verbose_name='学团评价',blank=True)
-	Interviewer=models.ForeignKey(User,verbose_name='账户',null=True,blank=True,related_name='Interviewee')
 	Status=models.IntegerField(verbose_name='状态',choices=(
 		(-3,'代表申请拒绝'),
 		(0,'未验证邮箱'),
