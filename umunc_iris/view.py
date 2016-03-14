@@ -249,4 +249,18 @@ def step4(request):
 def step5(request):
 	return render_to_response('umunc_iris/step5.html',{'profile':request.user.profile,},context_instance=RequestContext(request))
 
-
+@login_required
+def sendmail(request):
+	if request.user.is_staff:
+		if request.Get['command'] == 'sendmail_emailcheck':
+			part_mail.sendmail_emailcheck(User.objects.get(id=request.Get['id']))
+		if request.Get['command'] == 'sendmail_interview':
+			part_mail.sendmail_interview(User.objects.get(id=request.Get['id']))
+		if request.Get['command'] == 'sendmail_identify':
+			part_mail.sendmail_identify(User.objects.get(id=request.Get['id']))
+		if request.Get['command'] == 'sendmail_payment_user':
+			part_mail.sendmail_payment_user(User.objects.get(id=request.Get['id']))
+		if request.Get['command'] == 'sendmail_payment':
+			part_mail.sendmail_payment(Group.objects.get(id=request.Get['id']))
+	else:
+		raise Http404

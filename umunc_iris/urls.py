@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     (r'^step3/$', step3),
     (r'^step4/$', step4),
     (r'^step5/$', step5),
+    (r'^admin/sendmail$', sendmail),
     # (r'^.*/$', temp),
     # Examples:
     # url(r'^$', 'umunc.views.home', name='home'),

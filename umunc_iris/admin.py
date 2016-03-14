@@ -23,17 +23,24 @@ class ProfileAdmin(admin.ModelAdmin):
         }),
         ('Interviewer', {
             'classes': ('collapse'),
-            'fields': ('Interviewer',)
+            'fields': ('Interviewer','sendmail')
         }),
     )
     list_display = ('User', 'Name','Status')
 
-    readonly_fields = ('TimeStamp', 'LastMotified')
+    readonly_fields = ('TimeStamp', 'LastMotified', 'sendmail')
     def get_readonly_fields(self, request, obj=None):
         if request.user.has_perm('profile.control_all'):
             return ('TimeStamp', 'LastMotified')
         else:
             return ('TimeStamp', 'LastMotified')
+    def sendmail(self, obj):
+        return django.utils.html.escape(u'''
+            <a href="/iris/admin/sendmail/?command=sendmail_emailcheck&id='''+obj.User.id+u'''">发送注册邮件</a><br/>
+            <a href="/iris/admin/sendmail/?command=sendmail_interview&id='''+obj.User.id+u'''">发送面试通知邮件</a><br/>
+            <a href="/iris/admin/sendmail/?command=sendmail_identify&id='''+obj.User.id+u'''">发送席位通知邮件</a><br/>
+            <a href="/iris/admin/sendmail/?command=sendmail_payment_user&id='''+obj.User.id+u'''">发送缴费确认邮件</a>
+            ''')
 
 admin.site.register(group)
 admin.site.register(profile, ProfileAdmin)
