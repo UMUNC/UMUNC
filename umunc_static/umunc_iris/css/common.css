@@ -90,7 +90,7 @@ textarea {
 #user_container a:hover,
 #user_container a:visited {
 	color: #D8D8D8;
-	font-size: 12px;
+	font-size: 16px;
 }
 #main_container {
 	background-color: rgba(245, 245, 245, 0.8);
@@ -112,14 +112,14 @@ textarea {
 #umunclogo{
 	display: inline-block;
 	width: auto;
-	height:50px;
-	margin:40px 10px;
+	height:70px;
+	margin:25px 10px;
 }
 #irislogo{
 	display: inline-block;
 	width: auto;
-	height:50px;
-	margin:40px 10px;
+	height:70px;
+	margin:25px 10px;
 }
 
 #login_error_msg p,
