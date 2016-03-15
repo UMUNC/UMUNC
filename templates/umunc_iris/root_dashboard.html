@@ -1,8 +1,16 @@
 {% extends "umunc_iris/root.html" %}
 
 {% block IRIS-Rbody %}
+	<div class="container" id="user_container">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				{{user.username}} | <a href="/iris/accounts/change/">Change Password</a> | <a href="/iris/accounts/logout/">Logout</a>
+			</div>
+		</div>
+	</div>
 	<div class="container" id="main_container">
 		<div class="row">
+			<div class="col-md-3 line_panel"></div>
 			<div class="col-md-3 process_panel">
 				<div class="row process_panel_item
 					{% if profile.Status > 0 %}success{% endif %}

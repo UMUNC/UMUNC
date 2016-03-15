@@ -85,16 +85,23 @@ textarea {
 	color: white;
 	font-size: 14px;
 }
-
+#user_container a,
+#user_container a:hover,
+#user_container a:visited {
+	color: white;
+}
 #main_container {
 	background-color: rgba(245, 245, 245, 0.8);
 	margin-bottom: 20px;
 }
+.line_panel {
+	border-right: 1px solid #999;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	bottom: 0px;
 
-#main_content_container {
-	border-left: 1px solid #999;
 }
-
 .process_panel,
 #main_content_container {
 	padding: 40px 30px;
