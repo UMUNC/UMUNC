@@ -85,14 +85,17 @@ textarea {
 	color: white;
 	font-size: 14px;
 }
+#user_container *,
 #user_container a,
 #user_container a:hover,
 #user_container a:visited {
-	color: white;
+	color: #D8D8D8;
+	font-size: 12px;
 }
 #main_container {
 	background-color: rgba(245, 245, 245, 0.8);
 	margin-bottom: 20px;
+    position: relative;
 }
 .line_panel {
 	border-right: 1px solid #999;
@@ -100,7 +103,6 @@ textarea {
 	left: 0px;
 	top: 0px;
 	bottom: 0px;
-
 }
 .process_panel,
 #main_content_container {
