@@ -28,7 +28,7 @@ def plogin(request):
 	Rerror=''
 	Rnext=''
 	if request.user.is_authenticated():
-		return HttpResponseRedirect('/')
+		return HttpResponseRedirect('/iris/')
 	if request.POST.has_key('username') and request.POST.has_key('password'):
 		Rusername = request.POST['username']
 		Rpassword = request.POST['password']
