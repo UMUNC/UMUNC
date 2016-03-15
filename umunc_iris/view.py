@@ -256,16 +256,19 @@ def step6(request):
 @login_required
 def sendmail(request):
 	if request.user.is_staff:
-		if request.GET['command'] == 'sendmail_emailcheck':
-			part_mail.sendmail_emailcheck(User.objects.get(id=request.GET['id']))
-		if request.GET['command'] == 'sendmail_interview':
-			part_mail.sendmail_interview(User.objects.get(id=request.GET['id']))
-		if request.GET['command'] == 'sendmail_identify':
-			part_mail.sendmail_identify(User.objects.get(id=request.GET['id']))
-		if request.GET['command'] == 'sendmail_payment_user':
-			part_mail.sendmail_payment_user(User.objects.get(id=request.GET['id']))
-		if request.GET['command'] == 'sendmail_payment':
-			part_mail.sendmail_payment(group.objects.get(id=request.GET['id']))
-		return HttpResponse('<script>alert("Done.");history.go(-1);</script>')
+		if request.user.has_perm('profile.control_all'):
+			if request.GET['command'] == 'sendmail_emailcheck':
+				part_mail.sendmail_emailcheck(User.objects.get(id=request.GET['id']))
+			if request.GET['command'] == 'sendmail_interview':
+				part_mail.sendmail_interview(User.objects.get(id=request.GET['id']))
+			if request.GET['command'] == 'sendmail_identify':
+				part_mail.sendmail_identify(User.objects.get(id=request.GET['id']))
+			if request.GET['command'] == 'sendmail_payment_user':
+				part_mail.sendmail_payment_user(User.objects.get(id=request.GET['id']))
+			if request.GET['command'] == 'sendmail_payment':
+				part_mail.sendmail_payment(group.objects.get(id=request.GET['id']))
+			return HttpResponse('<script>alert("Done.");history.go(-1);</script>')
+		else:
+			return HttpResponse(u'<script>alert("无权发送");history.go(-1);</script>')
 	else:
 		raise Http404
