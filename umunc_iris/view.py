@@ -267,8 +267,8 @@ def sendmail(request):
 				part_mail.sendmail_payment_user(User.objects.get(id=request.GET['id']))
 			if request.GET['command'] == 'sendmail_payment':
 				part_mail.sendmail_payment(group.objects.get(id=request.GET['id']))
-			return HttpResponse('<script>alert("Done.");history.go(-1);</script>')
+			return HttpResponse('<script>alert("Done.");window.opener=null;window.close();</script>')
 		else:
-			return HttpResponse(u'<script>alert("无权发送");history.go(-1);</script>')
+			return HttpResponse(u'<script>alert("无权发送");window.opener=null;window.close();</script>')
 	else:
 		raise Http404
