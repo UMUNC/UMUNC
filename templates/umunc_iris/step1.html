@@ -43,7 +43,7 @@
 			<div class="form-group">
 				<label for="idnum" class="col-sm-4 control-label">身份证号码 ID Number</label>
 				<div class="col-sm-7 input-group">
-					<input class="form-control" type="text" placeholder="Enter IDNumber" id="idnum" name="idnum" value="{{profile.IDNum}}" minlength="18" maxlength="18" pattern="/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/" intro="输入非法" required>
+					<input class="form-control" type="text" placeholder="Enter IDNumber" id="idnum" name="idnum" value="{{profile.IDNum}}" minlength="18" maxlength="18" pattern="/^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/" intro="输入非法" required>
 					<span class="fui-credit-card form-control-feedback"  for="idnum"></span>
 				</div>
 			</div>
