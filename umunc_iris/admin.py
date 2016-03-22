@@ -14,7 +14,7 @@ class ProfileResource(resources.ModelResource):
     class Meta:
         model = profile
 
-class GroupAdmin(admin.ModelAdmin, ExportMixin):
+class GroupAdmin(ExportActionModelAdmin, ExportMixin):
     fieldsets = (
         ('Basic', {
             'fields': ('Name', 'School', 'Password')
