@@ -64,7 +64,7 @@ class GroupAdmin(ExportActionModelAdmin):
             </table>
             '''
 
-        return mark_safe(t)
+        return t
 
     def export_admin_action(self, request, queryset):
         """
