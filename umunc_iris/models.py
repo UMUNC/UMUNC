@@ -41,9 +41,13 @@ class system(models.Model):
 class profile(models.Model):
 	Interviewer=models.ForeignKey(User,verbose_name='面试官',null=True,blank=True,related_name='Interviewee')
 	User=models.OneToOneField(User,verbose_name='账户')
-	Init=models.BooleanField(default=False,verbose_name='初始化？')
+	Init=models.BooleanField(default=False,verbose_name='初始化？',choices=(
+		(True,'是'),
+		(False,'否'),))
 	Group=models.ForeignKey(group,blank=True,null=True,verbose_name='团队')
-	Leader=models.BooleanField(default=False,verbose_name='领队？')
+	Leader=models.BooleanField(default=False,verbose_name='领队？',choices=(
+		(True,'首席代表'),
+		(False,'非首席代表'),))
 	Name=models.CharField(max_length=255,blank=True,verbose_name="姓名")
 	Sex=models.BooleanField(default=False,verbose_name='性别',choices=(
 		(1,'男'),
@@ -91,7 +95,9 @@ class profile(models.Model):
 				(8,'General Assembly United System - United Nations General Assembly 3rd Committee (SOCHUM)'),
 			)
 		),))
-	Adjust=models.BooleanField(default=False,verbose_name='接受调剂？')
+	Adjust=models.BooleanField(default=False,verbose_name='接受调剂？',choices=(
+		(True,'是'),
+		(False,'否'),))
 	System=models.ForeignKey(system,verbose_name="席位-所属体系",null=True,blank=True)
 	Country=models.ForeignKey(country,verbose_name="席位-所属国家",null=True,blank=True)
 	Identify=models.OneToOneField(identify,verbose_name="席位-席位名称",null=True,blank=True)
