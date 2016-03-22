@@ -3,18 +3,18 @@ from django.contrib import admin
 from umunc_iris.models import *
 from django.utils.safestring import mark_safe
 from import_export import resources
-from import_export.admin import ExportMixin
+from import_export.admin import ExportMixin, ExportActionModelAdmin
 
 class GroupResource(resources.ModelResource):
     class Meta:
-        model = Group
+        model = group
         fields = ('Name', 'School', 'Password', 'Paycode', 'Payment', 'Group')
 
 class ProfileResource(resources.ModelResource):
     class Meta:
-        model = Profile
+        model = profile
 
-class GroupAdmin(admin.ModelAdmin, ExportMixin):
+class GroupAdmin(admin.ModelAdmin, ExportMixin, ExportActionModelAdmin):
     fieldsets = (
         ('Basic', {
             'fields': ('Name', 'School', 'Password')
