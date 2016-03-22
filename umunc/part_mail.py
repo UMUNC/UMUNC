@@ -68,7 +68,7 @@ def sendmail_interview(user):
 			</tr>
 			<tr style="border:0px;padding:0px;margin:0px;">
 				<td style="padding:20px;" colspan="2">
-					<p>您现在可以准备进行面试了。</p>
+					<p>请等待学术团队与您取得联系,如果在面试方式与时间上有任何问题，请与您当前的面试官取得联系。</p>
 					<p>详细信息：</p>
 					<h4><a href=\"http://www.umunc.org/iris/step4/\">http://www.umunc.org/iris/step4/</a></h4>
 				</td>

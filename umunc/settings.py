@@ -133,6 +133,7 @@ INSTALLED_APPS = (
     'umunc_iris',
     'umunc_cheetah',
     'umunc_mpc',
+    'import_export',
     'gunicorn',
 )
 
