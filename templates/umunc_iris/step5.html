@@ -17,6 +17,7 @@
 				<p>对于团队申报的同学，报名窗口仅对首席代表开放，团队统一完成缴费。</p>
 				<p>查询及其他疑问，请联系UMUNC组委会。</p>
 			</div>
+			{% if profile.Country %}
 			<div class="form-group">
 				<label for="interviewer" class="col-sm-4 control-label">席位 Identify</label>
 				<div class="col-sm-7 input-group">
@@ -25,6 +26,16 @@
 					</label>
 				</div>
 			</div>
+			{% else %}
+			<div class="form-group">
+				<label for="interviewer" class="col-sm-4 control-label">席位 Identify</label>
+				<div class="col-sm-7 input-group">
+					<label class="control-label text-left">
+					尚未分配
+					</label>
+				</div>
+			</div>
+			{% endif %}
 				{% if profile.Leader %}
 				<div class="form-group">
 					<label for="interviewer" class="col-sm-4 control-label">缴费码 Pay Code</label>
