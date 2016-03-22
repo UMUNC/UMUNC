@@ -64,7 +64,7 @@ class GroupAdmin(ExportActionModelAdmin):
                 </tbody>
             </table>''')
         c = Context({'group': obj})
-        return escape(t.render(c))
+        return mark_safe(escape(t.render(c)))
 
     def export_admin_action(self, request, queryset):
         """
