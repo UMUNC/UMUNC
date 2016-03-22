@@ -38,6 +38,51 @@ def sendmail_emailcheck(user):
 	# except:
 	# 	pass
 
+def sendmail_interviewer(user):
+	# try:
+	sendmail(user.profile.Interviewer.email,u"UMUNC面试安排通知",u'''
+		<table style="border-radius: 3px;border: 1px solid #d8d8d8;border-bottom-width: 2px;border-top-width: 0;">
+			<tr style="border:0px;padding:0px;margin:0px;">
+				<td style="padding:20px;text-align:center; background:#1C9EFF;color:white;padding:20px;" colspan="2">
+					<h3>UMUNC面试安排通知</h3>
+					<span>'''+user.profile.Interviewer.username+u'''</span>
+				</td>
+			</tr>
+			<tr style="border:0px;padding:0px;margin:0px;">
+				<td style="padding:20px;" colspan="2">
+					<p>致 与众不同的你：</p>
+					<p>您收到此邮件是因为此账号（ '''+user.profile.Interviewer.username+u''' ）已经被核心学术团队分配了面试。身为面试官的您被分配的面试者为：</p>
+				</td>
+			</tr>
+			<tr style="border:0px;padding:0px;margin:0px;">
+				<td style="padding:20px;text-align:right;">
+					面试者：<br/>
+					联系电话：<br/>
+					电子邮箱：
+				</td>
+				<td style="padding:20px;text-align:left;">
+				'''+user.profile.Name+u'''<br/>
+				'''+user.profile.Phone+u'''<br/>
+				'''+user.email+u'''
+				</td>
+			</tr>
+			<tr style="border:0px;padding:0px;margin:0px;">
+				<td style="padding:20px;" colspan="2">
+					<p>不用我说了自己联系被面试者单撸吧，安排结果记得尽快登记到系统后台并通知核心学术团队呦。</p>
+					<p>详细信息：</p>
+					<h4><a href=\"http://www.umunc.org/admin/\">http://www.umunc.org/admin/</a></h4>
+				</td>
+			</tr>
+			<tr style="border:0px;padding:0px;margin:0px;">
+				<td style="padding:20px;text-align:center;" colspan="2">
+					<p><small>UMUNC</small></p>
+				</td>
+			</tr>
+		</table>
+		''')
+	# except:
+	# 	pass
+
 def sendmail_interview(user):
 	# try:
 	sendmail(user.email,u"UMUNC面试通知",u'''
@@ -69,6 +114,40 @@ def sendmail_interview(user):
 			<tr style="border:0px;padding:0px;margin:0px;">
 				<td style="padding:20px;" colspan="2">
 					<p>请等待学术团队与您取得联系,如果在面试方式与时间上有任何问题，请与您当前的面试官取得联系。</p>
+					<p>详细信息：</p>
+					<h4><a href=\"http://www.umunc.org/iris/step4/\">http://www.umunc.org/iris/step4/</a></h4>
+				</td>
+			</tr>
+			<tr style="border:0px;padding:0px;margin:0px;">
+				<td style="padding:20px;text-align:center;" colspan="2">
+					<p><small>UMUNC</small></p>
+				</td>
+			</tr>
+		</table>
+		''')
+	sendmail_interviewer(user)
+	# except:
+	# 	pass
+
+def sendmail_interview_reject(user):
+	# try:
+	sendmail(user.email,u"UMUNC面试结果通知",u'''
+		<table style="border-radius: 3px;border: 1px solid #d8d8d8;border-bottom-width: 2px;border-top-width: 0;">
+			<tr style="border:0px;padding:0px;margin:0px;">
+				<td style="padding:20px;text-align:center; background:#1C9EFF;color:white;padding:20px;" colspan="2">
+					<h3>UMUNC面试结果通知</h3>
+					<span>'''+user.username+u'''</span>
+				</td>
+			</tr>
+			<tr style="border:0px;padding:0px;margin:0px;">
+				<td style="padding:20px;" colspan="2">
+					<p>致 与众不同的你：</p>
+					<p>您收到此邮件是因为此账号（ '''+user.username+u''' ）已经被核心学术团队分配了面试。但最近一次面试评价为未通过。</p>
+				</td>
+			</tr>
+			<tr style="border:0px;padding:0px;margin:0px;">
+				<td style="padding:20px;" colspan="2">
+					<p>不必担心，学术团队正在评价重新分配您的面试安排。重新面试的安排一旦确定，您将再次收到我们的面试邀请。</p>
 					<p>详细信息：</p>
 					<h4><a href=\"http://www.umunc.org/iris/step4/\">http://www.umunc.org/iris/step4/</a></h4>
 				</td>

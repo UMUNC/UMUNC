@@ -128,7 +128,6 @@ class ProfileAdmin(ExportActionModelAdmin):
             <a target="_blank" class="btn btn-sm btn-default" href=\"/iris/admin/sendmail/?command=sendmail_payment_user&id='''+str(obj.User.id)+u'''\">发送缴费确认邮件</a>
             ''')
 
-
 class CountryAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Status', {
@@ -163,7 +162,51 @@ class CountryAdmin(admin.ModelAdmin):
                             <td><a href="/admin/umunc_iris/profile/{{u.id}}/">{{u.User.username}}</td>\
                             <td>{{u.Name}}</td>\
                             <td>{{u.get_Status_display}}</td>\
+                            <td>{{u.System}}</td>\
+                            <td>{{u.Country}}</td>\
+                            <td>{{u.Identify}}</td>\
+                        </tr>\
+                    {% endfor %}\
+                </tbody>\
+            </table>''')
+        c = Context({'country': obj})
+        return t.render(c)
+
+class SystemAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Status', {
+            'fields': ('Name',)
+        }),
+        ('Member', {
+            'classes': ('collapse'),
+            'fields': ('member',)
+        }),
+    )
+
+    readonly_fields = ('member',)
+
+    list_display = ('Name',)
+
+    def member(self, obj):
+        t = Template(u'''<table class="table table-striped table-hover table-bordered">\
+                <thead>\
+                    <th>用户名</th>\
+                    <th>姓名</th>\
+                    <th>状态</th>\
+                    <th>席位 所属体系</th>\
+                    <th>席位 所属国家</th>\
+                    <th>席位 席位名称</th>\
+                </thead>\
+                <tbody>\
+                    {% for u in country.profile_set.all %}\
+                        <tr class="\
+                            {% if u.Status > 5 %}success{% endif %}\
+                            {% if u.Status < 0 %}danger{% endif %}\
+                        ">\
+                            <td><a href="/admin/umunc_iris/profile/{{u.id}}/">{{u.User.username}}</td>\
+                            <td>{{u.Name}}</td>\
                             <td>{{u.get_Status_display}}</td>\
+                            <td>{{u.System}}</td>\
                             <td>{{u.Country}}</td>\
                             <td>{{u.Identify}}</td>\
                         </tr>\
@@ -177,4 +220,5 @@ admin.site.register(group, GroupAdmin)
 admin.site.register(profile, ProfileAdmin)
 admin.site.register(checkcode)
 admin.site.register(country, CountryAdmin)
+admin.site.register(system, SystemAdmin)
 

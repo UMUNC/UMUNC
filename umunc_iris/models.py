@@ -24,6 +24,13 @@ class country(models.Model):
 	def __unicode__(self):
 		return u'%s' % (self.Name)
 
+class system(models.Model):
+	Name=models.CharField(max_length=255,verbose_name="名称")
+	class Meta:
+		ordering = ['id']
+	def __unicode__(self):
+		return u'%s' % (self.Name)
+
 class profile(models.Model):
 	Interviewer=models.ForeignKey(User,verbose_name='面试官',null=True,blank=True,related_name='Interviewee')
 	User=models.OneToOneField(User,verbose_name='账户')
@@ -78,6 +85,7 @@ class profile(models.Model):
 			)
 		),))
 	Adjust=models.BooleanField(default=False,verbose_name='接受调剂？')
+	System=models.ForeignKey(system,verbose_name="席位-所属体系",null=True,blank=True)
 	Country=models.ForeignKey(country,verbose_name="席位-所属国家",null=True,blank=True)
 	Identify=models.CharField(max_length=255,verbose_name="席位-席位名称",blank=True)
 	TimeStamp=models.DateTimeField(auto_now_add=True,verbose_name='注册时间戳')
