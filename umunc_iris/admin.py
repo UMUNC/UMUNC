@@ -216,7 +216,7 @@ class SystemAdmin(admin.ModelAdmin):
         c = Context({'country': obj})
         return t.render(c)
 
-class SystemAdmin(admin.ModelAdmin):
+class IdentifyAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Status', {
             'fields': ('Name', 'profile',)
