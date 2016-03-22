@@ -34,7 +34,7 @@ class GroupAdmin(ExportActionModelAdmin):
     )
     list_display = ('Name', 'School', 'Paycode', 'Payment')
 
-    readonly_fields = ('TimeStamp', 'LastMotified', 'sendmail', 'member')
+    readonly_fields = ('sendmail', 'member')
 
     resource_class = GroupResource
 
@@ -64,7 +64,8 @@ class GroupAdmin(ExportActionModelAdmin):
                 </tbody>
             </table>''')
         c = Context({'group': obj})
-        return mark_safe(t.render_to_string(c))
+        print(t.render(c))
+        return mark_safe(t.render(c))
 
     def export_admin_action(self, request, queryset):
         """
