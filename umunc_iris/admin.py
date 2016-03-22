@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.template import Context, Template
 from umunc_iris.models import *
-from django.utils.safestring import mark_safe, mark_for_escaping
+from django.utils.safestring import mark_safe
 from import_export import resources
 from import_export.admin import ExportActionModelAdmin
 
@@ -64,7 +64,8 @@ class GroupAdmin(ExportActionModelAdmin):
                 </tbody>
             </table>''')
         c = Context({'group': obj})
-        return mark_for_escaping(t.render(c))
+        return "t.render(c)"
+        return t.render(c)
 
     def export_admin_action(self, request, queryset):
         """
