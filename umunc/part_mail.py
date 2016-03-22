@@ -142,12 +142,24 @@ def sendmail_interview_reject(user):
 			<tr style="border:0px;padding:0px;margin:0px;">
 				<td style="padding:20px;" colspan="2">
 					<p>致 与众不同的你：</p>
-					<p>您收到此邮件是因为此账号（ '''+user.username+u''' ）已经被核心学术团队分配了面试。但最近一次面试评价为未通过。</p>
+					<p>您收到此邮件是因为此账号（ '''+user.username+u''' ）已经被核心学术团队分配了面试。但是抱歉，经过我们对您的面试以及学测的审阅，我们认为您更加适合其他的席位，因此，我们为您重新安排了面试官。您的新面试官是：</p>
+				</td>
+			</tr>
+			<tr style="border:0px;padding:0px;margin:0px;">
+				<td style="padding:20px;text-align:right;">
+					面试官：<br/>
+					联系电话：<br/>
+					电子邮箱：
+				</td>
+				<td style="padding:20px;text-align:left;">
+				'''+user.profile.Interviewer.profile.Name+u'''<br/>
+				'''+user.profile.Interviewer.profile.Phone+u'''<br/>
+				'''+user.profile.Interviewer.email+u'''
 				</td>
 			</tr>
 			<tr style="border:0px;padding:0px;margin:0px;">
 				<td style="padding:20px;" colspan="2">
-					<p>不必担心，学术团队正在评价重新分配您的面试安排。重新面试的安排一旦确定，您将再次收到我们的面试邀请。</p>
+					<p>请等待学术团队与您取得联系,如果在面试方式与时间上有任何问题，请与您当前的面试官取得联系。</p>
 					<p>详细信息：</p>
 					<h4><a href=\"http://www.umunc.org/iris/step4/\">http://www.umunc.org/iris/step4/</a></h4>
 				</td>
@@ -159,6 +171,7 @@ def sendmail_interview_reject(user):
 			</tr>
 		</table>
 		''')
+	sendmail_interviewer(user)
 	# except:
 	# 	pass
 
