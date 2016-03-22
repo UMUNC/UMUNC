@@ -51,14 +51,17 @@ class GroupAdmin(ExportActionModelAdmin):
                     <th>状态</th>
                 </thead>
                 <tbody>'''
-        for i in obj.profile_set.all():
-            t += u'''
-                <tr>
-                    <td>''' + i.User.username + u'''</td>
-                    <td>''' + i.Name + u'''</td>
-                    <td>''' + i.Status.get_FOO_display() + u'''</td>
-                </tr>
-                '''
+        try:
+            for i in obj.profile_set.all():
+                t += u'''
+                    <tr>
+                        <td>''' + i.User.username + u'''</td>
+                        <td>''' + i.Name + u'''</td>
+                        <td>''' + i.Status.get_FOO_display() + u'''</td>
+                    </tr>
+                    '''
+        except:
+            pass
         t +='''
                 </tbody>
             </table>
