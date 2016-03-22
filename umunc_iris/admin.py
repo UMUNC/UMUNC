@@ -44,7 +44,8 @@ class GroupAdmin(ExportActionModelAdmin):
             ''')
 
     def member(self, obj):
-        t = u'''<table class="table table-striped table-hover table-bordered">
+        t = u'''<p>别问我为什么有这么多换行我也没搞明白劳资不干了。</p>
+        <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <th>用户名</th>
                     <th>姓名</th>
