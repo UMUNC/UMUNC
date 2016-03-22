@@ -39,12 +39,11 @@ class GroupAdmin(ExportActionModelAdmin):
     resource_class = GroupResource
 
     def sendmail(self, obj):
-        return mark_safe(u'''
-            <a target="_blank" href=\"/iris/admin/sendmail/?command=sendmail_payment&id='''+str(obj.id)+u'''\">发送缴费确认邮件</a>
+        return mark_safe(u'''<a target="_blank" href=\"/iris/admin/sendmail/?command=sendmail_payment&id='''+str(obj.id)+u'''\">发送缴费确认邮件</a>
             ''')
 
     def member(self, obj):
-        t = Template('''<table class="table table-striped table-hover table-bordered">
+        t = Template(u'''<table class="table table-striped table-hover table-bordered">
                 <thead>
                     <th>用户名</th>
                     <th>姓名</th>
@@ -64,8 +63,6 @@ class GroupAdmin(ExportActionModelAdmin):
                 </tbody>
             </table>''')
         c = Context({'group': obj})
-        return mark_safe(u'''
-            <a href="#">a</a>''')
         return t.render(c)
 
     def export_admin_action(self, request, queryset):
@@ -117,8 +114,7 @@ class ProfileAdmin(admin.ModelAdmin):
         else:
             return ('User', 'TimeStamp', 'LastMotified', 'Init', 'Status', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'MunAge', 'MunRsm', 'Commitee', 'Commitee2', 'Adjust', 'Group', 'Leader', 'Review','sendmail')
     def sendmail(self, obj):
-        return mark_safe(u'''
-            <a target="_blank" href=\"/iris/admin/sendmail/?command=sendmail_emailcheck&id='''+str(obj.User.id)+u'''\">发送注册邮件</a><br/>
+        return mark_safe(u'''<a target="_blank" href=\"/iris/admin/sendmail/?command=sendmail_emailcheck&id='''+str(obj.User.id)+u'''\">发送注册邮件</a><br/>
             <a target="_blank" href=\"/iris/admin/sendmail/?command=sendmail_interview&id='''+str(obj.User.id)+u'''\">发送面试通知邮件</a><br/>
             <a target="_blank" href=\"/iris/admin/sendmail/?command=sendmail_identify&id='''+str(obj.User.id)+u'''\">发送席位通知邮件</a><br/>
             <a target="_blank" href=\"/iris/admin/sendmail/?command=sendmail_payment_user&id='''+str(obj.User.id)+u'''\">发送缴费确认邮件</a>
