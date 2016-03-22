@@ -1,5 +1,6 @@
 #coding=utf-8
 from django.contrib import admin
+from django.template import Context, Template
 from umunc_iris.models import *
 from django.utils.safestring import mark_safe
 from import_export import resources
@@ -22,9 +23,13 @@ class GroupAdmin(ImportExportModelAdmin, ExportMixin):
         ('Status', {
             'fields': ('Paycode', 'Payment', 'Group')
         }),
-        ('Interviewer', {
+        ('Mail', {
             'classes': ('collapse'),
             'fields': ('sendmail',)
+        }),
+        ('Member', {
+            'classes': ('collapse'),
+            'fields': ('member',)
         }),
     )
     list_display = ('Name', 'School', 'Paycode', 'Payment')
@@ -37,6 +42,30 @@ class GroupAdmin(ImportExportModelAdmin, ExportMixin):
         return mark_safe(u'''
             <a target="_blank" href=\"/iris/admin/sendmail/?command=sendmail_payment&id='''+str(obj.id)+u'''\">发送缴费确认邮件</a>
             ''')
+    def sendmail(self, obj):
+        t = Template('''
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <th>用户名</th>
+                    <th>姓名</th>
+                    <th>状态</th>
+                </thead>
+                <tbody>
+                    {% for u in group.profile_set.all %}
+                        <tr class="
+                            {% if u.Status > 5 %}success{% endif %}
+                            {% if u.Status < 0 %}danger{% endif %}
+                        ">
+                            <td>{{u.User.username}}</td>
+                            <td>{{u.Name}}</td>
+                            <td>{{u.get_Status_display}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            ''')
+        c = Context({'group': obj})
+        return mark_safe(t.render(c))
 
 class ProfileAdmin(admin.ModelAdmin):
     fieldsets = (
@@ -60,7 +89,11 @@ class ProfileAdmin(admin.ModelAdmin):
         }),
         ('Interviewer', {
             'classes': ('collapse'),
-            'fields': ('Interviewer','sendmail')
+            'fields': ('Interviewer',)
+        }),
+        ('Mail', {
+            'classes': ('collapse'),
+            'fields': ('sendmail',)
         }),
     )
     list_display = ('User', 'Name', 'Status', )
