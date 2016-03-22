@@ -44,27 +44,26 @@ class GroupAdmin(ExportActionModelAdmin):
             ''')
 
     def member(self, obj):
-        t = Template(u'''<table class="table table-striped table-hover table-bordered">
+        t = u'''<table class="table table-striped table-hover table-bordered">
                 <thead>
                     <th>用户名</th>
                     <th>姓名</th>
                     <th>状态</th>
                 </thead>
-                <tbody>
-                    {% for u in group.profile_set.all %}
-                        <tr class="
-                            {% if u.Status > 5 %}success{% endif %}
-                            {% if u.Status < 0 %}danger{% endif %}
-                        ">
-                            <td>{{u.User.username}}</td>
-                            <td>{{u.Name}}</td>
-                            <td>{{u.get_Status_display}}</td>
-                        </tr>
-                    {% endfor %}
+                <tbody>'''
+        for i in obj.profile_set.all:
+            t += u'''
+                <tr>
+                    <td>''' + i.User.username + u'''</td>
+                    <td>''' + i.Name + u'''</td>
+                    <td>''' + i.Status + u'''</td>
+                </tr>
+                '''
+        t +='''
                 </tbody>
-            </table>''')
-        c = Context({'group': obj})
-        return force_text(t.render(c))
+            </table>'''
+
+        return mark_safe(t)
 
     def export_admin_action(self, request, queryset):
         """
