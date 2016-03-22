@@ -17,6 +17,13 @@ class group(models.Model):
 	def __unicode__(self):
 		return u'%s' % (self.Name)
 
+class identify(models.Model):
+	Name=models.CharField(max_length=255,verbose_name="名称")
+	class Meta:
+		ordering = ['id']
+	def __unicode__(self):
+		return u'%s' % (self.Name)
+
 class country(models.Model):
 	Name=models.CharField(max_length=255,verbose_name="名称")
 	class Meta:
@@ -87,7 +94,7 @@ class profile(models.Model):
 	Adjust=models.BooleanField(default=False,verbose_name='接受调剂？')
 	System=models.ForeignKey(system,verbose_name="席位-所属体系",null=True,blank=True)
 	Country=models.ForeignKey(country,verbose_name="席位-所属国家",null=True,blank=True)
-	Identify=models.CharField(max_length=255,verbose_name="席位-席位名称",blank=True)
+	Identify=models.OneToOneField(identify,verbose_name="席位-席位名称",null=True,blank=True)
 	TimeStamp=models.DateTimeField(auto_now_add=True,verbose_name='注册时间戳')
 	LastMotified=models.DateTimeField(auto_now=True,verbose_name='修改时间戳')
 	Review=models.TextField(verbose_name='学术评测',blank=True)
@@ -104,7 +111,7 @@ class profile(models.Model):
 		(7,'代表席位已分配，请进行缴费'),
 		(8,'代表缴费已完成，申请完成'),))
 	class Meta:
-		ordering = ['LastMotified']
+		ordering = ['-LastMotified']
 		permissions = (
 			("control_all", "Can Control All Data"),
 		)
