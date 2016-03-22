@@ -64,7 +64,7 @@ class GroupAdmin(ExportActionModelAdmin):
                 </tbody>
             </table>''')
         c = Context({'group': obj})
-        return mark_safe(t.render(c))
+        return t.render(c)
 
     def export_admin_action(self, request, queryset):
         """
@@ -105,6 +105,9 @@ class ProfileAdmin(admin.ModelAdmin):
         }),
     )
     list_display = ('User', 'Name', 'Status', 'Group', 'Commitee', 'Identify',)
+
+    search_fields = ('User__username', 'User__email', 'Name', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat',)
+    list_filter = ('Status', 'Group', 'Commitee', )
 
     def get_readonly_fields(self, request, obj=None):
         if request.user.has_perm('profile.control_all'):
