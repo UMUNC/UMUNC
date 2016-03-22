@@ -44,8 +44,7 @@ class GroupAdmin(ExportActionModelAdmin):
             ''')
 
     def member(self, obj):
-        t = Template('''
-            <table class="table table-striped table-hover table-bordered">
+        t = Template('''<table class="table table-striped table-hover table-bordered">
                 <thead>
                     <th>用户名</th>
                     <th>姓名</th>
@@ -63,8 +62,7 @@ class GroupAdmin(ExportActionModelAdmin):
                         </tr>
                     {% endfor %}
                 </tbody>
-            </table>
-            ''')
+            </table>''')
         c = Context({'group': obj})
         return mark_safe(t.render(c))
 
