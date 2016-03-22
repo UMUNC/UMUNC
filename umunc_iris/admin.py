@@ -44,19 +44,19 @@ class GroupAdmin(ExportActionModelAdmin):
             ''')
 
     def member(self, obj):
-        t = u'''<p>别问我为什么有这么多换行我也没搞明白劳资不干了。</p>\
-<table class="table table-striped table-hover table-bordered">\
-<thead>\
-<th>用户名</th>\
-<th>姓名</th>\
-<th>状态</th>\
-</thead>\
-<tbody>'''
+        t = u'''\
+        <table class="table table-striped table-hover table-bordered">\
+                <thead>\
+                    <th>用户名</th>\
+                    <th>姓名</th>\
+                    <th>状态</th>\
+                </thead>\
+                <tbody>'''
         try:
             for i in obj.profile_set.all():
                 t += u'''\
                     <tr>\
-                        <td>''' + i.User.username + u'''</td>\
+                        <td><a href="/admin/umunc_iris/profile/''' + str(i.id) + u'''/">''' + i.User.username + u'''</a></td>\
                         <td>''' + i.Name + u'''</td>\
                         <td>''' + i.Status.get_FOO_display() + u'''</td>\
                     </tr>\
