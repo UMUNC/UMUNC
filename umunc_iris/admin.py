@@ -104,7 +104,7 @@ class ProfileAdmin(admin.ModelAdmin):
             'fields': ('sendmail',)
         }),
     )
-    list_display = ('User', 'Name', 'Status', )
+    list_display = ('User', 'Name', 'Status', 'Group', 'Commitee', 'Identify',)
 
     def get_readonly_fields(self, request, obj=None):
         if request.user.has_perm('profile.control_all'):
