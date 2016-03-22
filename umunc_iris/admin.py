@@ -106,11 +106,11 @@ class ProfileAdmin(ExportActionModelAdmin):
         }),
     )
 
-    list_display = ('User', 'Name', 'Status', 'Group', 'Commitee', 'Identify',)
+    list_display = ('User', 'Name', 'Status', 'Group', 'System', 'Commitee', 'Identify',)
 
     search_fields = ('User__username', 'Name', 'School', 'Phone', 'Phone2',)
 
-    list_filter = ('Status', 'Group', 'Commitee', )
+    list_filter = ('Status', 'Group', 'Commute',)
 
     resource_class = ProfileResource
 
@@ -216,9 +216,21 @@ class SystemAdmin(admin.ModelAdmin):
         c = Context({'country': obj})
         return t.render(c)
 
+class SystemAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Status', {
+            'fields': ('Name', 'profile',)
+        }),
+    )
+
+    readonly_fields = ('profile',)
+
+    list_display = ('Name', 'profile',)
+
 admin.site.register(group, GroupAdmin)
 admin.site.register(profile, ProfileAdmin)
 admin.site.register(checkcode)
 admin.site.register(country, CountryAdmin)
 admin.site.register(system, SystemAdmin)
+admin.site.register(identify, IdentifyAdmin)
 
