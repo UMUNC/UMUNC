@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     (r'^step4/$', step4),
     (r'^step5/$', step5),
     (r'^step6/$', step6),
+    (r'^step7/$', step7),
     (r'^admin/sendmail/$', sendmail),
     # (r'^.*/$', temp),
     # Examples:

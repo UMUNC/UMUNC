@@ -9,7 +9,9 @@ class group(models.Model):
 	Password=models.CharField(max_length=255,verbose_name="口令")
 	Paycode=models.CharField(max_length=255,verbose_name="缴费密钥")
 	Payment=models.BooleanField(default=False,verbose_name='缴费')
-	Group=models.BooleanField(default=False,verbose_name='集体团队/个人团队')
+	Group=models.BooleanField(default=False,verbose_name='集体团队/个人团队',choices=(
+		(True,'集体团队'),
+		(False,'个人团队'),))
 	class Meta:
 		ordering = ['-id']
 	def __unicode__(self):
@@ -90,8 +92,9 @@ class profile(models.Model):
 		(3,'代表团队已提交，请提交学术评测'),
 		(4,'代表学测已提交，请等待分配面试'),
 		(5,'代表面试已分配，请准备面试'),
-		(6,'代表面试已通过，请进行缴费'),
-		(7,'代表缴费已完成，申请完成'),))
+		(6,'代表面试已通过，等待分配席位'),
+		(7,'代表席位已分配，请进行缴费'),
+		(8,'代表缴费已完成，申请完成'),))
 	class Meta:
 		ordering = ['LastMotified']
 		permissions = (

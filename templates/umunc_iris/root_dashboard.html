@@ -96,6 +96,21 @@
 				>
 					<div class="col-md-12 process_panel_title">
 						<div class="process_panel_icon">6</div>
+						席位分配
+					</div>
+					<div class="col-md-12 process_panel_describe">
+						<div class="process_panel_line"></div>
+						啦啦啦分席位啦~
+					</div>
+				</div>
+				<div class="row process_panel_item
+					{% if profile.Status > 7 %}success{% endif %}
+					{% if profile.Status == 7 %}next{% endif %}
+				"
+					{% if profile.Status >= 7 %}href="/iris/step6/"{% endif %}
+				>
+					<div class="col-md-12 process_panel_title">
+						<div class="process_panel_icon">7</div>
 						缴费
 					</div>
 					<div class="col-md-12 process_panel_describe">
@@ -104,12 +119,12 @@
 					</div>
 				</div>
 				<div class="row process_panel_item
-					{% if profile.Status > 6 %}success{% endif %}
+					{% if profile.Status > 7 %}success{% endif %}
 				"
-					{% if profile.Status > 6 %}href="/iris/step6/"{% endif %}
+					{% if profile.Status > 7 %}href="/iris/step7/"{% endif %}
 				>
 					<div class="col-md-12 process_panel_title">
-						<div class="process_panel_icon">7</div>
+						<div class="process_panel_icon">8</div>
 						完成
 					</div>
 					<div class="col-md-12 process_panel_describe">

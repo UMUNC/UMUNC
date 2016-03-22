@@ -1,7 +1,7 @@
 {% extends "umunc_iris/root_dashboard.html" %}
 
 {% block title %}
-缴费
+席位分配
 {% endblock %}
 
 {% block css %}
@@ -12,21 +12,10 @@
 	<div class="row">
 		<div class="col-md-12" id="step3_panel">
 			<div class="row text-center">
-				<p>恭喜您通过学术团队的面试，待核心学术团队分配席位之后，您就可以进行最后一步——缴费啦。</p>
-				<p>请注意：缴费时，请将缴费码填写在备注留言内，我们收到费用后将会尽快完成核对。</p>
-				<p>对于团队申报的同学，报名窗口仅对首席代表开放，团队统一完成缴费。</p>
+				<p>请等待学术团队分配您的席位信息。信息确认后将会自动完成本步骤。</p>
 				<p>查询及其他疑问，请联系UMUNC组委会。</p>
 			</div>
-			{% if profile.Country %}
-			<div class="form-group">
-				<label for="interviewer" class="col-sm-4 control-label">席位 Identify</label>
-				<div class="col-sm-7 input-group">
-					<label class="control-label text-left">
-					【{{profile.Country.Name}}】 {{profile.Identify}}
-					</label>
-				</div>
-			</div>
-			{% else %}
+			{% ifequal profile.Status 6 %}
 			<div class="form-group">
 				<label for="interviewer" class="col-sm-4 control-label">席位 Identify</label>
 				<div class="col-sm-7 input-group">
@@ -35,24 +24,25 @@
 					</label>
 				</div>
 			</div>
-			{% endif %}
-				{% if profile.Leader %}
+			{% else %}
+				{% if profile.Country %}
 				<div class="form-group">
-					<label for="interviewer" class="col-sm-4 control-label">缴费码 Pay Code</label>
+					<label for="interviewer" class="col-sm-4 control-label">席位 Identify</label>
 					<div class="col-sm-7 input-group">
 						<label class="control-label text-left">
-						{{profile.Group.Paycode}}
+						【{{profile.Country.Name}}】 {{profile.Identify}}
 						</label>
 					</div>
 				</div>
 				{% endif %}
+			{% endif %}
 			<hr/>
 			<div class="row text-right">
 				<a class="btn btn-info btn-sm" href="/iris/step4/">
 					<span class="fui-arrow-left"></span>
 					Previous
 				</a>
-				{% ifequal profile.Status 7 %}
+				{% if profile.Status >= 7 %}
 				<a class="btn btn-info btn-sm" href="/iris/step6/">
 					<span class="fui-arrow-right"></span>
 					Next
