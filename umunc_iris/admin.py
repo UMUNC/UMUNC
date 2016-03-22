@@ -4,7 +4,7 @@ from django.template import Context, Template
 from umunc_iris.models import *
 from django.utils.safestring import mark_safe
 from import_export import resources
-from import_export.admin import ExportMixin, ImportExportModelAdmin
+from import_export.admin import ExportActionModelAdmin
 
 class GroupResource(resources.ModelResource):
     class Meta:
@@ -15,7 +15,7 @@ class ProfileResource(resources.ModelResource):
     class Meta:
         model = profile
 
-class GroupAdmin(ImportExportModelAdmin, ExportMixin):
+class GroupAdmin(ExportActionModelAdmin):
     fieldsets = (
         ('Basic', {
             'fields': ('Name', 'School', 'Password')
@@ -34,7 +34,7 @@ class GroupAdmin(ImportExportModelAdmin, ExportMixin):
     )
     list_display = ('Name', 'School', 'Paycode', 'Payment')
 
-    readonly_fields = ('TimeStamp', 'LastMotified', 'sendmail')
+    readonly_fields = ('TimeStamp', 'LastMotified', 'sendmail', 'member')
 
     resource_class = GroupResource
 
@@ -42,7 +42,8 @@ class GroupAdmin(ImportExportModelAdmin, ExportMixin):
         return mark_safe(u'''
             <a target="_blank" href=\"/iris/admin/sendmail/?command=sendmail_payment&id='''+str(obj.id)+u'''\">发送缴费确认邮件</a>
             ''')
-    def sendmail(self, obj):
+
+    def member(self, obj):
         t = Template('''
             <table class="table table-striped table-hover table-bordered">
                 <thead>
@@ -66,6 +67,15 @@ class GroupAdmin(ImportExportModelAdmin, ExportMixin):
             ''')
         c = Context({'group': obj})
         return mark_safe(t.render(c))
+
+    def export_admin_action(self, request, queryset):
+        """
+        Exports the selected rows using file_format.
+        """
+        if request.user.has_perm('profile.control_all'):
+            return super.export_admin_action(request, queryset)
+        else:
+            return HttpResponse(u'<script>alert("无权下载");window.opener=null;window.close();</script>')
 
 class ProfileAdmin(admin.ModelAdmin):
     fieldsets = (
