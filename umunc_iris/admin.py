@@ -33,6 +33,7 @@ class GroupAdmin(ExportActionModelAdmin):
             'fields': ('member',)
         }),
     )
+
     list_display = ('Name', 'School', 'Paycode', 'Payment')
 
     readonly_fields = ('sendmail', 'member')
@@ -40,7 +41,7 @@ class GroupAdmin(ExportActionModelAdmin):
     resource_class = GroupResource
 
     def sendmail(self, obj):
-        return mark_safe(u'''<a target="_blank" href=\"/iris/admin/sendmail/?command=sendmail_payment&id='''+str(obj.id)+u'''\">发送缴费确认邮件</a>
+        return mark_safe(u'''<a target="_blank" class="btn btn-sm btn-default" href=\"/iris/admin/sendmail/?command=sendmail_payment&id='''+str(obj.id)+u'''\">发送缴费确认邮件</a>
             ''')
 
     def member(self, obj):
@@ -75,7 +76,7 @@ class GroupAdmin(ExportActionModelAdmin):
         else:
             return HttpResponse(u'<script>alert("无权下载");window.opener=null;window.close();</script>')
 
-class ProfileAdmin(admin.ModelAdmin):
+class ProfileAdmin(ExportActionModelAdmin):
     fieldsets = (
         ('Status', {
             'fields': ('User', 'TimeStamp', 'LastMotified', 'Init', 'Status')
@@ -104,25 +105,76 @@ class ProfileAdmin(admin.ModelAdmin):
             'fields': ('sendmail',)
         }),
     )
+
     list_display = ('User', 'Name', 'Status', 'Group', 'Commitee', 'Identify',)
 
     search_fields = ('User__username', 'Name', 'School', 'Phone', 'Phone2',)
+
     list_filter = ('Status', 'Group', 'Commitee', )
+
+    resource_class = ProfileResource
 
     def get_readonly_fields(self, request, obj=None):
         if request.user.has_perm('profile.control_all'):
             return ('User', 'TimeStamp', 'LastMotified','sendmail')
         else:
             return ('User', 'TimeStamp', 'LastMotified', 'Init', 'Status', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'MunAge', 'MunRsm', 'Commitee', 'Commitee2', 'Adjust', 'Group', 'Leader', 'Review','sendmail')
+
     def sendmail(self, obj):
-        return mark_safe(u'''<a target="_blank" href=\"/iris/admin/sendmail/?command=sendmail_emailcheck&id='''+str(obj.User.id)+u'''\">发送注册邮件</a><br/>
-            <a target="_blank" href=\"/iris/admin/sendmail/?command=sendmail_interview&id='''+str(obj.User.id)+u'''\">发送面试通知邮件</a><br/>
-            <a target="_blank" href=\"/iris/admin/sendmail/?command=sendmail_identify&id='''+str(obj.User.id)+u'''\">发送席位通知邮件</a><br/>
-            <a target="_blank" href=\"/iris/admin/sendmail/?command=sendmail_payment_user&id='''+str(obj.User.id)+u'''\">发送缴费确认邮件</a>
+        return mark_safe(u'''<a target="_blank" class="btn btn-sm btn-default" href=\"/iris/admin/sendmail/?command=sendmail_emailcheck&id='''+str(obj.User.id)+u'''\">发送注册邮件</a><br/>
+            <a target="_blank" class="btn btn-sm btn-default" href=\"/iris/admin/sendmail/?command=sendmail_interview&id='''+str(obj.User.id)+u'''\">发送面试通知邮件</a><br/>
+            <a target="_blank" class="btn btn-sm btn-default" href=\"/iris/admin/sendmail/?command=sendmail_interview_reject&id='''+str(obj.User.id)+u'''\">发送面试未通过邮件</a><br/>
+            <a target="_blank" class="btn btn-sm btn-default" href=\"/iris/admin/sendmail/?command=sendmail_identify&id='''+str(obj.User.id)+u'''\">发送席位通知邮件</a><br/>
+            <a target="_blank" class="btn btn-sm btn-default" href=\"/iris/admin/sendmail/?command=sendmail_payment_user&id='''+str(obj.User.id)+u'''\">发送缴费确认邮件</a>
             ''')
+
+
+class CountryAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Status', {
+            'fields': ('Name',)
+        }),
+        ('Member', {
+            'classes': ('collapse'),
+            'fields': ('member',)
+        }),
+    )
+
+    readonly_fields = ('member',)
+
+    list_display = ('Name',)
+
+    def member(self, obj):
+        t = Template(u'''<table class="table table-striped table-hover table-bordered">\
+                <thead>\
+                    <th>用户名</th>\
+                    <th>姓名</th>\
+                    <th>状态</th>\
+                    <th>席位 所属体系</th>\
+                    <th>席位 所属国家</th>\
+                    <th>席位 席位名称</th>\
+                </thead>\
+                <tbody>\
+                    {% for u in country.profile_set.all %}\
+                        <tr class="\
+                            {% if u.Status > 5 %}success{% endif %}\
+                            {% if u.Status < 0 %}danger{% endif %}\
+                        ">\
+                            <td><a href="/admin/umunc_iris/profile/{{u.id}}/">{{u.User.username}}</td>\
+                            <td>{{u.Name}}</td>\
+                            <td>{{u.get_Status_display}}</td>\
+                            <td>{{u.get_Status_display}}</td>\
+                            <td>{{u.Country}}</td>\
+                            <td>{{u.Identify}}</td>\
+                        </tr>\
+                    {% endfor %}\
+                </tbody>\
+            </table>''')
+        c = Context({'country': obj})
+        return t.render(c)
 
 admin.site.register(group, GroupAdmin)
 admin.site.register(profile, ProfileAdmin)
 admin.site.register(checkcode)
-admin.site.register(country)
+admin.site.register(country, CountryAdmin)
 

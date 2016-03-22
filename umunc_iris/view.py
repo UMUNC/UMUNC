@@ -265,6 +265,8 @@ def sendmail(request):
 				part_mail.sendmail_emailcheck(User.objects.get(id=request.GET['id']))
 			if request.GET['command'] == 'sendmail_interview':
 				part_mail.sendmail_interview(User.objects.get(id=request.GET['id']))
+			if request.GET['command'] == 'sendmail_interview_reject':
+				part_mail.sendmail_interview_reject(User.objects.get(id=request.GET['id']))
 			if request.GET['command'] == 'sendmail_identify':
 				part_mail.sendmail_identify(User.objects.get(id=request.GET['id']))
 			if request.GET['command'] == 'sendmail_payment_user':
