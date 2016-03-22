@@ -51,7 +51,7 @@ class GroupAdmin(ExportActionModelAdmin):
                     <th>状态</th>
                 </thead>
                 <tbody>'''
-        for i in obj.profile_set.all:
+        for i in obj.profile_set.all():
             t += u'''
                 <tr>
                     <td>''' + i.User.username + u'''</td>
@@ -61,7 +61,8 @@ class GroupAdmin(ExportActionModelAdmin):
                 '''
         t +='''
                 </tbody>
-            </table>'''
+            </table>
+            '''
 
         return mark_safe(t)
 
