@@ -2,7 +2,8 @@
 from django.contrib import admin
 from django.template import Context, Template
 from umunc_iris.models import *
-from django.utils.safestring import mark_safe, escape
+from django.utils.safestring import mark_safe
+from django.utils.html import escape
 from import_export import resources
 from import_export.admin import ExportActionModelAdmin
 
