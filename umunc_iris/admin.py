@@ -56,7 +56,7 @@ class GroupAdmin(ExportActionModelAdmin):
                 <tr>
                     <td>''' + i.User.username + u'''</td>
                     <td>''' + i.Name + u'''</td>
-                    <td>''' + i.Status + u'''</td>
+                    <td>''' + i.Status.get_FOO_display() + u'''</td>
                 </tr>
                 '''
         t +='''
