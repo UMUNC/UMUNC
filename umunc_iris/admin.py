@@ -14,7 +14,7 @@ class ProfileResource(resources.ModelResource):
     class Meta:
         model = profile
 
-class GroupAdmin(admin.ModelAdmin, ExportMixin, ExportActionModelAdmin):
+class GroupAdmin(admin.ModelAdmin, ExportMixin):
     fieldsets = (
         ('Basic', {
             'fields': ('Name', 'School', 'Password')
@@ -30,6 +30,8 @@ class GroupAdmin(admin.ModelAdmin, ExportMixin, ExportActionModelAdmin):
     list_display = ('Name', 'School', 'Paycode', 'Payment')
 
     readonly_fields = ('TimeStamp', 'LastMotified', 'sendmail')
+
+    resource_class = GroupResource
 
     def sendmail(self, obj):
         return mark_safe(u'''
