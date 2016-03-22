@@ -90,7 +90,7 @@ class ProfileAdmin(ExportActionModelAdmin):
         }),
         ('Distribution', {
 			'classes': ('collapse'),
-            'fields': ('Country', 'Identify')
+            'fields': ('System', 'Country', 'Identify')
         }),
         ('Review', {
 			'classes': ('collapse'),
