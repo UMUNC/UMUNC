@@ -106,7 +106,7 @@ class ProfileAdmin(ExportActionModelAdmin):
         }),
     )
 
-    list_display = ('User', 'Name', 'Status', 'Group', 'System', 'Commitee', 'Identify',)
+    list_display = ('User', 'Name', 'Status', 'Group', 'Commitee','System', 'Country', 'Identify',)
 
     search_fields = ('User__username', 'Name', 'School', 'Phone', 'Phone2',)
 
