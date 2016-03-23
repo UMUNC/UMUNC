@@ -40,6 +40,9 @@ class GroupAdmin(ExportActionModelAdmin):
 
     resource_class = GroupResource
 
+    actions_on_top = False
+    actions_on_bottom = True
+
     def sendmail(self, obj):
         return mark_safe(u'''<a target="_blank" class="btn btn-sm btn-default" href=\"/iris/admin/sendmail/?command=sendmail_payment&id='''+str(obj.id)+u'''\">发送缴费确认邮件</a>
             ''')
@@ -110,9 +113,12 @@ class ProfileAdmin(ExportActionModelAdmin):
 
     search_fields = ('User__username', 'Name', 'School', 'Phone', 'Phone2',)
 
-    list_filter = ('Status', 'Group', 'School',)
+    list_filter = ('Status', 'Group', 'School', 'System', 'Country',)
 
     resource_class = ProfileResource
+
+    actions_on_top = False
+    actions_on_bottom = True
 
     def get_readonly_fields(self, request, obj=None):
         if request.user.has_perm('profile.control_all'):
