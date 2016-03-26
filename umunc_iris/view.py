@@ -232,8 +232,11 @@ def step2(request):
 
 @login_required
 def step3(request):
-	if request.POST.has_key('review') and request.POST.has_key('submit'):
-		request.user.profile.Review=request.POST['review']
+	if request.POST.has_key('review1') and request.POST.has_key('review2') and request.POST.has_key('review3') and request.POST.has_key('review4') and request.POST.has_key('submit'):
+		request.user.profile.Review1=request.POST['review1']
+		request.user.profile.Review2=request.POST['review2']
+		request.user.profile.Review3=request.POST['review3']
+		request.user.profile.Review4=request.POST['review4']
 		if request.POST['submit']=='1':
 			request.user.profile.Status=4
 		request.user.profile.save()

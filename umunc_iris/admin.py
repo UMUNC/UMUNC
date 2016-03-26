@@ -1,5 +1,6 @@
 #coding=utf-8
 from django.contrib import admin
+from django.contrib.auth.models import User
 from django.template import Context, Template
 from umunc_iris.models import *
 from django.utils.safestring import mark_safe
@@ -97,7 +98,7 @@ class ProfileAdmin(ExportActionModelAdmin):
         }),
         ('Review', {
 			'classes': ('collapse'),
-            'fields': ('Review', 'Comment')
+            'fields': ('Review1', 'Review2', 'Review3', 'Review4', 'Comment')
         }),
         ('Interviewer', {
             'classes': ('collapse'),
@@ -120,11 +121,16 @@ class ProfileAdmin(ExportActionModelAdmin):
     actions_on_top = False
     actions_on_bottom = True
 
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "Interviewer":
+            kwargs["queryset"] = User.objects.filter(is_staff=True)
+        return super(ProfileAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
     def get_readonly_fields(self, request, obj=None):
         if request.user.has_perm('profile.control_all'):
             return ('User', 'TimeStamp', 'LastMotified','sendmail')
         else:
-            return ('User', 'TimeStamp', 'LastMotified', 'Init', 'Status', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'MunAge', 'MunRsm', 'Commitee', 'Commitee2', 'Adjust', 'Group', 'Leader', 'Review','sendmail')
+            return ('User', 'TimeStamp', 'LastMotified', 'Init', 'Status', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'MunAge', 'MunRsm', 'Commitee', 'Commitee2', 'Adjust', 'Group', 'Leader', 'Review1', 'Review2', 'Review3', 'Review4', 'sendmail')
 
     def sendmail(self, obj):
         return mark_safe(u'''<a target="_blank" class="btn btn-sm btn-default" href=\"/iris/admin/sendmail/?command=sendmail_emailcheck&id='''+str(obj.User.id)+u'''\">发送注册邮件</a><br/>

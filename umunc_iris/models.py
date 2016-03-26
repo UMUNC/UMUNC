@@ -71,28 +71,28 @@ class profile(models.Model):
 	MunAge=models.IntegerField(verbose_name='模联年龄')
 	MunRsm=models.TextField(verbose_name='模联经历',blank=True)
 	Commitee=models.IntegerField(verbose_name='志愿',choices=(
-		('2015总会',(
+		('2016总会',(
 				(1,'联动体系 - 国家内阁'),
-				(2,'联动体系 - 联合国安全理事会'),
-				(3,'联动体系 - 主新闻中心'),
-				(4,'联动体系 - 联合国秘书处'),
+				(2,'联动体系 - 欧洲外交团'),
+				(3,'联动体系 - 大英帝国内阁会议'),
+				(4,'联动体系 - 主新闻中心'),
 				(5,'欧洲体系 - 欧盟委员会'),
 				(6,'欧洲体系 - 欧盟理事会'),
-				(7,'General Assembly United System - United Nations Security Council'),
-				(8,'General Assembly United System - United Nations General Assembly 3rd Committee (SOCHUM)'),
+				(7,'General Assembly United System History Sessions - 6th Emergency Special Session of the General Assembly'),
+				(8,'General Assembly United System History Sessions - Diplomatic Corps Meeting of 10 Countries'),
 			)
 		),))
 	Commitee2=models.IntegerField(verbose_name='志愿',choices=(
-		('2015总会',(
+		('2016总会',(
 				(0,'无'),
 				(1,'联动体系 - 国家内阁'),
-				(2,'联动体系 - 联合国安全理事会'),
-				(3,'联动体系 - 主新闻中心'),
-				(4,'联动体系 - 联合国秘书处'),
+				(2,'联动体系 - 欧洲外交团'),
+				(3,'联动体系 - 大英帝国内阁会议'),
+				(4,'联动体系 - 主新闻中心'),
 				(5,'欧洲体系 - 欧盟委员会'),
 				(6,'欧洲体系 - 欧盟理事会'),
-				(7,'General Assembly United System - United Nations Security Council'),
-				(8,'General Assembly United System - United Nations General Assembly 3rd Committee (SOCHUM)'),
+				(7,'General Assembly United System History Sessions - 6th Emergency Special Session of the General Assembly'),
+				(8,'General Assembly United System History Sessions - Diplomatic Corps Meeting of 10 Countries'),
 			)
 		),))
 	Adjust=models.BooleanField(default=False,verbose_name='接受调剂？',choices=(
@@ -103,7 +103,10 @@ class profile(models.Model):
 	Identify=models.OneToOneField(identify,verbose_name="席位-席位名称",null=True,blank=True)
 	TimeStamp=models.DateTimeField(auto_now_add=True,verbose_name='注册时间戳')
 	LastMotified=models.DateTimeField(auto_now=True,verbose_name='修改时间戳')
-	Review=models.TextField(verbose_name='学术评测',blank=True)
+	Review1=models.TextField(verbose_name='学术评测T1',blank=True)
+	Review2=models.TextField(verbose_name='学术评测T2',blank=True)
+	Review3=models.TextField(verbose_name='学术评测T3',blank=True)
+	Review4=models.TextField(verbose_name='学术评测T4',blank=True)
 	Comment=models.TextField(verbose_name='学团评价',blank=True)
 	Status=models.IntegerField(verbose_name='状态',choices=(
 		(-3,'代表申请拒绝'),
