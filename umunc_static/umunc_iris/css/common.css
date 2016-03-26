@@ -7,7 +7,7 @@ body{
 
 textarea {
 	resize: vertical;
-	height: auto;
+	min-height: 200px;
 }
 
 .process_panel {
@@ -233,4 +233,10 @@ textarea {
 #step3_panel .btn-primary{
 	margin-top:20px;
 	margin-right:20px;
+}
+.review_box{
+	padding: 10px 20px;
+}
+.review_box p{
+	font-size: 16px;
 }

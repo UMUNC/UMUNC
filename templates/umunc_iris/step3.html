@@ -25,10 +25,10 @@
 				{% endif %}
 				</h4>
 			</div>
-			<div class="row">
+			<div class="row review_box">
 				<p>请勿在本测评中抄袭或直接引用现成文档或资料。作答过程中可以参考相关资料，但请用自己的语言作答。所有的全文引用必须按照标准格式进行引用标记。请独立回答问题，勿请人代答。</p>
 			</div>
-			<div class="row">
+			<div class="row review_box">
 				<p>
 				{% if profile.Commitee <= 4 %}
 					所有申请大英帝国内阁会议、内阁以及欧洲外交团委员会代表均需要完成第一部分;<br/>
@@ -43,7 +43,7 @@
 				{% endif %}{% endif %}{% endif %}
 				</p>
 			</div>
-			<div class="row">
+			<div class="row review_box">
 				<p>
 				{% if profile.Commitee <= 4 %}
 					一． 请逐一例举出一战期间参战的欧洲的协约国与同盟国，并简述该国参战原因。<br/>
@@ -62,13 +62,13 @@
 				</p>
 			</div>
 			<div class="form-group">
-				<label for="review1" class="col-sm-4 control-label">学术评测 Review T1</label>
-				<div class="col-sm-7 input-group">
+				<label for="review1" class="col-sm-3 control-label">学术评测 Review T1</label>
+				<div class="col-sm-12 input-group">
 					<textarea class="form-control" id="review1" name="review1" required>{{profile.Review1}}</textarea>
 					<span class="fui-bookmark form-control-feedback"  for="review1"></span>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row review_box">
 				<p>
 				{% if profile.Commitee <= 4 %}
 					以下三题中任选二题进行回答<br/>
@@ -92,13 +92,13 @@
 				</p>
 			</div>
 			<div class="form-group">
-				<label for="review2" class="col-sm-4 control-label">学术评测 Review T2</label>
-				<div class="col-sm-7 input-group">
+				<label for="review2" class="col-sm-3 control-label">学术评测 Review T2</label>
+				<div class="col-sm-12 input-group">
 					<textarea class="form-control" id="review2" name="review2" required>{{profile.Review2}}</textarea>
 					<span class="fui-bookmark form-control-feedback"  for="review2"></span>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row review_box">
 				<p>
 				{% if profile.Commitee <= 4 %}
 					以下三题中任选二题进行回答<br/>
@@ -117,13 +117,13 @@
 				</p>
 			</div>
 			<div class="form-group">
-				<label for="review3" class="col-sm-4 control-label">学术评测 Review T3</label>
-				<div class="col-sm-7 input-group">
+				<label for="review3" class="col-sm-3 control-label">学术评测 Review T3</label>
+				<div class="col-sm-12 input-group">
 					<textarea class="form-control" id="review3" name="review3" required>{{profile.Review3}}</textarea>
 					<span class="fui-bookmark form-control-feedback"  for="review3"></span>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row review_box">
 				<p>
 				{% if profile.Commitee <= 4 %}
 					九.  请你针对第一次世界大战中“德国入侵比利时”事件，选择以德国“全德新闻社”记者身份或法国费加罗报记者的身份写一篇逻辑清楚、态度明确、语言严谨的简讯。（如果希望申请主编及副主编席位，则两者需要写。）<br/>
@@ -147,8 +147,8 @@
 				</p>
 			</div>
 			<div class="form-group">
-				<label for="review4" class="col-sm-4 control-label">学术评测 Review T4</label>
-				<div class="col-sm-7 input-group">
+				<label for="review4" class="col-sm-3 control-label">学术评测 Review T4</label>
+				<div class="col-sm-12 input-group">
 					<textarea class="form-control" id="review4" name="review4" required>{{profile.Review4}}</textarea>
 					<span class="fui-bookmark form-control-feedback"  for="review4"></span>
 				</div>
