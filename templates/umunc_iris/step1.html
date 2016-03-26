@@ -172,8 +172,8 @@
 				<label for="adjust" class="col-sm-4 control-label">接受调剂 Accept Adjustment</label>
 				<div class="col-sm-7 input-group">
 					<select class="form-control" id="adjust" name="adjust" value="{{profile.adjust}}" required>
-						<option value="0"{% ifequal profile.adjust 0 %} selected{% endifequal %}>否 No</option>
-						<option value="1"{% ifequal profile.adjust 1 %} selected{% endifequal %}>是 Yes</option>
+						<option value="0"{% ifequal profile.Adjust 0 %} selected{% endifequal %}>否 No</option>
+						<option value="1"{% ifequal profile.Adjust 1 %} selected{% endifequal %}>是 Yes</option>
 					</select>
 					<span class="fui-question-circle form-control-feedback"  for="adjust"></span>
 				</div>
