@@ -174,91 +174,108 @@ def step1(request):
 
 @login_required
 def step2(request):
-	Rerror=''
-	Rgroups=group.objects.filter(Group=True)
-	if request.POST.has_key('name') and request.POST.has_key('school') and request.POST.has_key('password') and request.POST.has_key('class') and request.POST.has_key('group'):
-		if request.POST['class']=='1':
-			try:
-				tgroup=group.objects.get(Name= request.POST['name'])
-			except:
+	if request.user.profile.Status >= 2:
+		Rerror=''
+		Rgroups=group.objects.filter(Group=True)
+		if request.POST.has_key('name') and request.POST.has_key('school') and request.POST.has_key('password') and request.POST.has_key('class') and request.POST.has_key('group'):
+			if request.POST['class']=='1':
+				try:
+					tgroup=group.objects.get(Name= request.POST['name'])
+				except:
+					tpaycode = string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 6)).replace(' ','')
+					tgroup = group(
+						Name=request.POST['name'],
+						School=request.POST['school'],
+						Password=request.POST['password'],
+						Paycode=tpaycode,
+						Payment=False,
+						Group=True,)
+					tgroup.save()
+					request.user.profile.Group=tgroup
+					request.user.profile.Leader=True
+					request.user.profile.Status=3
+					request.user.profile.save()
+					Rerror='success'
+				else:
+					Rerror='该团体名称已存在。'
+			if request.POST['class']=='2':
+				try:
+					tgroup=group.objects.get(Name= request.POST['group'])
+				except:
+					Rerror='该团体不存在。'
+				else:
+					if tgroup.Password==request.POST['password']:
+						tgroup=group.objects.get(Name= request.POST['group'])
+						request.user.profile.Group=tgroup
+						request.user.profile.Leader=False
+						request.user.profile.Status=3
+						request.user.profile.save()
+						Rerror='success'
+					else:
+						Rerror='口令错误。'
+			if request.POST['class']=='3':
+				tcode = string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 32)).replace(' ','') + request.user.username
 				tpaycode = string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 6)).replace(' ','')
 				tgroup = group(
-					Name=request.POST['name'],
-					School=request.POST['school'],
-					Password=request.POST['password'],
+					Name=tcode,
+					School='none',
+					Password='none',
 					Paycode=tpaycode,
 					Payment=False,
-					Group=True,)
+					Group=False,)
 				tgroup.save()
 				request.user.profile.Group=tgroup
 				request.user.profile.Leader=True
 				request.user.profile.Status=3
 				request.user.profile.save()
 				Rerror='success'
-			else:
-				Rerror='该团体名称已存在。'
-		if request.POST['class']=='2':
-			try:
-				tgroup=group.objects.get(Name= request.POST['group'])
-			except:
-				Rerror='该团体不存在。'
-			else:
-				if tgroup.Password==request.POST['password']:
-					tgroup=group.objects.get(Name= request.POST['group'])
-					request.user.profile.Group=tgroup
-					request.user.profile.Leader=False
-					request.user.profile.Status=3
-					request.user.profile.save()
-					Rerror='success'
-				else:
-					Rerror='口令错误。'
-		if request.POST['class']=='3':
-			tcode = string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 32)).replace(' ','') + request.user.username
-			tpaycode = string.join(random.sample(['z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','1','2','3','4','5','6','7','8','9','0'], 6)).replace(' ','')
-			tgroup = group(
-				Name=tcode,
-				School='none',
-				Password='none',
-				Paycode=tpaycode,
-				Payment=False,
-				Group=False,)
-			tgroup.save()
-			request.user.profile.Group=tgroup
-			request.user.profile.Leader=True
-			request.user.profile.Status=3
-			request.user.profile.save()
-			Rerror='success'
-	return render_to_response('umunc_iris/step2.html',{'profile':request.user.profile,'error':Rerror,'groups':Rgroups,},context_instance=RequestContext(request))
+		return render_to_response('umunc_iris/step2.html',{'profile':request.user.profile,'error':Rerror,'groups':Rgroups,},context_instance=RequestContext(request))
+	else:
+		raise Http404
 
 @login_required
 def step3(request):
-	if request.POST.has_key('review1') and request.POST.has_key('review2') and request.POST.has_key('review3') and request.POST.has_key('review4') and request.POST.has_key('submit'):
-		request.user.profile.Review1=request.POST['review1']
-		request.user.profile.Review2=request.POST['review2']
-		request.user.profile.Review3=request.POST['review3']
-		request.user.profile.Review4=request.POST['review4']
-		if request.POST['submit']=='1':
-			request.user.profile.Status=4
-		request.user.profile.save()
-		return HttpResponseRedirect('/iris/step3')
-	return render_to_response('umunc_iris/step3.html',{'profile':request.user.profile,},context_instance=RequestContext(request))
-
+	if request.user.profile.Status >= 3:
+		if request.POST.has_key('review1') and request.POST.has_key('review2') and request.POST.has_key('review3') and request.POST.has_key('review4') and request.POST.has_key('submit'):
+			request.user.profile.Review1=request.POST['review1']
+			request.user.profile.Review2=request.POST['review2']
+			request.user.profile.Review3=request.POST['review3']
+			request.user.profile.Review4=request.POST['review4']
+			if request.POST['submit']=='1':
+				request.user.profile.Status=4
+			request.user.profile.save()
+			return HttpResponseRedirect('/iris/step3')
+		return render_to_response('umunc_iris/step3.html',{'profile':request.user.profile,},context_instance=RequestContext(request))
+	else:
+		raise Http404
 
 @login_required
 def step4(request):
-	return render_to_response('umunc_iris/step4.html',{'profile':request.user.profile,},context_instance=RequestContext(request))
+	if request.user.profile.Status >= 4:
+		return render_to_response('umunc_iris/step4.html',{'profile':request.user.profile,},context_instance=RequestContext(request))
+	else:
+		raise Http404
 
 @login_required
 def step5(request):
-	return render_to_response('umunc_iris/step5.html',{'profile':request.user.profile,},context_instance=RequestContext(request))
+	if request.user.profile.Status >= 6:
+		return render_to_response('umunc_iris/step5.html',{'profile':request.user.profile,},context_instance=RequestContext(request))
+	else:
+		raise Http404
 
 @login_required
 def step6(request):
-	return render_to_response('umunc_iris/step6.html',{'profile':request.user.profile,},context_instance=RequestContext(request))
+	if request.user.profile.Status >= 7:
+		return render_to_response('umunc_iris/step6.html',{'profile':request.user.profile,},context_instance=RequestContext(request))
+	else:
+		raise Http404
 
 @login_required
 def step7(request):
-	return render_to_response('umunc_iris/step7.html',{'profile':request.user.profile,},context_instance=RequestContext(request))
+	if request.user.profile.Status > 7:
+		return render_to_response('umunc_iris/step7.html',{'profile':request.user.profile,},context_instance=RequestContext(request))
+	else:
+		raise Http404
 
 @login_required
 def sendmail(request):
