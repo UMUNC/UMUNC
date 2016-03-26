@@ -235,7 +235,7 @@ textarea {
 	margin-right:20px;
 }
 .review_box{
-	padding: 10px 20px;
+	padding: 10px 20px !important;
 }
 .review_box p{
 	font-size: 16px;
