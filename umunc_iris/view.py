@@ -90,7 +90,10 @@ def pregister(request):
 				Commitee=1,
 				Commitee2=0,
 				Adjust=1,
-				Review='',
+				Review1='',
+				Review2='',
+				Review3='',
+				Review4='',
 				Comment='',
 				Status=0,)
 			tprofile.save()
