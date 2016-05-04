@@ -127,7 +127,7 @@ class ProfileAdmin(ExportActionModelAdmin):
         return super(ProfileAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def get_readonly_fields(self, request, obj=None):
-        if request.user.has_perm('profile.control_all'):
+        if request.user.has_perm('profile.control_all') or True:
             return ('User', 'TimeStamp', 'LastMotified','sendmail')
         else:
             return ('User', 'TimeStamp', 'LastMotified', 'Init', 'Status', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'MunAge', 'MunRsm', 'Commitee', 'Commitee2', 'Adjust', 'Group', 'Leader', 'Review1', 'Review2', 'Review3', 'Review4', 'sendmail')
