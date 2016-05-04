@@ -283,7 +283,7 @@ def step7(request):
 @login_required
 def sendmail(request):
 	if request.user.is_staff:
-		if request.user.has_perm('profile.control_all'):
+		if request.user.has_perm('umunc_iris.control_all'):
 			if request.GET['command'] == 'sendmail_emailcheck':
 				part_mail.sendmail_emailcheck(User.objects.get(id=request.GET['id']))
 			if request.GET['command'] == 'sendmail_interview':
@@ -298,6 +298,6 @@ def sendmail(request):
 				part_mail.sendmail_payment(group.objects.get(id=request.GET['id']))
 			return HttpResponse('<script>alert("Done.");window.opener=null;window.close();</script>')
 		else:
-			return HttpResponse(u'<script>alert("无权发送");window.opener=null;window.close();</script>')
+			return HttpResponse(u'<script>alert("无权发送");window.opener=null;window.close();</script>{}'.format(request.user.get_all_permissions()))
 	else:
 		raise Http404
