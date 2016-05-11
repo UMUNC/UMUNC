@@ -298,6 +298,6 @@ def sendmail(request):
 				part_mail.sendmail_payment(group.objects.get(id=request.GET['id']))
 			return HttpResponse('<script>alert("Done.");window.opener=null;window.close();</script>')
 		else:
-			return HttpResponse(u'<script>alert("无权发送");window.opener=null;window.close();</script>{}'.format(request.user.get_all_permissions()))
+			return HttpResponse(u'<script>alert("无权发送");window.opener=null;window.close();</script>')
 	else:
 		raise Http404

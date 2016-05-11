@@ -116,7 +116,7 @@ class ProfileAdmin(ExportActionModelAdmin):
 
     search_fields = ('User__username', 'Name', 'School', 'Phone', 'Phone2',)
 
-    list_filter = ('Status', 'Group', 'School', 'System', 'Country',)
+    list_filter = ('Status', 'Group', 'School', 'System', 'Country', 'Commitee', 'Commitee2',)
 
     resource_class = ProfileResource
 
