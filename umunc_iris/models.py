@@ -17,7 +17,7 @@ class group(models.Model):
 	def __unicode__(self):
 		return u'%s' % (self.Name)
 
-class identify(models.Model):
+class system(models.Model):
 	Name=models.CharField(max_length=255,verbose_name="名称")
 	class Meta:
 		ordering = ['id']
@@ -26,17 +26,19 @@ class identify(models.Model):
 
 class country(models.Model):
 	Name=models.CharField(max_length=255,verbose_name="名称")
+	System=models.ForeignKey(system,verbose_name='所属体系',null=True,blank=True)
 	class Meta:
 		ordering = ['id']
 	def __unicode__(self):
-		return u'%s' % (self.Name)
+		return u'%s-%s' % (self.System, self.Name)
 
-class system(models.Model):
+class identify(models.Model):
 	Name=models.CharField(max_length=255,verbose_name="名称")
+	Country=models.ForeignKey(country,verbose_name='所属国家',null=True,blank=True)
 	class Meta:
 		ordering = ['id']
 	def __unicode__(self):
-		return u'%s' % (self.Name)
+		return u'%s-%s' % (self.Country, self.Name)
 
 class profile(models.Model):
 	Interviewer=models.ForeignKey(User,verbose_name='面试官',null=True,blank=True,related_name='Interviewee')
@@ -98,8 +100,6 @@ class profile(models.Model):
 	Adjust=models.BooleanField(default=False,verbose_name='接受调剂？',choices=(
 		(True,'是'),
 		(False,'否'),))
-	System=models.ForeignKey(system,verbose_name="席位-所属体系",null=True,blank=True)
-	Country=models.ForeignKey(country,verbose_name="席位-所属国家",null=True,blank=True)
 	Identify=models.OneToOneField(identify,verbose_name="席位-席位名称",null=True,blank=True)
 	TimeStamp=models.DateTimeField(auto_now_add=True,verbose_name='注册时间戳')
 	LastMotified=models.DateTimeField(auto_now=True,verbose_name='修改时间戳')

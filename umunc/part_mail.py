@@ -196,9 +196,7 @@ def sendmail_identify(user):
 					席位：<br/>
 				</td>
 				<td style="padding:20px;text-align:left;">
-				【'''+user.profile.System.Name+u'''】
-				'''+user.profile.Country.Name+u''' -
-				'''+user.profile.Identify.Name+u'''
+				'''+user.profile.Identify+u'''
 				</td>
 			</tr>
 			<tr style="border:0px;padding:0px;margin:0px;">

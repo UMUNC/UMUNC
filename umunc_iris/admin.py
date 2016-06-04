@@ -96,7 +96,7 @@ class ProfileAdmin(ExportActionModelAdmin):
         }),
         ('Distribution', {
 			'classes': ('collapse'),
-            'fields': ('System', 'Country', 'Identify')
+            'fields': ('Identify')
         }),
         ('Review', {
 			'classes': ('collapse'),
@@ -116,11 +116,11 @@ class ProfileAdmin(ExportActionModelAdmin):
         }),
     )
 
-    list_display = ('User', 'Name', 'Status', 'Group', 'Commitee','System', 'Country', 'Identify',)
+    list_display = ('User', 'Name', 'Status', 'Group', 'Commitee', 'Identify',)
 
     search_fields = ('User__username', 'Name', 'School', 'Phone', 'Phone2',)
 
-    list_filter = ('Status', 'Group', 'School', 'System', 'Country', 'Commitee', 'Commitee2',)
+    list_filter = ('Status', 'Group', 'School', 'Identify', 'Commitee', 'Commitee2',)
 
     resource_class = ProfileResource
 
@@ -179,7 +179,7 @@ class ProfileAdmin(ExportActionModelAdmin):
 class CountryAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Status', {
-            'fields': ('Name',)
+            'fields': ('Name', 'System')
         }),
         ('Member', {
             'classes': ('collapse'),
@@ -197,22 +197,18 @@ class CountryAdmin(admin.ModelAdmin):
                     <th>用户名</th>\
                     <th>姓名</th>\
                     <th>状态</th>\
-                    <th>席位 所属体系</th>\
-                    <th>席位 所属国家</th>\
                     <th>席位 席位名称</th>\
                 </thead>\
                 <tbody>\
-                    {% for u in country.profile_set.all %}\
+                    {% for i in country.identify_set.all %}\
                         <tr class="\
-                            {% if u.Status > 5 %}success{% endif %}\
-                            {% if u.Status < 0 %}danger{% endif %}\
+                            {% if i.profile.Status > 5 %}success{% endif %}\
+                            {% if i.profile.Status < 0 %}danger{% endif %}\
                         ">\
-                            <td><a href="/admin/umunc_iris/profile/{{u.id}}/">{{u.User.username}}</td>\
-                            <td>{{u.Name}}</td>\
-                            <td>{{u.get_Status_display}}</td>\
-                            <td>{{u.System}}</td>\
-                            <td>{{u.Country}}</td>\
-                            <td>{{u.Identify}}</td>\
+                            <td><a href="/admin/umunc_iris/profile/{{i.profile.id}}/">{{i.profile.User.username}}</td>\
+                            <td>{{i.profile.Name}}</td>\
+                            <td>{{i.profile.get_Status_display}}</td>\
+                            <td>{{i.profile.Identify}}</td>\
                         </tr>\
                     {% endfor %}\
                 </tbody>\
@@ -241,33 +237,31 @@ class SystemAdmin(admin.ModelAdmin):
                     <th>用户名</th>\
                     <th>姓名</th>\
                     <th>状态</th>\
-                    <th>席位 所属体系</th>\
-                    <th>席位 所属国家</th>\
                     <th>席位 席位名称</th>\
                 </thead>\
                 <tbody>\
-                    {% for u in country.profile_set.all %}\
+                    {% for c in system.country_set.all %}
+                    {% for i in c.identify_set.all %}\
                         <tr class="\
-                            {% if u.Status > 5 %}success{% endif %}\
-                            {% if u.Status < 0 %}danger{% endif %}\
+                            {% if i.profile.Status > 5 %}success{% endif %}\
+                            {% if i.profile.Status < 0 %}danger{% endif %}\
                         ">\
-                            <td><a href="/admin/umunc_iris/profile/{{u.id}}/">{{u.User.username}}</td>\
-                            <td>{{u.Name}}</td>\
-                            <td>{{u.get_Status_display}}</td>\
-                            <td>{{u.System}}</td>\
-                            <td>{{u.Country}}</td>\
-                            <td>{{u.Identify}}</td>\
+                            <td><a href="/admin/umunc_iris/profile/{{i.profile.id}}/">{{i.profile.User.username}}</td>\
+                            <td>{{i.profile.Name}}</td>\
+                            <td>{{i.profile.get_Status_display}}</td>\
+                            <td>{{i.profile.Identify}}</td>\
                         </tr>\
+                    {% endfor %}\
                     {% endfor %}\
                 </tbody>\
             </table>''')
-        c = Context({'country': obj})
+        c = Context({'system': obj})
         return t.render(c)
 
 class IdentifyAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Status', {
-            'fields': ('Name', 'profile',)
+            'fields': ('Name', 'Country', 'profile',)
         }),
     )
 
