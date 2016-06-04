@@ -110,6 +110,10 @@ class ProfileAdmin(ExportActionModelAdmin):
             'classes': ('collapse'),
             'fields': ('sendmail',)
         }),
+        ('Interviewee', {
+            'classes': ('collapse'),
+            'fields': ('interviewee',)
+        }),
     )
 
     list_display = ('User', 'Name', 'Status', 'Group', 'Commitee','System', 'Country', 'Identify',)
@@ -141,6 +145,36 @@ class ProfileAdmin(ExportActionModelAdmin):
             <a target="_blank" class="btn btn-sm btn-default" href=\"/iris/admin/sendmail/?command=sendmail_identify&id='''+str(obj.User.id)+u'''\">发送席位通知邮件</a><br/>
             <a target="_blank" class="btn btn-sm btn-default" href=\"/iris/admin/sendmail/?command=sendmail_payment_user&id='''+str(obj.User.id)+u'''\">发送缴费确认邮件</a>
             ''')
+
+    def interviewee(self, obj):
+        t = Template(u'''<table class="table table-striped table-hover table-bordered">\
+                <thead>\
+                    <th>被面试用户名</th>\
+                    <th>姓名</th>\
+                    <th>状态</th>\
+                    <th>席位 所属体系</th>\
+                    <th>席位 所属国家</th>\
+                    <th>席位 席位名称</th>\
+                </thead>\
+                <tbody>\
+                    {% for u in profile.User.Interviewee.all %}\
+                        <tr class="\
+                            {% if u.Status > 5 %}success{% endif %}\
+                            {% if u.Status < 0 %}danger{% endif %}\
+                        ">\
+                            <td><a href="/admin/umunc_iris/profile/{{u.id}}/">{{u.User.username}}</td>\
+                            <td>{{u.Name}}</td>\
+                            <td>{{u.get_Status_display}}</td>\
+                            <td>{{u.System}}</td>\
+                            <td>{{u.Country}}</td>\
+                            <td>{{u.Identify}}</td>\
+                        </tr>\
+                    {% endfor %}\
+                </tbody>\
+            </table>''')
+        c = Context({'profile': obj})
+        return t.render(c)
+
 
 class CountryAdmin(admin.ModelAdmin):
     fieldsets = (
