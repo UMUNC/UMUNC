@@ -50,8 +50,8 @@ class profile(models.Model):
 		(False,'非首席代表'),))
 	Name=models.CharField(max_length=255,blank=True,verbose_name="姓名")
 	Sex=models.BooleanField(default=False,verbose_name='性别',choices=(
-		(1,'男'),
-		(0,'女'),))
+		(True,'男'),
+		(False,'女'),))
 	Age=models.IntegerField(verbose_name='年龄')
 	IDNum=models.CharField(max_length=18,verbose_name='身份证号',blank=True)
 	School=models.CharField(max_length=255,verbose_name="在读学校",blank=True)
