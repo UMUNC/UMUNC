@@ -96,7 +96,7 @@ class ProfileAdmin(ExportActionModelAdmin):
         }),
         ('Distribution', {
 			'classes': ('collapse'),
-            'fields': ('Identify')
+            'fields': ('Identify',)
         }),
         ('Review', {
 			'classes': ('collapse'),
@@ -152,8 +152,6 @@ class ProfileAdmin(ExportActionModelAdmin):
                     <th>被面试用户名</th>\
                     <th>姓名</th>\
                     <th>状态</th>\
-                    <th>席位 所属体系</th>\
-                    <th>席位 所属国家</th>\
                     <th>席位 席位名称</th>\
                 </thead>\
                 <tbody>\
@@ -165,8 +163,6 @@ class ProfileAdmin(ExportActionModelAdmin):
                             <td><a href="/admin/umunc_iris/profile/{{u.id}}/">{{u.User.username}}</td>\
                             <td>{{u.Name}}</td>\
                             <td>{{u.get_Status_display}}</td>\
-                            <td>{{u.System}}</td>\
-                            <td>{{u.Country}}</td>\
                             <td>{{u.Identify}}</td>\
                         </tr>\
                     {% endfor %}\
@@ -189,7 +185,7 @@ class CountryAdmin(admin.ModelAdmin):
 
     readonly_fields = ('member',)
 
-    list_display = ('Name',)
+    list_display = ('__unicode__', 'Name',)
 
     def member(self, obj):
         t = Template(u'''<table class="table table-striped table-hover table-bordered">\
@@ -267,7 +263,7 @@ class IdentifyAdmin(admin.ModelAdmin):
 
     readonly_fields = ('profile',)
 
-    list_display = ('Name', 'profile',)
+    list_display = ('__unicode__', 'Name', 'profile',)
 
 admin.site.register(group, GroupAdmin)
 admin.site.register(profile, ProfileAdmin)
