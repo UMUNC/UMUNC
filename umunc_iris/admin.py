@@ -8,6 +8,80 @@ from django.utils.encoding import force_text
 from import_export import resources
 from import_export.admin import ExportActionModelAdmin
 
+from django.forms import ModelForm
+
+from django.forms.widgets import Select
+
+from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext as _
+
+class IdentifyWidget(Select):
+    """
+    A FileField Widget that shows its current value if it has one.
+    """
+    def __init__(self, attrs = {}):
+        super(IdentifyWidget, self).__init__(attrs)
+
+    def render(self, name, value, attrs=None, choices=()):
+        output = []
+        output.append(super(IdentifyWidget, self).render(name, value, attrs, choices))
+
+        systems = system.objects.all()
+
+        return_str_systems = ''
+        for system in systems:
+            return_str_countrys = ''
+            for country in system.country_set.all():
+                return_str_identifies = ''
+                for identify in country.identify_set.all():
+                    return_str_identifies += '''
+                        <li class="dropdown-submenu">
+                            <a tabindex="-1" href="#" onclick="function(){$('#id_Identify').val({1})}">{0}</a>
+                        </li>'
+                    '''.format(identify.Name, identify.id)
+                return_str_countrys += '''
+                    <li class="dropdown-submenu">
+                        <a tabindex="-1" href="#">{0}</a>
+                        <ul class="dropdown-menu">
+                          {1}
+                        </ul>
+                    </li>'
+                '''.format(country.Name, return_str_identifies)
+            return_str_systems += '''
+                <li class="dropdown-submenu">
+                    <a tabindex="-1" href="#">{0}</a>
+                    <ul class="dropdown-menu">
+                      {1}
+                    </ul>
+                </li>'
+            '''.format(system.Name, return_str_countrys)
+        return_str = '''
+            <div class="btn-group">
+              <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                筛选
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                {0}
+              </ul>
+            </div>
+        '''.format(return_str_systems)
+
+        output.append(return_str)
+
+        return mark_safe(u''.join(output))
+
+class ProfileForm(ModelForm):
+    class Meta:
+        model = profile
+        fields = "__all__"
+        # exclude = [] # uncomment this line and specify any field to exclude it from the form
+        widgets = {
+            'Identify': IdentifyWidget,
+        }
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+
 class GroupResource(resources.ModelResource):
     class Meta:
         model = group
@@ -115,6 +189,8 @@ class ProfileAdmin(ExportActionModelAdmin):
             'fields': ('interviewee',)
         }),
     )
+
+    form = ProfileForm
 
     list_display = ('User', 'Name', 'Status', 'Group', 'Commitee', 'Identify',)
 
