@@ -36,7 +36,7 @@ class IdentifyWidget(Select):
                 for identify in country.identify_set.all():
                     return_str_identifies += '''
                         <li class="dropdown-submenu">
-                            <a tabindex="-1" href="#" onclick="function(){$('#id_Identify').val({1})}">{0}</a>
+                            <a tabindex="-1" href="#" onclick="function(){{$('#id_Identify').val({1})}}">{0}</a>
                         </li>'
                     '''.format(identify.Name, identify.id)
                 return_str_countrys += '''
