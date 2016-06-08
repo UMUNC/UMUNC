@@ -29,9 +29,9 @@ class IdentifyWidget(Select):
         systems = system.objects.all()
 
         return_str_systems = ''
-        for system in systems:
+        for isystem in systems:
             return_str_countrys = ''
-            for country in system.country_set.all():
+            for country in isystem.country_set.all():
                 return_str_identifies = ''
                 for identify in country.identify_set.all():
                     return_str_identifies += '''
@@ -54,7 +54,7 @@ class IdentifyWidget(Select):
                       {1}
                     </ul>
                 </li>'
-            '''.format(system.Name, return_str_countrys)
+            '''.format(isystem.Name, return_str_countrys)
         return_str = '''
             <div class="btn-group">
               <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">

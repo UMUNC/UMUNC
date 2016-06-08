@@ -196,7 +196,7 @@ def sendmail_identify(user):
 					席位：<br/>
 				</td>
 				<td style="padding:20px;text-align:left;">
-				'''+user.profile.Identify+u'''
+				'''+user.profile.Identify.__unicode__()+u'''
 				</td>
 			</tr>
 			<tr style="border:0px;padding:0px;margin:0px;">
