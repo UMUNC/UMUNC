@@ -259,6 +259,8 @@ class CountryAdmin(admin.ModelAdmin):
         }),
     )
 
+    list_filter = ('System', 'Name',)
+
     readonly_fields = ('member',)
 
     list_display = ('__unicode__', 'Name',)
@@ -336,6 +338,8 @@ class IdentifyAdmin(admin.ModelAdmin):
             'fields': ('Name', 'Country', 'profile',)
         }),
     )
+
+    list_filter = ('Country__System', 'Country', 'Name',)
 
     readonly_fields = ('profile',)
 
