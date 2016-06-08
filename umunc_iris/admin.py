@@ -35,9 +35,9 @@ class IdentifyWidget(Select):
                 return_str_identifies = ''
                 for identify in country.identify_set.all():
                     return_str_identifies += u'''
-                        <li class="dropdown-submenu">
-                            <a tabindex="-1" href="#" onclick="function(){{$('#id_Identify').val({1})}}">{0}</a>
-                        </li>'
+                        <li>
+                            <a tabindex="-1" href="##" onclick="$('#id_Identify').val({1})">{0}</a>
+                        </li>
                     '''.format(identify.Name, identify.id)
                 return_str_countrys += u'''
                     <li class="dropdown-submenu">
@@ -45,7 +45,7 @@ class IdentifyWidget(Select):
                         <ul class="dropdown-menu">
                           {1}
                         </ul>
-                    </li>'
+                    </li>
                 '''.format(country.Name, return_str_identifies)
             return_str_systems += u'''
                 <li class="dropdown-submenu">
@@ -53,7 +53,7 @@ class IdentifyWidget(Select):
                     <ul class="dropdown-menu">
                       {1}
                     </ul>
-                </li>'
+                </li>
             '''.format(isystem.Name, return_str_countrys)
         return_str = u'''
             <div class="btn-group">
