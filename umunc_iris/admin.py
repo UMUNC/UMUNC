@@ -41,7 +41,7 @@ class IdentifyWidget(Select):
                     '''.format(identify.Name, identify.id)
                 return_str_countrys += u'''
                     <li class="dropdown-submenu">
-                        <a tabindex="-1" href="#">{0}</a>
+                        <a tabindex="-1" href="##">{0}</a>
                         <ul class="dropdown-menu">
                           {1}
                         </ul>
@@ -49,7 +49,7 @@ class IdentifyWidget(Select):
                 '''.format(country.Name, return_str_identifies)
             return_str_systems += u'''
                 <li class="dropdown-submenu">
-                    <a tabindex="-1" href="#">{0}</a>
+                    <a tabindex="-1" href="##">{0}</a>
                     <ul class="dropdown-menu">
                       {1}
                     </ul>
