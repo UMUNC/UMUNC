@@ -34,12 +34,12 @@ class IdentifyWidget(Select):
             for country in isystem.country_set.all():
                 return_str_identifies = ''
                 for identify in country.identify_set.all():
-                    return_str_identifies += '''
+                    return_str_identifies += u'''
                         <li class="dropdown-submenu">
                             <a tabindex="-1" href="#" onclick="function(){{$('#id_Identify').val({1})}}">{0}</a>
                         </li>'
                     '''.format(identify.Name, identify.id)
-                return_str_countrys += '''
+                return_str_countrys += u'''
                     <li class="dropdown-submenu">
                         <a tabindex="-1" href="#">{0}</a>
                         <ul class="dropdown-menu">
@@ -47,7 +47,7 @@ class IdentifyWidget(Select):
                         </ul>
                     </li>'
                 '''.format(country.Name, return_str_identifies)
-            return_str_systems += '''
+            return_str_systems += u'''
                 <li class="dropdown-submenu">
                     <a tabindex="-1" href="#">{0}</a>
                     <ul class="dropdown-menu">
@@ -55,7 +55,7 @@ class IdentifyWidget(Select):
                     </ul>
                 </li>'
             '''.format(isystem.Name, return_str_countrys)
-        return_str = '''
+        return_str = u'''
             <div class="btn-group">
               <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
                 筛选
