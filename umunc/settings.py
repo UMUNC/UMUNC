@@ -125,7 +125,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'suit',
+    'suit',
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
@@ -133,8 +133,8 @@ INSTALLED_APPS = (
     'umunc_iris',
     'umunc_cheetah',
     'umunc_mpc',
-    # 'import_export',
-    # 'gunicorn',
+    'import_export',
+    'gunicorn',
 )
 
 
