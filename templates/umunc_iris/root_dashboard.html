@@ -16,7 +16,7 @@
 					{% if profile.Status > 0 %}success{% endif %}
 					{% if profile.Status == 0 %}next{% endif %}
 				"
-					{% if profile.Status >= 0 %}href="/iris/"{% endif %}
+					href="/iris/"
 				>
 					<div class="col-md-12 process_panel_title">
 						<div class="process_panel_icon">1</div>
@@ -27,6 +27,18 @@
 						认真的成就，一个与众不同的你。
 					</div>
 				</div>
+				{% if profile.Status < 0 %}
+				<div class="row process_panel_item">
+					<div class="col-md-12 process_panel_title">
+						<div class="process_panel_icon">2</div>
+						报名结束
+					</div>
+					<div class="col-md-12 process_panel_describe">
+						<div class="process_panel_line"></div>
+						{{user.Profile.Status}}
+					</div>
+				</div>
+				{% else %}
 				<div class="row process_panel_item
 					{% if profile.Status > 1 %}success{% endif %}
 					{% if profile.Status == 1 %}next{% endif %}
@@ -132,6 +144,7 @@
 						UMUNC，欢迎您！
 					</div>
 				</div>
+				{% endif %}
 			</div>
  			<div class="col-md-9" id="main_content_container">
  			{% block body %}{% endblock %}

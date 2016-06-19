@@ -110,6 +110,7 @@ class profile(models.Model):
 	Comment=models.TextField(verbose_name='学团评价',blank=True)
 	Status=models.IntegerField(verbose_name='状态',choices=(
 		(-3,'代表申请拒绝'),
+		(-4,'代表退会'),
 		(0,'未验证邮箱'),
 		(1,'等待提交代表信息'),
 		(2,'代表信息已提交，请确认团队信息'),
