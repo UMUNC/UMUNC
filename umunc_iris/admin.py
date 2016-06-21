@@ -88,8 +88,67 @@ class GroupResource(resources.ModelResource):
         fields = ('Name', 'School', 'Password', 'Paycode', 'Payment', 'Group')
 
 class ProfileResource(resources.ModelResource):
+    def dehydrate_User__id(self, profile):
+    return '{}'.format(profile.User.get_id_display())
+
+    def dehydrate_User(self, profile):
+        return '{}'.format(profile.get_User_display())
+
+    def dehydrate_Name(self, profile):
+        return '{}'.format(profile.get_Name_display())
+
+    def dehydrate_Sex(self, profile):
+        return '{}'.format(profile.get_Sex_display())
+
+    def dehydrate_Age(self, profile):
+        return '{}'.format(profile.get_Age_display())
+
+    def dehydrate_IDNum(self, profile):
+        return '{}'.format(profile.get_IDNum_display())
+
+    def dehydrate_School(self, profile):
+        return '{}'.format(profile.get_School_display())
+
+    def dehydrate_Grade(self, profile):
+        return '{}'.format(profile.get_Grade_display())
+
+    def dehydrate_GName(self, profile):
+        return '{}'.format(profile.get_GName_display())
+
+    def dehydrate_GPhone(self, profile):
+        return '{}'.format(profile.get_GPhone_display())
+
+    def dehydrate_Phone(self, profile):
+        return '{}'.format(profile.get_Phone_display())
+
+    def dehydrate_Phone2(self, profile):
+        return '{}'.format(profile.get_Phone2_display())
+
+    def dehydrate_QQ(self, profile):
+        return '{}'.format(profile.get_QQ_display())
+
+    def dehydrate_Wechat(self, profile):
+        return '{}'.format(profile.get_Wechat_display())
+
+    def dehydrate_Commitee(self, profile):
+        return '{}'.format(profile.get_Commitee_display())
+
+    def dehydrate_Commitee2(self, profile):
+        return '{}'.format(profile.get_Commitee2_display())
+
+    def dehydrate_Group(self, profile):
+        return '{}'.format(profile.get_Group_display())
+
+    def dehydrate_Identify(self, profile):
+        return '{}'.format(profile.get_Identify_display())
+
+    def dehydrate_Interviewer(self, profile):
+        return '{}'.format(profile.get_Interviewer_display())
+
     class Meta:
         model = profile
+        fields = ('User__id', 'User', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'Commitee', 'Commitee2', 'Group', 'Identify', 'Interviewer', )
+        export_order = ('User__id', 'User', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'Commitee', 'Commitee2', 'Group', 'Identify', 'Interviewer', )
 
 class GroupAdmin(ExportActionModelAdmin):
     fieldsets = (
