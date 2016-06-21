@@ -89,7 +89,7 @@ class GroupResource(resources.ModelResource):
 
 class ProfileResource(resources.ModelResource):
     def dehydrate_User__id(self, profile):
-    return '{}'.format(profile.User.get_id_display())
+        return '{}'.format(profile.User.get_id_display())
 
     def dehydrate_User(self, profile):
         return '{}'.format(profile.get_User_display())
