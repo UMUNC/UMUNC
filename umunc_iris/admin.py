@@ -88,47 +88,14 @@ class GroupResource(resources.ModelResource):
         fields = ('Name', 'School', 'Password', 'Paycode', 'Payment', 'Group')
 
 class ProfileResource(resources.ModelResource):
-    def dehydrate_User__id(self, profile):
-        return '{}'.format(profile.User.id)
-
     def dehydrate_User(self, profile):
         return '{}'.format(profile.User.__unicode__())
-
-    def dehydrate_Name(self, profile):
-        return '{}'.format(profile.Name)
 
     def dehydrate_Sex(self, profile):
         return '{}'.format(profile.get_Sex_display())
 
-    def dehydrate_Age(self, profile):
-        return '{}'.format(profile.Age)
-
-    def dehydrate_IDNum(self, profile):
-        return '{}'.format(profile.IDNum)
-
-    def dehydrate_School(self, profile):
-        return '{}'.format(profile.School)
-
     def dehydrate_Grade(self, profile):
         return '{}'.format(profile.get_Grade_display())
-
-    def dehydrate_GName(self, profile):
-        return '{}'.format(profile.GName)
-
-    def dehydrate_GPhone(self, profile):
-        return '{}'.format(profile.GPhone)
-
-    def dehydrate_Phone(self, profile):
-        return '{}'.format(profile.Phone)
-
-    def dehydrate_Phone2(self, profile):
-        return '{}'.format(profile.Phone2)
-
-    def dehydrate_QQ(self, profile):
-        return '{}'.format(profile.QQ)
-
-    def dehydrate_Wechat(self, profile):
-        return '{}'.format(profile.Wechat)
 
     def dehydrate_Commitee(self, profile):
         return '{}'.format(profile.get_Commitee_display())
@@ -209,7 +176,7 @@ class GroupAdmin(ExportActionModelAdmin):
         Exports the selected rows using file_format.
         """
         if request.user.has_perm('umunc_iris.control_all'):
-            return super.export_admin_action(request, queryset)
+            return super(GroupAdmin, self).export_admin_action(request, queryset)
         else:
             return HttpResponse(u'<script>alert("无权下载");window.opener=null;window.close();</script>')
 
