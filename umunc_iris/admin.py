@@ -89,28 +89,28 @@ class GroupResource(resources.ModelResource):
 
 class ProfileResource(resources.ModelResource):
     def dehydrate_User(self, profile):
-        return '{}'.format(profile.User.__unicode__())
+        return u'{}'.format(profile.User.__unicode__())
 
     def dehydrate_Sex(self, profile):
-        return '{}'.format(profile.get_Sex_display().decode('UTF-8'))
+        return u'{}'.format(profile.get_Sex_display())
 
     def dehydrate_Grade(self, profile):
-        return '{}'.format(profile.get_Grade_display().decode('UTF-8'))
+        return u'{}'.format(profile.get_Grade_display())
 
     def dehydrate_Commitee(self, profile):
-        return '{}'.format(profile.get_Commitee_display().decode('UTF-8'))
+        return u'{}'.format(profile.get_Commitee_display())
 
     def dehydrate_Commitee2(self, profile):
-        return '{}'.format(profile.get_Commitee2_display().decode('UTF-8'))
+        return u'{}'.format(profile.get_Commitee2_display())
 
     def dehydrate_Group(self, profile):
-        return '{}'.format(profile.Group.__unicode__())
+        return u'{}'.format(profile.Group.__unicode__())
 
     def dehydrate_Identify(self, profile):
-        return '{}'.format(profile.Identify.__unicode__())
+        return u'{}'.format(profile.Identify.__unicode__())
 
     def dehydrate_Interviewer(self, profile):
-        return '{}'.format(profile.Interviewer.__unicode__())
+        return u'{}'.format(profile.Interviewer.__unicode__())
 
     class Meta:
         model = profile
