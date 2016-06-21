@@ -92,16 +92,16 @@ class ProfileResource(resources.ModelResource):
         return '{}'.format(profile.User.__unicode__())
 
     def dehydrate_Sex(self, profile):
-        return '{}'.format(profile.get_Sex_display())
+        return '{}'.format(profile.get_Sex_display().decode('UTF-8'))
 
     def dehydrate_Grade(self, profile):
-        return '{}'.format(profile.get_Grade_display())
+        return '{}'.format(profile.get_Grade_display().decode('UTF-8'))
 
     def dehydrate_Commitee(self, profile):
-        return '{}'.format(profile.get_Commitee_display())
+        return '{}'.format(profile.get_Commitee_display().decode('UTF-8'))
 
     def dehydrate_Commitee2(self, profile):
-        return '{}'.format(profile.get_Commitee2_display())
+        return '{}'.format(profile.get_Commitee2_display().decode('UTF-8'))
 
     def dehydrate_Group(self, profile):
         return '{}'.format(profile.Group.__unicode__())
