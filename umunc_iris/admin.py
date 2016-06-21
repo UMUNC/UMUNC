@@ -89,52 +89,52 @@ class GroupResource(resources.ModelResource):
 
 class ProfileResource(resources.ModelResource):
     def dehydrate_User__id(self, profile):
-        return '{}'.format(profile.User.id.__unicode__())
+        return '{}'.format(profile.User.id)
 
     def dehydrate_User(self, profile):
         return '{}'.format(profile.User.__unicode__())
 
     def dehydrate_Name(self, profile):
-        return '{}'.format(profile.Name.__unicode__())
+        return '{}'.format(profile.Name)
 
     def dehydrate_Sex(self, profile):
-        return '{}'.format(profile.Sex.__unicode__())
+        return '{}'.format(profile.get_Sex_display())
 
     def dehydrate_Age(self, profile):
-        return '{}'.format(profile.Age.__unicode__())
+        return '{}'.format(profile.Age)
 
     def dehydrate_IDNum(self, profile):
-        return '{}'.format(profile.IDNum.__unicode__())
+        return '{}'.format(profile.IDNum)
 
     def dehydrate_School(self, profile):
-        return '{}'.format(profile.School.__unicode__())
+        return '{}'.format(profile.School)
 
     def dehydrate_Grade(self, profile):
-        return '{}'.format(profile.Grade.__unicode__())
+        return '{}'.format(profile.get_Grade_display())
 
     def dehydrate_GName(self, profile):
-        return '{}'.format(profile.GName.__unicode__())
+        return '{}'.format(profile.GName)
 
     def dehydrate_GPhone(self, profile):
-        return '{}'.format(profile.GPhone.__unicode__())
+        return '{}'.format(profile.GPhone)
 
     def dehydrate_Phone(self, profile):
-        return '{}'.format(profile.Phone.__unicode__())
+        return '{}'.format(profile.Phone)
 
     def dehydrate_Phone2(self, profile):
-        return '{}'.format(profile.Phone2.__unicode__())
+        return '{}'.format(profile.Phone2)
 
     def dehydrate_QQ(self, profile):
-        return '{}'.format(profile.QQ.__unicode__())
+        return '{}'.format(profile.QQ)
 
     def dehydrate_Wechat(self, profile):
-        return '{}'.format(profile.Wechat.__unicode__())
+        return '{}'.format(profile.Wechat)
 
     def dehydrate_Commitee(self, profile):
-        return '{}'.format(profile.Commitee.__unicode__())
+        return '{}'.format(profile.get_Commitee_display())
 
     def dehydrate_Commitee2(self, profile):
-        return '{}'.format(profile.Commitee2.__unicode__())
+        return '{}'.format(profile.get_Commitee2_display())
 
     def dehydrate_Group(self, profile):
         return '{}'.format(profile.Group.__unicode__())
