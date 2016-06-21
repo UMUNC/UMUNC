@@ -89,7 +89,10 @@ class GroupResource(resources.ModelResource):
 
 class ProfileResource(resources.ModelResource):
     def dehydrate_User(self, profile):
-        return u'{}'.format(profile.User.__unicode__())
+        try:
+            return u'{}'.format(profile.User.__unicode__())
+        except:
+            return u'{}'.format(profile.User)
 
     def dehydrate_Sex(self, profile):
         return u'{}'.format(profile.get_Sex_display())
@@ -104,13 +107,22 @@ class ProfileResource(resources.ModelResource):
         return u'{}'.format(profile.get_Commitee2_display())
 
     def dehydrate_Group(self, profile):
-        return u'{}'.format(profile.Group.__unicode__())
+        try:
+            return u'{}'.format(profile.Group.__unicode__())
+        except:
+            return u'{}'.format(profile.Group)
 
     def dehydrate_Identify(self, profile):
-        return u'{}'.format(profile.Identify.__unicode__())
+        try:
+            return u'{}'.format(profile.Identify.__unicode__())
+        except:
+            return u'{}'.format(profile.Identify)
 
     def dehydrate_Interviewer(self, profile):
-        return u'{}'.format(profile.Interviewer.__unicode__())
+        try:
+            return u'{}'.format(profile.Interviewer.__unicode__())
+        except:
+            return u'{}'.format(profile.Interviewer)
 
     class Meta:
         model = profile
