@@ -137,9 +137,9 @@ class GroupAdmin(ExportActionModelAdmin):
         ('Status', {
             'fields': ('Paycode', 'Payment', 'Group')
         }),
-        ('Mail', {
+        ('Command', {
             'classes': ('collapse'),
-            'fields': ('sendmail',)
+            'fields': ('sendmail', 'markpayment')
         }),
         ('Member', {
             'classes': ('collapse'),
@@ -151,7 +151,7 @@ class GroupAdmin(ExportActionModelAdmin):
 
     search_fields = ('Name', 'School', 'Paycode', 'Payment',)
 
-    readonly_fields = ('sendmail', 'member')
+    readonly_fields = ('sendmail', 'member', 'markpayment')
 
     resource_class = GroupResource
 
@@ -160,9 +160,9 @@ class GroupAdmin(ExportActionModelAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         if request.user.has_perm('umunc_iris.control_all'):
-            return ('sendmail', 'member')
+            return ('sendmail', 'member', 'markpayment')
         else:
-            return ('sendmail', 'member', 'Paycode', 'Payment')
+            return ('sendmail', 'member', 'Paycode', 'Payment', 'markpayment')
 
     def sendmail(self, obj):
         return mark_safe(u'''<a target="_blank" class="btn btn-sm btn-default" href=\"/iris/admin/sendmail/?command=sendmail_payment&id='''+str(obj.id)+u'''\">批量发送缴费确认邮件</a>
