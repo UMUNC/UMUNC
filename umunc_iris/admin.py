@@ -243,7 +243,7 @@ class ProfileAdmin(ExportActionModelAdmin):
 
     form = ProfileForm
 
-    list_display = ('User', 'Name', 'Status', 'Group', 'Commitee', 'Identify', 'group__Paycode')
+    list_display = ('User', 'Name', 'Status', 'Group', 'Commitee', 'Identify', 'Group__Paycode')
 
     search_fields = ('User__username', 'Name', 'School', 'Phone', 'Phone2', 'Group__Paycode')
 
