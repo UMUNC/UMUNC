@@ -301,3 +301,25 @@ def sendmail(request):
 			return HttpResponse(u'<script>alert("无权发送");window.opener=null;window.close();</script>')
 	else:
 		raise Http404
+
+@login_required
+def markpayment(request):
+	if request.user.is_staff:
+		if request.user.has_perm('umunc_iris.control_all'):
+			group = Group.objects.get(id=request.GET['id'])
+			if request.GET['command'] == 'markpayment':
+				profiles = Group.profile_set.filter(Status=7)
+				for profile in profiles:
+					part_mail.sendmail_payment_user(profile.User)
+					profile.Status = 8
+					profile.save()
+			if request.GET['command'] == 'unmarkpayment':
+				profiles = Group.profile_set.filter(Status=8)
+				for profile in profiles:
+					profile.Status = 7
+					profile.save()
+			return HttpResponse('<script>alert("Done.");window.opener=null;window.close();</script>')
+		else:
+			return HttpResponse(u'<script>alert("无权操作");window.opener=null;window.close();</script>')
+	else:
+		raise Http404

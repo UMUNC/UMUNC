@@ -149,6 +149,8 @@ class GroupAdmin(ExportActionModelAdmin):
 
     list_display = ('Name', 'School', 'Paycode', 'Payment')
 
+    search_fields = ('Name', 'School', 'Paycode', 'Payment',)
+
     readonly_fields = ('sendmail', 'member')
 
     resource_class = GroupResource
@@ -156,8 +158,19 @@ class GroupAdmin(ExportActionModelAdmin):
     actions_on_top = False
     actions_on_bottom = True
 
+    def get_readonly_fields(self, request, obj=None):
+        if request.user.has_perm('umunc_iris.control_all'):
+            return ('sendmail', 'member')
+        else:
+            return ('sendmail', 'member', 'Paycode', 'Payment')
+
     def sendmail(self, obj):
-        return mark_safe(u'''<a target="_blank" class="btn btn-sm btn-default" href=\"/iris/admin/sendmail/?command=sendmail_payment&id='''+str(obj.id)+u'''\">发送缴费确认邮件</a>
+        return mark_safe(u'''<a target="_blank" class="btn btn-sm btn-default" href=\"/iris/admin/sendmail/?command=sendmail_payment&id='''+str(obj.id)+u'''\">批量发送缴费确认邮件</a>
+            ''')
+
+    def markpayment(self, obj):
+        return mark_safe(u'''<a target="_blank" class="btn btn-sm btn-default" href=\"/iris/admin/markpayment/?command=markpayment&id='''+str(obj.id)+u'''\">全员标记为已付费并发送邮件，仅影响【代表席位已分配，请进行缴费】的用户</a><br />
+            <a target="_blank" class="btn btn-sm btn-default" href=\"/iris/admin/markpayment/?command=unmarkpayment&id='''+str(obj.id)+u'''\">全员标记为未付费，仅影响【代表缴费已完成，申请完成】的用户</a>
             ''')
 
     def member(self, obj):
@@ -230,9 +243,9 @@ class ProfileAdmin(ExportActionModelAdmin):
 
     form = ProfileForm
 
-    list_display = ('User', 'Name', 'Status', 'Group', 'Commitee', 'Identify',)
+    list_display = ('User', 'Name', 'Status', 'Group', 'Commitee', 'Identify', 'group__Paycode')
 
-    search_fields = ('User__username', 'Name', 'School', 'Phone', 'Phone2',)
+    search_fields = ('User__username', 'Name', 'School', 'Phone', 'Phone2', 'group__Paycode')
 
     list_filter = ('Status', 'Group', 'School', 'Identify', 'Commitee', 'Commitee2',)
 
