@@ -135,6 +135,7 @@ INSTALLED_APPS = (
     'umunc_mpc',
     'import_export',
     'gunicorn',
+    'searchableselect',
 )
 
 
