@@ -1,2 +1,2 @@
-收到来自<span class="label label-{% if user.is_staff %}success{% else %}info{% endif %}" {% if not user.is_staff %}data-toggle="tooltip" data-placement="top" title="{{user.profile.Name}}：【{{user.profile.Identify}}】"{% endif %}>{{user.profile.Name}}</span>的文件：<br/>
+收到来自<span class="label label-{% if user.is_staff %}success{% else %}info{% endif %}" {% if not user.is_staff %}data-toggle="tooltip" data-placement="top" title="{{user.profile.Name}}【{{user.profile.Identify}}】"{% endif %}>{{user.profile.Name}}</span>的文件：<br/>
 <a class="btn btn-success btn-xs" href="{{url}}" target="_blank" role="button">{{filename}}</a>

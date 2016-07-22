@@ -5,7 +5,7 @@
 		{% if message.System %}
 		<p class="text-center bg-info"><span class="label label-primary">系统消息</span> <span class="text-primary">{{message.TimeStamp|date:"Y-n-j G:i:s" }}</span> :{{message.Content|safe}}</p>
 		{% else %}
-		<p><span class="label label-{% if message.FromU.is_staff %}success{% else %}info{% endif %}" {% if not message.FromU.is_staff %}data-toggle="tooltip" data-placement="top" title="{{message.FromU.profile.Name}}：【{{message.FromU.profile.Identify.Country.Name}}】{{message.FromU.profile.Identify}}"{% endif %}>{{message.FromU.profile.Name}}</span> <span class="text-{% if message.FromU.is_staff %}success{% else %}info{% endif %}">{{message.TimeStamp|date:"Y-n-j G:i:s" }}</span> :{{message.Content|safe}}</p>
+		<p><span class="label label-{% if message.FromU.is_staff %}success{% else %}info{% endif %}" {% if not message.FromU.is_staff %}data-toggle="tooltip" data-placement="top" title="{{message.FromU.profile.Name}}【{{message.FromU.profile.Identify}}】"{% endif %}>{{message.FromU.profile.Name}}</span> <span class="text-{% if message.FromU.is_staff %}success{% else %}info{% endif %}">{{message.TimeStamp|date:"Y-n-j G:i:s" }}</span> :{{message.Content|safe}}</p>
 		{% endif %}
 	{% endfor %}
 </div>

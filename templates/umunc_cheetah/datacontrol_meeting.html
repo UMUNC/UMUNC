@@ -1,7 +1,7 @@
 {% for meeting in meetings|slice:":100" %}
 <tr>
-	<td>{{meeting.FromC.Name}}</td>
-	<td>{{meeting.ToC.Name}}</td>
+	<td>{{meeting.FromC}}</td>
+	<td>{{meeting.ToC}}</td>
 	<td class=" text-center">{{meeting.Time|date:"Y-n-j G:i"}}</td>
 	<td>{{meeting.Location}}</td>
 	<td>{{meeting.Description}}</td>

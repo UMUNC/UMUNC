@@ -241,10 +241,10 @@ Center
 						<select class="form-control" id="host" required>
 							{% if user.is_staff %}
 							{% for country in countries %}
-							<option value="{{country.id}}">{{country.Name}}</option>
+							<option value="{{country.id}}">{{country}}</option>
 							{% endfor %}
 							{% else %}
-							<option value="{{user.profile.Identify.Country.id}}">{{user.profile.Identify.Country.Name}}</option>
+							<option value="{{user.profile.Identify.Country.id}}">{{user.profile.Identify.Country}}</option>
 							{% endif %}
 						</select>
 					</div>
@@ -252,7 +252,7 @@ Center
 						<label for="to">TO:</label>
 						<select class="form-control" id="to" required>
 							{% for country in countries %}
-							<option value="{{country.id}}">{{country.Name}}</option>
+							<option value="{{country.id}}">{{country}}</option>
 							{% endfor %}
 						</select>
 					</div>
