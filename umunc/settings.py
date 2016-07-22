@@ -134,7 +134,7 @@ INSTALLED_APPS = (
     'umunc_cheetah',
     'umunc_mpc',
     'import_export',
-    'gunicorn',
+    # 'gunicorn',
     'searchableselect',
 )
 
@@ -192,5 +192,7 @@ SUIT_CONFIG = {
     # misc
     # 'LIST_PER_PAGE': 15
 }
+
+UMUNC_IRIS_REGISTER = False
 
 from CONFIG import *

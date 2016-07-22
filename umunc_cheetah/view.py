@@ -44,19 +44,19 @@ def history_communication(request,id):
 
 def history_meeting(request):
 	if request.user.is_staff:
-		if request.user.profile.Country:
-			number=str(request.user.profile.Country.id)+'_A'
+		if request.user.profile.Identify:
+			number=str(request.user.profile.Identify.Country.id)+'_A'
 		else:
 			number=str(0)+'_A'
 	else:
-		if request.user.profile.Country:
-			number=str(request.user.profile.Country.id)
+		if request.user.profile.Identify:
+			number=str(request.user.profile.Identify.Country.id)
 		else:
 			number=str(0)
 	if request.user.is_staff:
 		response_meetings=meeting.objects.all()
 	else:
-		response_meetings=meeting.objects.filter(Q(FromC=request.user.profile.Country)|Q(ToC=request.user.profile.Country))
+		response_meetings=meeting.objects.filter(Q(FromC=request.user.profile.Identify.Country)|Q(ToC=request.user.profile.Identify.Country))
 	return render_to_response('umunc_cheetah/history_meeting.html',{
 			'meetings': response_meetings,
 		},context_instance=RequestContext(request))
@@ -82,7 +82,7 @@ def refresh_meeting(user,number):
 	if user.is_staff:
 		response_meetings=meeting.objects.all()
 	else:
-		response_meetings=meeting.objects.filter(Q(FromC=user.profile.Country)|Q(ToC=user.profile.Country)|(Q(Global=True)&Q(Check_F=True)&Q(Check_T=True)&Q(Check_A=True)))
+		response_meetings=meeting.objects.filter(Q(FromC=user.profile.Identify.Country)|Q(ToC=user.profile.Identify.Country)|(Q(Global=True)&Q(Check_F=True)&Q(Check_T=True)&Q(Check_A=True)))
 	ttemplate = get_template('umunc_cheetah/datacontrol_meeting.html')
 	cache.set('umunc_cheetah_meeting_'+number, simplejson.dumps({
 				'result':'success',
@@ -129,13 +129,13 @@ def datacontrol_heartbeat(request):
 			if cache.get('umunc_cheetah_communication_list')==None:
 				refresh_communication_list()
 			if request.user.is_staff:
-				if request.user.profile.Country:
-					number=str(request.user.profile.Country.id)+'_A'
+				if request.user.profile.Identify:
+					number=str(request.user.profile.Identify.Country.id)+'_A'
 				else:
 					number=str(0)+'_A'
 			else:
-				if request.user.profile.Country:
-					number=str(request.user.profile.Country.id)
+				if request.user.profile.Identify:
+					number=str(request.user.profile.Identify.Country.id)
 				else:
 					number=str(0)
 			if cache.get('umunc_cheetah_meeting_'+number+'_list')==None:
@@ -156,13 +156,13 @@ def datacontrol_heartbeat(request):
 			return HttpResponse(cache.get('umunc_cheetah_communication_'+request.GET['number']))
 		if request.GET['command']=='GetMeeting':
 			if request.user.is_staff:
-				if request.user.profile.Country:
-					number=str(request.user.profile.Country.id)+'_A'
+				if request.user.profile.Identify:
+					number=str(request.user.profile.Identify.Country.id)+'_A'
 				else:
 					number=str(0)+'_A'
 			else:
-				if request.user.profile.Country:
-					number=str(request.user.profile.Country.id)
+				if request.user.profile.Identify:
+					number=str(request.user.profile.Identify.Country.id)
 				else:
 					number=str(0)
 			if cache.get('umunc_cheetah_meeting_'+number)==None:
@@ -237,8 +237,8 @@ def datacontrol_meeting(request):
 		if request.POST['command']=='PostSend' and request.POST.has_key('host') and request.POST.has_key('to') and request.POST.has_key('location') and request.POST.has_key('time') and request.POST.has_key('description'):
 			fcountry=country.objects.get(id=request.POST['host'])
 			tcountry=country.objects.get(id=request.POST['to'])
-			if request.user.profile.Country!=fcountry and request.user.is_staff==False:
-				return HttpResponse(simplejson.dumps({'result':'无权发表系统消息。',},ensure_ascii=False))
+			if request.user.is_staff==False and 		request.user.profile.Identify.Country!=fcountry:
+				return HttpResponse(simplejson.dumps({'result':'无权发起会议预约。',},ensure_ascii=False))
 			tmeeting=meeting(
 				FromC=fcountry,
 				ToC=tcountry,
@@ -261,13 +261,13 @@ def datacontrol_meeting(request):
 				all_users = User.objects.all()
 				for i in all_users:
 					if i.is_staff:
-						if i.profile.Country:
-							number=str(i.profile.Country.id)+'_A'
+						if i.profile.Identify:
+							number=str(i.profile.Identify.Country.id)+'_A'
 						else:
 							number=str(0)+'_A'
 					else:
-						if i.profile.Country:
-							number=str(i.profile.Country.id)
+						if i.profile.Identify:
+							number=str(i.profile.Identify.Country.id)
 						else:
 							number=str(0)
 					refresh_meeting_list(i, number)
@@ -284,7 +284,7 @@ def datacontrol_meeting(request):
 					refresh_meeting_couple(tmeeting.FromC,tmeeting.ToC,request)
 				return HttpResponse(simplejson.dumps({'result':'success',},ensure_ascii=False))
 			elif request.POST['user_number']=='1':
-				if request.user.profile.Country!=tmeeting.FromC:
+				if request.user.profile.Identify.Country!=tmeeting.FromC:
 					return HttpResponse(simplejson.dumps({'result':'无权操作。',},ensure_ascii=False))
 				if tmeeting.Check_F!=False:
 					tmeeting.Check_F=request.POST['accept']=='1'
@@ -292,7 +292,7 @@ def datacontrol_meeting(request):
 					refresh_meeting_couple(tmeeting.FromC,tmeeting.ToC,request)
 				return HttpResponse(simplejson.dumps({'result':'success',},ensure_ascii=False))
 			elif request.POST['user_number']=='2':
-				if request.user.profile.Country!=tmeeting.ToC:
+				if request.user.profile.Identify.Country!=tmeeting.ToC:
 					return HttpResponse(simplejson.dumps({'result':'无权操作。',},ensure_ascii=False))
 				if tmeeting.Check_T!=False:
 					tmeeting.Check_T=request.POST['accept']=='1'

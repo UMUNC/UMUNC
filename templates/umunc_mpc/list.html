@@ -13,67 +13,45 @@
 {% endblock %}
 
 {% block Rbody %}
-	<div class="container">
-		<div class="row">
-			<div class="col-md-8">
-				<div class="col-md-12 coltitle"><span class="fui-new"></span> 本社资讯</div>
+	<div class="col-md-12 coltitle"><span class="fui-new"></span> 本社资讯</div>
 
-				{% Paginate request posts maxitem 15 as paginatedposts %}
+	{% Paginate request posts maxitem 15 as paginatedposts %}
 
-				{% for post in paginatedposts.containerP %}
-				<div class="col-md-12 list_block" onclick="location.href='/mpc/post/{% if pressname %}{{pressname}}/{%endif%}{{ post.id }}'">
-					<p class="col-md-12 list_title">{{post.title}}</p>
-					<pre class="col-md-9 list_content">{{post.content|truncatewords_hans_html:150|safe}}</pre>
-					<div class="col-md-3 list_info">
-						<address>
-							{{post.author.profile.Name}} 发布于<br/>
-							{{post.timestamp | date:"Y-n-j G:i:s" }}<br/><br/>
-							<strong>
-							{% for press in post.press.all %}
-								{{press.name}}{% if not forloop.last %}<br/>{% endif %}
-							{% endfor%}
-							</strong>
-						</address>
-					</div>
-				</div>
-				{% endfor %}
-				<div class="col-md-12 list-menu text-center">
-					<nav>
-						<ul class="pagination pagination-sm">
-							<li {% if not paginatedposts.attr.previous %}class="disabled"{% endif %}>
-								<a href="?{{ paginatedposts.attr.key }}={{ paginatedposts.attr.currectpage | add:"-1" }}">
-									<span aria-hidden="true">&laquo; Previous</span>
-								</a>
-							</li>
-							{% for page in paginatedposts.attr.page %}
-							<li {% if page.currectpage %}class="active"{% endif %}><a href="?{{ paginatedposts.attr.key }}={{ page.id }}">{{ page.id }}</a></li>
-							{% endfor %}
-							<li {% if not paginatedposts.attr.next %}class="disabled"{% endif %}>
-								<a href="?{{ paginatedposts.attr.key }}={{ paginatedposts.attr.currectpage | add:"1" }}">
-									<span aria-hidden="true">Next &raquo;</span>
-								</a>
-							</li>
-						</ul>
-					</nav>
-				</div>
-
-			</div>
-			<div class="col-md-4">
-				<div class="col-md-12 coltitle"><span class="fui-cmd"></span> 环球讯息</div>
-				<div class="col-md-12 list_block">
-					<ul style="padding-left:20px;">
-						{% for post in posts_gloable %}
-						<li><a href="/mpc/post/{{ post.id }}"><strong>{{post.title}}</strong></a><br/>{{post.timestamp | date:"Y-n-j G:i:s" }}</li>
-						{% endfor %}
-					</ul>
-				</div>
-				<div class="col-md-12 coltitle"><span class="fui-volume"></span> UMUNC特别声明</div>
-				<div class="col-md-12 list_block">
-					<p><small>本网站为UMUNC模拟联合国性质站点。本站所有新闻纯属虚构，与真实世界无关。</small></p>
-					<p><small>UMUNC保留本站包括且不仅限于代码、数据、设计等内容所有权，未经许可，不得传播与仿制。</small></p>
-				</div>
-			</div>
+	{% for post in paginatedposts.containerP %}
+	<div class="col-md-12 list_block" onclick="location.href='/mpc/post/{% if pressname %}{{pressname}}/{%endif%}{{ post.id }}'">
+		<p class="col-md-12 list_title">{{post.title}}</p>
+		<pre class="col-md-9 list_content">{{post.content|truncatewords_hans_html:150|safe}}</pre>
+		<div class="col-md-3 list_info">
+			<address>
+				{{post.author.profile.Name}} 发布于<br/>
+				{{post.timestamp | date:"Y-n-j G:i:s" }}<br/><br/>
+				<strong>
+				{% for press in post.press.all %}
+					{{press.name}}{% if not forloop.last %}<br/>{% endif %}
+				{% endfor%}
+				</strong>
+			</address>
 		</div>
+	</div>
+	{% endfor %}
+	<div class="col-md-12 list-menu text-center">
+		<nav>
+			<ul class="pagination pagination-sm">
+				<li {% if not paginatedposts.attr.previous %}class="disabled"{% endif %}>
+					<a href="?{{ paginatedposts.attr.key }}={{ paginatedposts.attr.currectpage | add:"-1" }}">
+						<span aria-hidden="true">&laquo; Previous</span>
+					</a>
+				</li>
+				{% for page in paginatedposts.attr.page %}
+				<li {% if page.currectpage %}class="active"{% endif %}><a href="?{{ paginatedposts.attr.key }}={{ page.id }}">{{ page.id }}</a></li>
+				{% endfor %}
+				<li {% if not paginatedposts.attr.next %}class="disabled"{% endif %}>
+					<a href="?{{ paginatedposts.attr.key }}={{ paginatedposts.attr.currectpage | add:"1" }}">
+						<span aria-hidden="true">Next &raquo;</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
 	</div>
 {% endblock %}
 

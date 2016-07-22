@@ -79,8 +79,14 @@ def view_post(request,pressname,id):
     else:
         response_template='UMUNC'
 
+    response_list_gloable=cache.get('umunc_mpc_press_list_')
+    if response_list_gloable==None:
+        response_list_gloable=Post.objects.filter(status=4)
+        cache.set('umunc_mpc_press_list_',response_list_gloable)
+
     return render_to_response('umunc_mpc/post.html',{
         'post':response_post,
+        'posts_gloable':response_list_gloable[:5],
         'pressess':response_press,
         'pressname':pressname,
         'template':response_template,

@@ -82,11 +82,32 @@
 				</div>
 			</div>
 		</div>
-		{% block Rbody %}
 		<div class="container">
-			<h1>Hello, world!</h1>
+			<div class="row">
+				<div class="col-md-8">
+				{% block Rbody %}
+					<div class="container">
+						<h1>Hello, world!</h1>
+					</div>
+				{% endblock %}
+				</div>
+				<div class="col-md-4">
+					<div class="col-md-12 coltitle"><span class="fui-cmd"></span> 环球讯息</div>
+					<div class="col-md-12 list_block">
+						<ul style="padding-left:20px;">
+							{% for post in posts_gloable %}
+							<li><a href="/mpc/post/{{ post.id }}"><strong>{{post.title}}</strong></a><br/>{{post.timestamp | date:"Y-n-j G:i:s" }}</li>
+							{% endfor %}
+						</ul>
+					</div>
+					<div class="col-md-12 coltitle"><span class="fui-volume"></span> UMUNC特别声明</div>
+					<div class="col-md-12 list_block">
+						<p><small>本网站为UMUNC模拟联合国性质站点。本站所有新闻纯属虚构，与真实世界无关。</small></p>
+						<p><small>UMUNC保留本站包括且不仅限于代码、数据、设计等内容所有权，未经许可，不得传播与仿制。</small></p>
+					</div>
+				</div>
+			</div>
 		</div>
-		{% endblock %}
 		<script src="{{ STATIC_URL }}common/js/jquery.min.js"></script>
 		<script src="{{ STATIC_URL }}common/js/flat-ui.min.js"></script>
 		<script src="{{ STATIC_URL }}common/js/jquery.backstretch.min.js"></script>

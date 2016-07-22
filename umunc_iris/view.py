@@ -35,11 +35,14 @@ def plogin(request):
 		Rnext=request.POST['next']
 		user = authenticate(username=Rusername, password=Rpassword)
 		if user is not None:
-			if user.profile.Status<>0:
-				login(request, user)
-				return HttpResponseRedirect(Rnext)
+			if user.is_active:
+				if user.profile.Status<>0:
+					login(request, user)
+					return HttpResponseRedirect(Rnext)
+				else:
+					Rerror='此账号未验证邮箱，请验证后再试。'
 			else:
-				Rerror='此账号未验证邮箱，请验证后再试。'
+				Rerror='此账号禁止登陆。'
 		else:
 			Rerror='登录失败，请确认用户名密码正确。'
 	else:
