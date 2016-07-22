@@ -10,6 +10,7 @@ RUN pip install simplejson mysql-python gunicorn django-classy-tags django-impor
 RUN mkdir /logs
 RUN mkdir /UMUNC
 RUN mkdir /cache
+RUN mkdir /upload
 WORKDIR /UMUNC
 COPY . /UMUNC
 COPY umunc.conf /etc/nginx/sites-enabled/umunc.conf
