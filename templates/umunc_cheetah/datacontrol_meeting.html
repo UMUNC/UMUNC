@@ -20,20 +20,20 @@
 	{% ifnotequal meeting.check_accept "Rejected" %}
 		<br/>
 		<div class="btn-group btn-group-xs" role="group" aria-label="...">
-		{% ifequal user.profile.Country.id meeting.ToC.id %}
+		{% ifequal user.profile.Identify.Country.id meeting.ToC.id %}
 			<button class="btn btn-danger" type="button" onclick="meeting_change(2,{{meeting.id}},0)">Reject</button>
 		{% else %}
 			{% if user.is_staff %}
 				<button class="btn btn-danger" type="button" onclick="meeting_change(0,{{meeting.id}},0)">Reject</button>
 			{% else %}
-				{% ifequal user.profile.Country.id meeting.FromC.id %}
+				{% ifequal user.profile.Identify.Country.id meeting.FromC.id %}
 					<button class="btn btn-danger" type="button" onclick="meeting_change(1,{{meeting.id}},0)">Reject</button>
 				{% endifequal %}
 			{% endif %}
 		{% endifequal %}
 	{% endifnotequal %}
 	{% ifnotequal meeting.check_accept "Rejected" %}
-		{% ifequal user.profile.Country.id meeting.ToC.id %}
+		{% ifequal user.profile.Identify.Country.id meeting.ToC.id %}
 			{% ifequal meeting.Check_T None%}
 			<button class="btn btn-success" type="button" onclick="meeting_change(2,{{meeting.id}},1)">Accept</button>
 			{% endifequal %}
@@ -43,7 +43,7 @@
 				<button class="btn btn-success" type="button" onclick="meeting_change(0,{{meeting.id}},1)">Accept</button>
 				{% endifequal %}
 			{% else %}
-				{% ifequal user.profile.Country.id meeting.FromC.id %}
+				{% ifequal user.profile.Identify.Country.id meeting.FromC.id %}
 					{% ifequal meeting.Check_F None%}
 					<button class="btn btn-success" type="button" onclick="meeting_change(1,{{meeting.id}},1)">Accept</button>
 					{% endifequal %}
