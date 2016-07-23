@@ -3,7 +3,7 @@
 }
 body{
 	padding-top: 70px;
-	background:#E6EBF1;	
+	background:#E6EBF1;
 	font-size: 14px;
 }
 .navbar-inverse {
@@ -19,6 +19,9 @@ body{
 .list_block img{
 	width:100%;
 	height: auto;
+}
+.list_content {
+	white-space: pre-wrap!important;
 }
 p{
   word-break: break-word;
