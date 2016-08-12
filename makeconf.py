@@ -2,6 +2,17 @@ import os
 
 str=''
 
+if os.getenv('CONFIG_DEBUG'):
+	str+='''
+DEBUG = '''+os.getenv('CONFIG_DEBUG')+'''
+'''
+
+if os.getenv('CONFIG_ALLOWED_HOSTS'):
+	all_hosts = os.getenv('CONFIG_ALLOWED_HOSTS').split()
+	str+='''
+ALLOWED_HOSTS = ['''+', '.join(all_hosts)+''',]
+'''
+
 if os.getenv('CONFIG_DB_NAME') and os.getenv('CONFIG_DB_USER') and os.getenv('CONFIG_DB_PASSWORD') and os.getenv('CONFIG_DB_HOST'):
 	str+='''
 DATABASES = {
