@@ -9,8 +9,9 @@ DEBUG = '''+os.getenv('CONFIG_DEBUG')+'''
 
 if os.getenv('CONFIG_ALLOWED_HOSTS'):
 	all_hosts = os.getenv('CONFIG_ALLOWED_HOSTS').split()
+	all_hosts = ['\''+i+'\',' for i in all_hosts]
 	str+='''
-ALLOWED_HOSTS = ['''+', '.join(all_hosts)+''',]
+ALLOWED_HOSTS = ['''+' '.join(all_hosts)+''']
 '''
 
 if os.getenv('CONFIG_DB_NAME') and os.getenv('CONFIG_DB_USER') and os.getenv('CONFIG_DB_PASSWORD') and os.getenv('CONFIG_DB_HOST'):
