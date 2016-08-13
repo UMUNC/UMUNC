@@ -261,9 +261,9 @@ class ProfileAdmin(ExportActionModelAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         if request.user.has_perm('umunc_iris.control_all'):
-            return ('User', 'TimeStamp', 'LastMotified', 'sendmail', 'interviewee')
+            return ('TimeStamp', 'LastMotified', 'sendmail', 'interviewee')
         else:
-            return ('User', 'TimeStamp', 'LastMotified', 'Init', 'Status', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'MunAge', 'MunRsm', 'Commitee', 'Commitee2', 'Adjust', 'Group', 'Leader', 'Review1', 'Review2', 'Review3', 'Review4', 'sendmail', 'interviewee')
+            return ('TimeStamp', 'LastMotified', 'Init', 'Status', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'MunAge', 'MunRsm', 'Commitee', 'Commitee2', 'Adjust', 'Group', 'Leader', 'Review1', 'Review2', 'Review3', 'Review4', 'sendmail', 'interviewee')
 
     def sendmail(self, obj):
         return mark_safe(u'''<a target="_blank" class="btn btn-sm btn-default" href=\"/iris/admin/sendmail/?command=sendmail_emailcheck&id='''+str(obj.User.id)+u'''\">发送注册邮件</a><br/>
@@ -402,4 +402,3 @@ admin.site.register(checkcode)
 admin.site.register(country, CountryAdmin)
 admin.site.register(system, SystemAdmin)
 admin.site.register(identify, IdentifyAdmin)
-
