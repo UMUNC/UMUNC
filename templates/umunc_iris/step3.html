@@ -18,11 +18,7 @@
 			</div>
 			<div class="row text-center">
 				<h4>
-				{% if profile.Commitee <= 4 %}UMUNC2016总会联动体系学测{% else %}
-					{% if profile.Commitee <= 6 %}UMUNC2016总会欧洲体系学测{% else %}
-						{% if profile.Commitee <= 8 %}UMUNC2016 GAUS Academic Assessment{% endif %}
-					{% endif %}
-				{% endif %}
+					{{data.0 | safe}}
 				</h4>
 			</div>
 			<div class="row review_box">
@@ -30,36 +26,12 @@
 			</div>
 			<div class="row review_box">
 				<p>
-				{% if profile.Commitee <= 4 %}
-					所有申请大英帝国内阁会议、内阁以及欧洲外交团委员会代表均需要完成第一部分;<br/>
-					选择军事类或是经济类席位请完成对应部分问题；<br/>
-					有意申请首脑的代表请完成第一部分以及至少需在经济以及军事部分中共选择1-2道完成；<br/>
-					申请主新闻媒体中心代表，只需要回答媒体部分，可选答第一部分；<br/>
-					所有回答的题目请回答至题目下方的文本框，并请在答案前标明题号。
-				{% else %}{% if profile.Commitee <= 6 %}
-					所有回答的题目请回答至题目下方的文本框，并请在答案前标明题号。
-				{% else %}{% if profile.Commitee <= 8 %}
-					Before answering these questions, do some research and gain a basic knowledge about the situation around the world in 1980.
-				{% endif %}{% endif %}{% endif %}
+					{{data.1 | safe}}
 				</p>
 			</div>
 			<div class="row review_box">
 				<p>
-				{% if profile.Commitee <= 4 %}
-					第一部分：<br/>
-					一． 请逐一例举出一战期间参战的欧洲的协约国与同盟国，并简述该国参战原因。<br/>
-					二. 选择一个你希望代表的国家，阐述该国家在第一次世界大战中的地位以及战争前夕与期间的国家战略方针。(选做题)<br/>
-					请将题目作答于框中，并标明题号
-				{% else %}{% if profile.Commitee <= 6 %}
-					1、	请介绍欧洲理事会和欧盟委员会，并阐述两者的关系。
-				{% else %}{% if profile.Commitee <= 8 %}
-					As you know, there are two committees in GAUS. <br/>
-					Rank your Committee of choice below and demonstrate your first choice of seats, followed with a personal statement explaining the reason of your choice.<br/>
-					<br/>
-					Committee:<br/>
-					Emergency Special Session of the General Assembly<br/>
-					Diplomatic Corps Meeting of 10 Countries
-				{% endif %}{% endif %}{% endif %}
+					{{data.2 | safe}}
 				</p>
 			</div>
 			<div class="form-group">
@@ -72,26 +44,7 @@
 			<hr/>
 			<div class="row review_box">
 				<p>
-				{% if profile.Commitee <= 4 %}
-					经济部分：<br/>
-					以下三题中任选二题进行回答<br/>
-					<br/>
-					三．  “20世纪初世界经济GDP总量百分比 美35.8%、德15.7%、英14.0%、奥7.5%、法7.9%、俄6.4%、日4.3%、意3.5%，德国与美国身为工业大国，此时GOD已远超于英国。”<br/>
-					<br/>
-					“大战前夕德国的许多部门在世界贸易中占主导地位。德国在国外的投资也逐渐上升，到1914年其海外投资已达英国海外投资的一半” <br/>
-					——H·H罗斯·国诺夫《第一次世界大战史》<br/>
-					 请根据上述材料进行展开分析，一战前夕英德两国的之间经济体系差距与依赖，并例举出当时英镑仍旧为世界贸易主要流动货币，而非德国马克的原因。<br/>
-					<br/>
-					四.  “第一次世界大战以前，资本主义各国实行金本位制，即各国以立法手段规定黄金纸币的价格(即：各国通过立法规定本国货币的含金量)<br/>，在此基础上，形成各国货币之间的汇率关系……各国货币之间的汇率总是围绕黄金平价上下波动。”
-					——王在帮《布雷顿森林体系的兴衰》<br/>
-					请解释并分析金块本位制与金汇兑本位制，并且选择一个欧洲国家，摘写该国家经济体系在战争爆发前夕与战争爆发后的预案，战时经济预案。<br/>
-					<br/>
-					五. 在第一次世界大战之中，同盟国各国以及沙皇俄国，都陆续出现国家经济恶化以及最终崩溃，致使国家无法维持战事的情况，请结果相关史实材料分析各国出现经济体系崩盘的原因，并试举出处理方案。
-				{% else %}{% if profile.Commitee <= 6 %}
-					2、	根据议题：重塑欧盟申根区路线图与推进欧盟单一市场建设，请介绍一下，申根区现状以及单一市场的现状，您认为这两者之间有什么联系？您认为可以从哪些方面入手？最首要关注的应该是什么？并阐述您的理由。
-				{% else %}{% if profile.Commitee <= 8 %}
-					What influences do you think the War in Afghanistan had brought to the world in 1980? What influences do you think the invasion had brought to Afghanistan? ( Answer the question containing the aspects of Politics, International Relations, Economics, Culture and Humanity )
-				{% endif %}{% endif %}{% endif %}
+					{{data.3 | safe}}
 				</p>
 			</div>
 			<div class="form-group">
@@ -104,21 +57,7 @@
 			<hr/>
 			<div class="row review_box">
 				<p>
-				{% if profile.Commitee <= 4 %}
-					军事部分：<br/>
-					以下三题中任选二题进行回答<br/>
-					六. 请解释“存在舰队”与“风险舰队”的含义并辨析两者的区别。结合相关史实谈一谈，这两大理念的形成都有什么样的背景，两大理念背后又隐藏着英、德两国怎样的战略诉求？<br/>
-					<br/>
-					七. 什么是战争动员？为何一战爆发时德、法等能迅速完成动员并开赴前线，而俄国的战时动员却相对迟缓？各国在一战中的动员反映了一战与之前战争的何种区别？<br/>
-					<br/>
-					八. 有人评价索姆河战役时认为，发起战役的英法付出了惨痛的代价，而获得的战略上的收益相对有限。从军事、政治等方面谈一谈英法通过这场战役获取了何种收益，以及你认为英法是否值得为了这场战役的胜利付出如此惨痛的代价？<br/>
-				{% else %}{% if profile.Commitee <= 6 %}
-					3、	您希望代表哪个席位？如果您成功分到了该席位，您认为您会需要怎么做来帮助该国达成目标？（针对欧洲理事会的代表）
-				{% else %}{% if profile.Commitee <= 8 %}
-					With the background of the Cold War in 1980, answer one of the following questions,<br/>
-					(1) People usually say “year 1980 is the climax of the Cold War”, to what extent do you agree with the statement above? Why?<br/>
-					(2) Assume you were the delegate of the People’s Republic of China in 1980, make a short speech regarding the discussion of The War in Afghanistan.
-				{% endif %}{% endif %}{% endif %}
+					{{data.4 | safe}}
 				</p>
 			</div>
 			<div class="form-group">
@@ -131,26 +70,7 @@
 			<hr/>
 			<div class="row review_box">
 				<p>
-				{% if profile.Commitee <= 4 %}
-					媒体部分：<br/>
-					九.  请你针对第一次世界大战中“德国入侵比利时”事件，选择以德国“全德新闻社”记者身份或法国费加罗报记者的身份写一篇逻辑清楚、态度明确、语言严谨的简讯。（如果希望申请主编及副主编席位，则两者需要写。）<br/>
-					<br/>
-					十.  1913年，德皇威廉二世宣布将帮助重组土耳其军队，并派德国将领任君士坦丁堡指挥官。威廉二世大张旗鼓地为军事训练团送行，甚至表示希望“德国国旗不久即将飘扬于博斯普鲁斯海峡的要塞上”。<br/>
-					请根据此材料在俄罗斯《新闻报》，英国《泰晤士报》，奥地利“《维也纳快车报》”三家媒体中任选立场撰写一篇社论，内容可包括但不限于：<br/>
-					对该事件可能的背景分析<br/>
-					对该事件本身的评述<br/>
-					从政治地理学角度简要分析该事件对于本国及欧洲局势的直接影响<br/>
-					该事件发生后将会引起的后果
-				{% else %}{% if profile.Commitee <= 6 %}
-					4、	您希望代表哪个席位？如果您成功分到了该席位，您认为您会需要怎么做来帮助欧盟来实现目标。（针对欧盟委员会的代表）
-				{% else %}{% if profile.Commitee <= 8 %}
-					Answer one of the following questions,<br/>
-					(1)In 1980, leftist journalist Alexander Cockburn criticized Afghanistan as "an unspeakable country filled with unspeakable people, sheepshaggers and smugglers, who have furnished in their leisure hours some of the worst arts and crafts ever to penetrate the occidental world. I yield to none in my sympathy to those prostrate beneath the Russian jackboot, but if ever a country deserved rape it's Afghanistan.”<br/>
-					From your own point of view, make a brief comment about the quotation above.<br/>
-					<br/>
-					(2)”Those hopelessly brave warriors I walked with, and their families, who suffered so much for faith and freedom and who are still not free, they were truly the people of God.” --------Rob Schultheis ( about soldiers in Afghanistan in the 1980s)<br/>
-					To what extent do you agree with the statement above? Why?
-				{% endif %}{% endif %}{% endif %}
+					{{data.5 | safe}}
 				</p>
 			</div>
 			<div class="form-group">

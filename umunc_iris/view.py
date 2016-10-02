@@ -11,6 +11,16 @@ from django.contrib.auth.models import User
 from django.core.servers.basehttp import FileWrapper
 import re
 
+import simplejson
+from umunc.settings import REVIEW_DIR
+
+def load_review():
+	destination = open(REVIEW_DIR,'r')
+	t=destination.read()
+	destination.close()
+	t = t.replace('\n', '')
+	return simplejson.loads(t)
+
 @login_required
 def test(request):
 	return HttpResponseRedirect('/cheetah')
@@ -251,7 +261,8 @@ def step3(request):
 				request.user.profile.Status=4
 			request.user.profile.save()
 			return HttpResponseRedirect('/iris/step3')
-		return render_to_response('umunc_iris/step3.html',{'profile':request.user.profile,},context_instance=RequestContext(request))
+		data = load_review()[request.user.profile.Commitee.__str__()]
+		return render_to_response('umunc_iris/step3.html',{'data':data,'profile':request.user.profile,},context_instance=RequestContext(request))
 	else:
 		raise Http404
 

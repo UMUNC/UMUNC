@@ -3,6 +3,21 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 
+import simplejson
+from umunc.settings import COMMITEE_DIR, COMMITEE_DIR2
+
+def load_commitee():
+	destination = open(COMMITEE_DIR,'r')
+	t=destination.read()
+	destination.close()
+	return simplejson.loads(t)
+
+def load_commitee2():
+	destination = open(COMMITEE_DIR2,'r')
+	t=destination.read()
+	destination.close()
+	return simplejson.loads(t)
+
 class group(models.Model):
 	Name=models.CharField(max_length=255,verbose_name="名称")
 	School=models.CharField(max_length=255,verbose_name="在读学校")
@@ -72,31 +87,8 @@ class profile(models.Model):
 	Wechat=models.CharField(max_length=255,verbose_name="Wechat",blank=True)
 	MunAge=models.IntegerField(verbose_name='模联年龄')
 	MunRsm=models.TextField(verbose_name='模联经历',blank=True)
-	Commitee=models.IntegerField(verbose_name='志愿',choices=(
-		('2016总会',(
-				(1,'联动体系 - 国家内阁'),
-				(2,'联动体系 - 欧洲外交团'),
-				(3,'联动体系 - 大英帝国内阁会议'),
-				(4,'联动体系 - 主新闻中心'),
-				(5,'欧洲体系 - 欧盟委员会'),
-				(6,'欧洲体系 - 欧盟理事会'),
-				(7,'General Assembly United System History Sessions - 6th Emergency Special Session of the General Assembly'),
-				(8,'General Assembly United System History Sessions - Diplomatic Corps Meeting of 10 Countries'),
-			)
-		),))
-	Commitee2=models.IntegerField(verbose_name='志愿',choices=(
-		('2016总会',(
-				(0,'无'),
-				(1,'联动体系 - 国家内阁'),
-				(2,'联动体系 - 欧洲外交团'),
-				(3,'联动体系 - 大英帝国内阁会议'),
-				(4,'联动体系 - 主新闻中心'),
-				(5,'欧洲体系 - 欧盟委员会'),
-				(6,'欧洲体系 - 欧盟理事会'),
-				(7,'General Assembly United System History Sessions - 6th Emergency Special Session of the General Assembly'),
-				(8,'General Assembly United System History Sessions - Diplomatic Corps Meeting of 10 Countries'),
-			)
-		),))
+	Commitee=models.IntegerField(verbose_name='志愿',choices=load_commitee())
+	Commitee2=models.IntegerField(verbose_name='志愿',choices=load_commitee2())
 	Adjust=models.BooleanField(default=False,verbose_name='接受调剂？',choices=(
 		(True,'是'),
 		(False,'否'),))

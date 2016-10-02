@@ -54,6 +54,31 @@ if os.getenv('CONFIG_REFRESH_DIR'):
 REFRESH_DIR = \''''+os.getenv('CONFIG_REFRESH_DIR')+'''\'
 '''
 
+if os.getenv('CONFIG_COMMITEE_DIR'):
+	str+='''
+COMMITEE_DIR = \''''+os.getenv('CONFIG_COMMITEE_DIR')+'''\'
+'''
+
+if os.getenv('CONFIG_COMMITEE_DIR2'):
+	str+='''
+COMMITEE_DIR2 = \''''+os.getenv('CONFIG_COMMITEE_DIR2')+'''\'
+'''
+
+if os.getenv('CONFIG_REVIEW_DIR'):
+	str+='''
+REVIEW_DIR = \''''+os.getenv('CONFIG_REVIEW_DIR')+'''\'
+'''
+
+if os.getenv('CONFIG_UMUNC_IRIS_REGISTER'):
+	str+='''
+UMUNC_IRIS_REGISTER = \''''+os.getenv('CONFIG_UMUNC_IRIS_REGISTER')+'''\'
+'''
+
+if os.getenv('CONFIG_UMUNC_CHEETAH_ENABLE'):
+	str+='''
+UMUNC_CHEETAH_ENABLE = \''''+os.getenv('CONFIG_UMUNC_CHEETAH_ENABLE')+'''\'
+'''
+
 if os.getenv('CONFIG_EMAIL_HOST') and os.getenv('CONFIG_EMAIL_PORT') and os.getenv('CONFIG_EMAIL_HOST_PASSWORD') and os.getenv('CONFIG_EMAIL_HOST_USER'):
     str+='''
 EMAIL_HOST = \''''+os.getenv('CONFIG_EMAIL_HOST')+'''\'

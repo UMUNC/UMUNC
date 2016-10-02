@@ -162,6 +162,9 @@ UPLUAD_DIR = '/upload'
 UPLUAD_URL = '/download'
 TIME_DIR = '/UMUNC/time'
 REFRESH_DIR = '/UMUNC/refresh'
+COMMITEE_DIR = '/UMUNC/commitee'
+COMMITEE_DIR2 = '/UMUNC/commitee2'
+REVIEW_DIR = '/UMUNC/review'
 
 # Django Suit configuration example
 SUIT_CONFIG = {
@@ -193,6 +196,7 @@ SUIT_CONFIG = {
     # 'LIST_PER_PAGE': 15
 }
 
-UMUNC_IRIS_REGISTER = False
+UMUNC_IRIS_REGISTER = True
+UMUNC_CHEETAH_ENABLE = False
 
 from CONFIG import *
