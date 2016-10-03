@@ -9,7 +9,7 @@ def sendmail(to,subject,html):
 	email.content_subtype = "html"
 	email.send()
 
-def sendmail_emailcheck(user):
+def sendmail_emailcheck(request,user):
 	# try:
 	sendmail(user.email,u"UMUNC邮箱验证",u'''
 		<table style="border-radius: 3px;border: 1px solid #d8d8d8;border-bottom-width: 2px;border-top-width: 0;">
@@ -24,7 +24,7 @@ def sendmail_emailcheck(user):
 					<p>致 与众不同的你：</p>
 					<p>您收到此邮件是因为此邮箱（ '''+user.email+u''' ）正在注册“UMUNC IRIS”的账号。</p>
 					<p>如果这不是您的操作，请直接忽视本邮件；如果您确认这是您的操作，请点击下面的地址或将其复制到浏览器地址栏并进入，即可验证您的邮箱，激活账号：</p>
-					<h4><a href=\"http://www.umunc.org/iris/accounts/check?checkcode='''+user.checkcode.CheckCode+u'''\">http://www.umunc.org/iris/accounts/check?checkcode='''+user.checkcode.CheckCode+u'''</a></h4>
+					<h4><a href=\"http://'''+request.get_host()+'''/iris/accounts/check?checkcode='''+user.checkcode.CheckCode+u'''\">http://'''+request.get_host()+'''/iris/accounts/check?checkcode='''+user.checkcode.CheckCode+u'''</a></h4>
 				</td>
 			</tr>
 			<tr style="border:0px;padding:0px;margin:0px;">
@@ -38,7 +38,7 @@ def sendmail_emailcheck(user):
 	# except:
 	# 	pass
 
-def sendmail_interviewer(user):
+def sendmail_interviewer(request,user):
 	# try:
 	sendmail(user.profile.Interviewer.email,u"UMUNC面试安排通知",u'''
 		<table style="border-radius: 3px;border: 1px solid #d8d8d8;border-bottom-width: 2px;border-top-width: 0;">
@@ -70,7 +70,7 @@ def sendmail_interviewer(user):
 				<td style="padding:20px;" colspan="2">
 					<p>不用我说了自己联系被面试者单撸吧，安排结果记得尽快登记到系统后台并通知核心学术团队呦。</p>
 					<p>详细信息：</p>
-					<h4><a href=\"http://www.umunc.org/admin/\">http://www.umunc.org/admin/</a></h4>
+					<h4><a href=\"http://'''+request.get_host()+'''/admin/\">http://'''+request.get_host()+'''/admin/</a></h4>
 				</td>
 			</tr>
 			<tr style="border:0px;padding:0px;margin:0px;">
@@ -83,7 +83,7 @@ def sendmail_interviewer(user):
 	# except:
 	# 	pass
 
-def sendmail_interview(user):
+def sendmail_interview(request,user):
 	# try:
 	sendmail(user.email,u"UMUNC面试通知",u'''
 		<table style="border-radius: 3px;border: 1px solid #d8d8d8;border-bottom-width: 2px;border-top-width: 0;">
@@ -115,7 +115,7 @@ def sendmail_interview(user):
 				<td style="padding:20px;" colspan="2">
 					<p>请等待学术团队与您取得联系,如果在面试方式与时间上有任何问题，请与您当前的面试官取得联系。</p>
 					<p>详细信息：</p>
-					<h4><a href=\"http://www.umunc.org/iris/step4/\">http://www.umunc.org/iris/step4/</a></h4>
+					<h4><a href=\"http://'''+request.get_host()+'''/iris/step4/\">http://'''+request.get_host()+'''/iris/step4/</a></h4>
 				</td>
 			</tr>
 			<tr style="border:0px;padding:0px;margin:0px;">
@@ -125,11 +125,11 @@ def sendmail_interview(user):
 			</tr>
 		</table>
 		''')
-	sendmail_interviewer(user)
+	sendmail_interviewer(request,user)
 	# except:
 	# 	pass
 
-def sendmail_interview_reject(user):
+def sendmail_interview_reject(request,user):
 	# try:
 	sendmail(user.email,u"UMUNC面试结果通知",u'''
 		<table style="border-radius: 3px;border: 1px solid #d8d8d8;border-bottom-width: 2px;border-top-width: 0;">
@@ -161,7 +161,7 @@ def sendmail_interview_reject(user):
 				<td style="padding:20px;" colspan="2">
 					<p>请等待学术团队与您取得联系,如果在面试方式与时间上有任何问题，请与您当前的面试官取得联系。</p>
 					<p>详细信息：</p>
-					<h4><a href=\"http://www.umunc.org/iris/step4/\">http://www.umunc.org/iris/step4/</a></h4>
+					<h4><a href=\"http://'''+request.get_host()+'''/iris/step4/\">http://'''+request.get_host()+'''/iris/step4/</a></h4>
 				</td>
 			</tr>
 			<tr style="border:0px;padding:0px;margin:0px;">
@@ -171,11 +171,11 @@ def sendmail_interview_reject(user):
 			</tr>
 		</table>
 		''')
-	sendmail_interviewer(user)
+	sendmail_interviewer(request,user)
 	# except:
 	# 	pass
 
-def sendmail_identify(user):
+def sendmail_identify(request,user):
 	# try:
 	sendmail(user.email,u"UMUNC席位分配通知",u'''
 		<table style="border-radius: 3px;border: 1px solid #d8d8d8;border-bottom-width: 2px;border-top-width: 0;">
@@ -203,7 +203,7 @@ def sendmail_identify(user):
 				<td style="padding:20px;" colspan="2">
 					<p>您现在可以准备进行缴费了。</p>
 					<p>详细信息：</p>
-					<h4><a href=\"http://www.umunc.org/iris/step5/\">http://www.umunc.org/iris/step5/</a></h4>
+					<h4><a href=\"http://'''+request.get_host()+'''/iris/step5/\">http://'''+request.get_host()+'''/iris/step5/</a></h4>
 				</td>
 			</tr>
 			<tr style="border:0px;padding:0px;margin:0px;">
@@ -216,7 +216,7 @@ def sendmail_identify(user):
 	# except:
 	# 	pass
 
-def sendmail_payment_user(user):
+def sendmail_payment_user(request,user):
 	# try:
 	sendmail(user.email,u"UMUNC缴费确认通知",u'''
 		<table style="border-radius: 3px;border: 1px solid #d8d8d8;border-bottom-width: 2px;border-top-width: 0;">
@@ -231,7 +231,7 @@ def sendmail_payment_user(user):
 					<p>致 与众不同的你：</p>
 					<p>您收到此邮件是因为此账号（ '''+user.username+u''' ）所在团队已经核实完成了缴费流程。</p>
 					<p>请注意，报名成功的前提是完成缴费和完成报名流程，详细情况可以到这里确认：</p>
-					<h4><a href=\"http://www.umunc.org/iris/\">http://www.umunc.org/iris/</a></h4>
+					<h4><a href=\"http://'''+request.get_host()+'''/iris/\">http://'''+request.get_host()+'''/iris/</a></h4>
 				</td>
 			</tr>
 			<tr style="border:0px;padding:0px;margin:0px;">
@@ -244,6 +244,6 @@ def sendmail_payment_user(user):
 	# except:
 	# 	pass
 
-def sendmail_payment(group):
+def sendmail_payment(request,group):
 	for i in group.profile_set.all():
-		sendmail_payment_user(i.User)
+		sendmail_payment_user(request,i.User)

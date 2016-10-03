@@ -115,7 +115,7 @@ def pregister(request):
 				User = tuser,
 				CheckCode = tcheckcode_code,)
 			tcheckcode.save()
-			part_mail.sendmail_emailcheck(tuser)
+			part_mail.sendmail_emailcheck(request,tuser)
 			Rerror='success'
 		else:
 				Rerror='此账号已存在。'
@@ -299,17 +299,17 @@ def sendmail(request):
 	if request.user.is_staff:
 		if request.user.has_perm('umunc_iris.control_all'):
 			if request.GET['command'] == 'sendmail_emailcheck':
-				part_mail.sendmail_emailcheck(User.objects.get(id=request.GET['id']))
+				part_mail.sendmail_emailcheck(request,User.objects.get(id=request.GET['id']))
 			if request.GET['command'] == 'sendmail_interview':
-				part_mail.sendmail_interview(User.objects.get(id=request.GET['id']))
+				part_mail.sendmail_interview(request,User.objects.get(id=request.GET['id']))
 			if request.GET['command'] == 'sendmail_interview_reject':
-				part_mail.sendmail_interview_reject(User.objects.get(id=request.GET['id']))
+				part_mail.sendmail_interview_reject(request,User.objects.get(id=request.GET['id']))
 			if request.GET['command'] == 'sendmail_identify':
-				part_mail.sendmail_identify(User.objects.get(id=request.GET['id']))
+				part_mail.sendmail_identify(request,User.objects.get(id=request.GET['id']))
 			if request.GET['command'] == 'sendmail_payment_user':
-				part_mail.sendmail_payment_user(User.objects.get(id=request.GET['id']))
+				part_mail.sendmail_payment_user(request,User.objects.get(id=request.GET['id']))
 			if request.GET['command'] == 'sendmail_payment':
-				part_mail.sendmail_payment(group.objects.get(id=request.GET['id']))
+				part_mail.sendmail_payment(request,group.objects.get(id=request.GET['id']))
 			return HttpResponse('<script>alert("Done.");window.opener=null;window.close();</script>')
 		else:
 			return HttpResponse(u'<script>alert("无权发送");window.opener=null;window.close();</script>')
@@ -324,7 +324,7 @@ def markpayment(request):
 			if request.GET['command'] == 'markpayment':
 				profiles = tgroup.profile_set.filter(Status=7)
 				for profile in profiles:
-					part_mail.sendmail_payment_user(profile.User)
+					part_mail.sendmail_payment_user(request,profile.User)
 					profile.Status = 8
 					profile.save()
 			if request.GET['command'] == 'unmarkpayment':
