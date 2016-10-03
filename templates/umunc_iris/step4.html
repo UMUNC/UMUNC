@@ -11,6 +11,21 @@
 <form class="form-horizontal">
 	<div class="row">
 		<div class="col-md-12" id="step3_panel">
+			<div class="row text-right">
+				<h4 class="pull-left" id="step1_title">&nbsp;&nbsp;学术团队面试</h4>
+				<a class="btn btn-info btn-sm" href="/iris/step3/">
+					<span class="fui-arrow-left"></span>
+					Previous
+				</a>
+				{% if profile.Status >= 6 %}
+				<a class="btn btn-info btn-sm" href="/iris/step5/">
+					<span class="fui-arrow-right"></span>
+					Next
+				</a>
+				{% endif %}
+				&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+			<hr/>
 			<div class="row text-center">
 				<p>核心学术团队审核通过学术评测后，将收到来自学术团队的面试分配信息，请根据要求完成面试流程。</p>
 				<p>面试通过并分配席位后，您将自动进入下一阶段。</p>
@@ -62,20 +77,6 @@
 				</div>
 				{% endif %}
 			{% endifequal %}
-			<hr/>
-			<div class="row text-right">
-				<a class="btn btn-info btn-sm" href="/iris/step3/">
-					<span class="fui-arrow-left"></span>
-					Previous
-				</a>
-				{% if profile.Status >= 6 %}
-				<a class="btn btn-info btn-sm" href="/iris/step5/">
-					<span class="fui-arrow-right"></span>
-					Next
-				</a>
-				{% endif %}
-				&nbsp;&nbsp;&nbsp;&nbsp;
-			</div>
 		</div>
 	</div>
 </form>

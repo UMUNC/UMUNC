@@ -12,6 +12,24 @@
 	{% csrf_token %}
 	<div class="row">
 		<div class="col-md-12" id="step2_panel">
+			<div class="row text-right">
+				<h4 class="pull-left" id="step1_title">&nbsp;&nbsp;团队状态确认</h4>
+				<a class="btn btn-info btn-sm" href="/iris/step1/">
+					<span class="fui-arrow-left"></span>
+					Previous
+				</a>
+				{% ifequal profile.Status 2 %}
+				<button class="btn btn-danger btn-sm" type="submit" id="savebutton" style="display: none;">Save</button>
+				<button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#askModal">Submit</button>
+				{% else %}
+				<a class="btn btn-info btn-sm" href="/iris/step3/">
+					<span class="fui-arrow-right"></span>
+					Next
+				</a>
+				{% endifequal %}
+				&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+			<hr/>
 			<div class="row text-center">
 				<p>如果您是个人代表，请直接选择个人代表跳过此步；<br/>如果您是团队领队，请创建团队；如果您是团队成员，请选择您参加的团队。</p>
 			</div>
@@ -99,23 +117,6 @@
 			</table>
 			{% endif %}
 			{% endifequal %}
-			<hr/>
-			<div class="row text-right">
-				<a class="btn btn-info btn-sm" href="/iris/step1/">
-					<span class="fui-arrow-left"></span>
-					Previous
-				</a>
-				{% ifequal profile.Status 2 %}
-				<button class="btn btn-danger btn-sm" type="submit" id="savebutton" style="display: none;">Save</button>
-				<button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#askModal">Submit</button>
-				{% else %}
-				<a class="btn btn-info btn-sm" href="/iris/step3/">
-					<span class="fui-arrow-right"></span>
-					Next
-				</a>
-				{% endifequal %}
-				&nbsp;&nbsp;&nbsp;&nbsp;
-			</div>
 		</div>
 	</div>
 </form>

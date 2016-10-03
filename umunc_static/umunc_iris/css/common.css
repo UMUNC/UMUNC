@@ -240,3 +240,6 @@ textarea {
 .review_box p{
 	font-size: 16px;
 }
+#step1_title {
+	margin: 0px;
+}

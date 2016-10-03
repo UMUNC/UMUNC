@@ -11,6 +11,21 @@
 <form class="form-horizontal">
 	<div class="row">
 		<div class="col-md-12" id="step3_panel">
+			<div class="row text-right">
+				<h4 class="pull-left" id="step1_title">&nbsp;&nbsp;席位分配</h4>
+				<a class="btn btn-info btn-sm" href="/iris/step4/">
+					<span class="fui-arrow-left"></span>
+					Previous
+				</a>
+				{% if profile.Status >= 7 %}
+				<a class="btn btn-info btn-sm" href="/iris/step6/">
+					<span class="fui-arrow-right"></span>
+					Next
+				</a>
+				{% endif %}
+				&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+			<hr/>
 			<div class="row text-center">
 				<p>请等待学术团队分配您的席位信息。信息确认后将会自动完成本步骤。</p>
 				<p>查询及其他疑问，请联系UMUNC组委会。</p>
@@ -36,20 +51,6 @@
 				</div>
 				{% endif %}
 			{% endifequal %}
-			<hr/>
-			<div class="row text-right">
-				<a class="btn btn-info btn-sm" href="/iris/step4/">
-					<span class="fui-arrow-left"></span>
-					Previous
-				</a>
-				{% if profile.Status >= 7 %}
-				<a class="btn btn-info btn-sm" href="/iris/step6/">
-					<span class="fui-arrow-right"></span>
-					Next
-				</a>
-				{% endif %}
-				&nbsp;&nbsp;&nbsp;&nbsp;
-			</div>
 		</div>
 	</div>
 </form>
