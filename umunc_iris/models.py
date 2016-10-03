@@ -6,18 +6,6 @@ from django.utils.safestring import mark_safe
 import simplejson
 from umunc.settings import COMMITEE_DIR, COMMITEE_DIR2
 
-def load_commitee():
-	destination = open(COMMITEE_DIR,'r')
-	t=destination.read()
-	destination.close()
-	return simplejson.loads(t)
-
-def load_commitee2():
-	destination = open(COMMITEE_DIR2,'r')
-	t=destination.read()
-	destination.close()
-	return simplejson.loads(t)
-
 class group(models.Model):
 	Name=models.CharField(max_length=255,verbose_name="名称")
 	School=models.CharField(max_length=255,verbose_name="在读学校")
@@ -56,6 +44,18 @@ class identify(models.Model):
 		return u'%s-%s' % (self.Country, self.Name)
 
 class profile(models.Model):
+	def load_commitee(self=None):
+		destination = open(COMMITEE_DIR,'r')
+		t=destination.read()
+		destination.close()
+		return simplejson.loads(t)
+
+	def load_commitee2(self=None):
+		destination = open(COMMITEE_DIR2,'r')
+		t=destination.read()
+		destination.close()
+		return simplejson.loads(t)
+
 	Interviewer=models.ForeignKey(User,verbose_name='面试官',null=True,blank=True,related_name='Interviewee')
 	User=models.OneToOneField(User,verbose_name='账户')
 	Init=models.BooleanField(default=False,verbose_name='初始化？',choices=(
