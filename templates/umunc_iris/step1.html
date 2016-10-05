@@ -156,7 +156,7 @@
 						{% for i in profile.load_commitee %}
 							<optgroup label="{{i.0}}">
 								{% for j in i.1 %}
-									<option value="{{j.0}}"{% ifequal profile.Commitee2 j.0 %} selected{% endifequal %}>{{j.1}}</option>
+									<option value="{{j.0}}"{% ifequal profile.Commitee j.0 %} selected{% endifequal %}>{{j.1}}</option>
 								{% endfor %}
 							</optgroup>
 						{% endfor %}
