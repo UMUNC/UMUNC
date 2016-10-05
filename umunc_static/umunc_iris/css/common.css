@@ -203,6 +203,10 @@ textarea {
 #step1_panel .form-control[disabled]{
 	color:black;
 }
+#step1_panel .help-block {
+
+    margin-top: 60px;
+}
 #step2_panel .control-label{
 	font-weight:bold;
 }

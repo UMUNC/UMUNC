@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block body %}
-<form action="." method="post" class="form-horizontal">
+<form action="." method="post" class="form-horizontal" novalidate>
 	{% csrf_token %}
 	<input type="hidden" id="submit" name="submit"  value="">
 	<div class="row">
@@ -54,14 +54,14 @@
 			<div class="form-group">
 				<label for="age" class="col-sm-4 control-label">年龄 Age</label>
 				<div class="col-sm-7 input-group">
-					<input class="form-control" type="number" placeholder="Enter Age" id="age" name="age"  maxlength="2" pattern="[0-9+]*" intro="输入非法" value="{{profile.Age}}" required>
+					<input class="form-control" type="number" placeholder="Enter Age" id="age" name="age"  maxlength="2" pattern="[0-9+]*" intro=" - 输入非法" value="{{profile.Age}}" required>
 					<span class="fui-calendar form-control-feedback"  for="age"></span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="idnum" class="col-sm-4 control-label">身份证号码 ID Number</label>
 				<div class="col-sm-7 input-group">
-					<input class="form-control" type="text" placeholder="Enter IDNumber" id="idnum" name="idnum" value="{{profile.IDNum}}" minlength="18" maxlength="18" pattern="\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X|x)" intro="输入非法" required>
+					<input class="form-control" type="text" placeholder="Enter IDNumber" id="idnum" name="idnum" value="{{profile.IDNum}}" minlength="18" maxlength="18" pattern="\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X|x)" intro=" - 输入非法" required>
 					<span class="fui-credit-card form-control-feedback"  for="idnum"></span>
 				</div>
 			</div>
@@ -92,14 +92,14 @@
 			<div class="form-group">
 				<label for="phone" class="col-sm-4 control-label">手机 Mobile Phone</label>
 				<div class="col-sm-7 input-group">
-					<input class="form-control" type="text" placeholder="Enter Mobile Phone" id="phone" name="phone" value="{{profile.Phone}}" minlength="11"   maxlength="255" pattern="[0-9+]*" intro="输入非法" required>
+					<input class="form-control" type="text" placeholder="Enter Mobile Phone" id="phone" name="phone" value="{{profile.Phone}}" minlength="11"   maxlength="255" pattern="[0-9+]*" intro=" - 输入非法" required>
 					<span class="fui-android form-control-feedback"  for="phone"></span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="phone2" class="col-sm-4 control-label">备选手机 Alternative Mobile Phone</label>
 				<div class="col-sm-7 input-group">
-					<input class="form-control" type="text" placeholder="Enter Alternative Mobile Phone" id="phone2" name="phone2" value="{{profile.Phone2}}" minlength="11"  maxlength="255" pattern="[0-9+]*" intro="输入非法">
+					<input class="form-control" type="text" placeholder="Enter Alternative Mobile Phone" id="phone2" name="phone2" value="{{profile.Phone2}}" minlength="11"  maxlength="255" pattern="[0-9+]*" intro=" - 输入非法">
 					<span class="fui-apple form-control-feedback"  for="phone2"></span>
 				</div>
 			</div>
@@ -128,7 +128,7 @@
 			<div class="form-group">
 				<label for="gphone" class="col-sm-4 control-label">监护人手机 Mobile of Guardian</label>
 				<div class="col-sm-7 input-group">
-					<input class="form-control" type="text" placeholder="Enter Mobile of Guardian" id="gphone" name="gphone" value="{{profile.GPhone}}" minlength="11" maxlength="255" pattern="[0-9]*" intro="输入非法" required>
+					<input class="form-control" type="text" placeholder="Enter Mobile of Guardian" id="gphone" name="gphone" value="{{profile.GPhone}}" minlength="11" maxlength="255" pattern="[0-9]*" intro=" - 输入非法" required>
 					<span class="fui-apple form-control-feedback"  for="gphone"></span>
 				</div>
 			</div>
@@ -137,7 +137,7 @@
 			<div class="form-group">
 				<label for="munage" class="col-sm-4 control-label">模联年龄 (接触模联的时间) Time in ModelUN</label>
 				<div class="col-sm-7 input-group">
-					<input class="form-control" type="number" placeholder="Enter Time in ModelUN" id="munage" name="munage"  maxlength="2" pattern="[0-9+]*" intro="输入非法" value="{{profile.MunAge}}" required>
+					<input class="form-control" type="number" placeholder="Enter Time in ModelUN" id="munage" name="munage"  maxlength="2" pattern="[0-9+]*" intro=" - 输入非法" value="{{profile.MunAge}}" required>
 					<span class="fui-calendar form-control-feedback"  for="munage"></span>
 				</div>
 			</div>
