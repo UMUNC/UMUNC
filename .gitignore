@@ -18,3 +18,5 @@ umunc/.settings.py.kate-swp
 umunc/.settings.py.kate-swp
 
 *.tmp
+
+.DS_Store

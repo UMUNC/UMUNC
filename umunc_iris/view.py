@@ -290,6 +290,10 @@ def step6(request):
 @login_required
 def step7(request):
 	if request.user.profile.Status > 7:
+		if request.POST.has_key('message'):
+			request.user.profile.Message=request.POST['message']
+			request.user.profile.save()
+			return HttpResponseRedirect('/iris/step7')
 		return render_to_response('umunc_iris/step7.html',{'profile':request.user.profile,},context_instance=RequestContext(request))
 	else:
 		raise Http404

@@ -100,6 +100,7 @@ class profile(models.Model):
 	Review3=models.TextField(verbose_name='学术评测T3',blank=True)
 	Review4=models.TextField(verbose_name='学术评测T4',blank=True)
 	Comment=models.TextField(verbose_name='学团评价',blank=True)
+	Message=models.TextField(verbose_name='留言',blank=True)
 	Status=models.IntegerField(verbose_name='状态',choices=(
 		(-3,'代表申请拒绝'),
 		(-4,'代表退会'),

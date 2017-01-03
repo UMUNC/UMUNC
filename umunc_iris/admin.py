@@ -126,8 +126,8 @@ class ProfileResource(resources.ModelResource):
 
     class Meta:
         model = profile
-        fields = ('User__id', 'User', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'Commitee', 'Commitee2', 'Group', 'Identify', 'Interviewer', )
-        export_order = ('User__id', 'User', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'Commitee', 'Commitee2', 'Group', 'Identify', 'Interviewer', )
+        fields = ('User__id', 'User', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'Commitee', 'Commitee2', 'Group', 'Identify', 'Interviewer', 'Message', )
+        export_order = ('User__id', 'User', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'Commitee', 'Commitee2', 'Group', 'Identify', 'Interviewer', 'Message', )
 
 class GroupAdmin(ExportActionModelAdmin):
     fieldsets = (
@@ -213,7 +213,7 @@ class ProfileAdmin(ExportActionModelAdmin):
             'fields': ('User', 'TimeStamp', 'LastMotified', 'Init', 'Status')
         }),
         ('Basic Information', {
-            'fields': ('Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'MunAge', 'MunRsm', 'Commitee', 'Commitee2', 'Adjust')
+            'fields': ('Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'MunAge', 'MunRsm', 'Commitee', 'Commitee2', 'Adjust', 'Message')
         }),
         ('Group Information', {
 			'classes': ('collapse'),
@@ -263,7 +263,7 @@ class ProfileAdmin(ExportActionModelAdmin):
         if request.user.has_perm('umunc_iris.control_all'):
             return ('TimeStamp', 'LastMotified', 'sendmail', 'interviewee')
         else:
-            return ('TimeStamp', 'LastMotified', 'Init', 'Status', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'MunAge', 'MunRsm', 'Commitee', 'Commitee2', 'Adjust', 'Group', 'Leader', 'Review1', 'Review2', 'Review3', 'Review4', 'sendmail', 'interviewee')
+            return ('TimeStamp', 'LastMotified', 'Init', 'Status', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'MunAge', 'MunRsm', 'Commitee', 'Commitee2', 'Adjust', 'Group', 'Leader', 'Review1', 'Review2', 'Review3', 'Review4', 'sendmail', 'interviewee', 'Message')
 
     def sendmail(self, obj):
         return mark_safe(u'''<a target="_blank" class="btn btn-sm btn-default" href=\"/iris/admin/sendmail/?command=sendmail_emailcheck&id='''+str(obj.User.id)+u'''\">发送注册邮件</a><br/>

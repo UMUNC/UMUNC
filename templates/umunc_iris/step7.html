@@ -23,6 +23,16 @@
 				<h4>恭喜!</h4>
 				<p>UMUNC报名流程已经全部结束，您已成功申请到席位。UMUNC感谢您的参与，我们会场再见！</p>
 			</div>
+			<div class="form-group">
+				<label for="review1" class="col-sm-3 control-label">如对宿舍分配有特殊要求，请在此留言： </label>
+				<div class="col-sm-12 input-group review_box">
+					<textarea class="form-control" id="message" name="message">{{profile.Message}}</textarea>
+					<span class="fui-bookmark form-control-feedback"  for="message"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<button class="btn btn-danger btn-sm" type="submit" id="savebutton">Save</button>
+			</div>
 		</div>
 	</div>
 </form>
