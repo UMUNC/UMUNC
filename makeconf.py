@@ -74,9 +74,19 @@ if os.getenv('CONFIG_UMUNC_IRIS_REGISTER'):
 UMUNC_IRIS_REGISTER = \''''+os.getenv('CONFIG_UMUNC_IRIS_REGISTER')+'''\'
 '''
 
+if os.getenv('CONFIG_UMUNC_IRIS_ENABLE'):
+	str+='''
+UMUNC_IRIS_ENABLE = \''''+os.getenv('CONFIG_UMUNC_IRIS_ENABLE')+'''\'
+'''
+
 if os.getenv('CONFIG_UMUNC_CHEETAH_ENABLE'):
 	str+='''
 UMUNC_CHEETAH_ENABLE = \''''+os.getenv('CONFIG_UMUNC_CHEETAH_ENABLE')+'''\'
+'''
+
+if os.getenv('CONFIG_UMUNC_MPC_ENABLE'):
+	str+='''
+UMUNC_MPC_ENABLE = \''''+os.getenv('CONFIG_UMUNC_MPC_ENABLE')+'''\'
 '''
 
 if os.getenv('CONFIG_EMAIL_HOST') and os.getenv('CONFIG_EMAIL_PORT') and os.getenv('CONFIG_EMAIL_HOST_PASSWORD') and os.getenv('CONFIG_EMAIL_HOST_USER'):
