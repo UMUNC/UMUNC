@@ -11,6 +11,8 @@ RUN mkdir /logs
 RUN mkdir /UMUNC
 RUN mkdir /cache
 RUN mkdir /upload
+RUN mkdir /upload/cheetah
+RUN mkdir /upload/mpc
 WORKDIR /UMUNC
 COPY . /UMUNC
 COPY umunc.conf /etc/nginx/sites-enabled/umunc.conf
