@@ -15,12 +15,12 @@
 {% block Rbody %}
 	<div class="col-md-12 coltitle"><span class="fui-new"></span> 本社资讯</div>
 
-	{% Paginate request posts maxitem 15 as paginatedposts %}
+	{% Paginate request posts maxitem 30 as paginatedposts %}
 
 	{% for post in paginatedposts.containerP %}
-	<div class="col-md-12 list_block" onclick="location.href='/mpc/post/{% if pressname %}{{pressname}}/{%endif%}{{ post.id }}'">
-		<p class="col-md-12 list_title">{{post.title}}</p>
-		{# <pre class="col-md-9 list_content">{{post.content|truncatewords_hans_html:150|safe}}</pre>
+	<div class="col-md-12 list_block" onclick="location.href='/mpc/post/{% if pressname %}{{pressname}}/{%endif%}{{ post.id }}'" style="margin: 0px; border: 1px;">
+		<p class="col-md-12 list_title" style="font-size: 14px; margin: 0px;">{{post.title}}</p>
+		<!-- <pre class="col-md-9 list_content">{{post.content|truncatewords_hans_html:150|safe}}</pre>
 		<div class="col-md-3 list_info">
 			<address>
 				{{post.author.profile.Name}} 发布于<br/>
@@ -31,7 +31,7 @@
 				{% endfor%}
 				</strong>
 			</address>
-		</div> #}
+		</div> -->
 	</div>
 	{% endfor %}
 	<div class="col-md-12 list-menu text-center">
