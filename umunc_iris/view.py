@@ -18,7 +18,7 @@ def load_review():
 	destination = open(REVIEW_DIR,'r')
 	t=destination.read()
 	destination.close()
-	t = t.replace('\n', '')
+	t = t.replace('\n', '').replace('\r', '')
 	return simplejson.loads(t)
 
 @login_required
