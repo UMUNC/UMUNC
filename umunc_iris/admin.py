@@ -126,8 +126,8 @@ class ProfileResource(resources.ModelResource):
 
     class Meta:
         model = profile
-        fields = ('User__id', 'User', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'Commitee', 'Commitee2', 'Group', 'Identify', 'Interviewer', 'Message', )
-        export_order = ('User__id', 'User', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'Commitee', 'Commitee2', 'Group', 'Identify', 'Interviewer', 'Message', )
+        fields = ('User__id', 'User', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'Commitee', 'Commitee2', 'Group', 'Identify', 'Review1', 'Review2', 'Review3', 'Review4', 'Interviewer', 'Message', )
+        export_order = ('User__id', 'User', 'Name', 'Sex', 'Age', 'IDNum', 'School', 'Grade', 'GName', 'GPhone', 'Phone', 'Phone2', 'QQ', 'Wechat', 'Commitee', 'Commitee2', 'Group', 'Identify', 'Review1', 'Review2', 'Review3', 'Review4', 'Interviewer', 'Message', )
 
 class GroupAdmin(ExportActionModelAdmin):
     fieldsets = (
