@@ -15,7 +15,7 @@ RUN mkdir /upload/cheetah
 RUN mkdir /upload/mpc
 WORKDIR /UMUNC
 COPY . /UMUNC
-COPY umunc.conf /etc/nginx/sites-enabled/umunc.conf
+COPY umunc.conf /etc/nginx/nginx.conf
 RUN chmod +x ./loader.sh
 
 CMD ./loader.sh
